@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:53
  */
-public interface ContractDao extends Mapper<Contract> {
+public interface ContractMapper extends Mapper<Contract> {
 
 
     List<Contract> selectAll();

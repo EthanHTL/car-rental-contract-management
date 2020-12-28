@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.entity.Permission;
-import com.example.carrentalcontract.mapper.PermissionDao;
+import com.example.carrentalcontract.mapper.PermissionMapper;
 import com.example.carrentalcontract.sercive.PermissionService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
     @Resource
-    private PermissionDao permissionDao;
+    private PermissionMapper permissionDao;
 
     /**
      * 通过ID查询单条数据

@@ -1,25 +1,25 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.Flow;
+import com.example.carrentalcontract.entity.Vehicle;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 流程表(Flow)表数据库访问层
+ * 车辆信息表(Vehicle)表数据库访问层
  *
  * @author makejava
- * @since 2020-12-27 22:11:56
+ * @since 2020-12-27 22:11:57
  */
-public interface FlowDao {
+public interface VehicleMapper {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param flowId 主键
+     * @param id 主键
      * @return 实例对象
      */
-    Flow queryById(Long flowId);
+    Vehicle queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -28,39 +28,39 @@ public interface FlowDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Flow> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Vehicle> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param flow 实例对象
+     * @param vehicle 实例对象
      * @return 对象列表
      */
-    List<Flow> queryAll(Flow flow);
+    List<Vehicle> queryAll(Vehicle vehicle);
 
     /**
      * 新增数据
      *
-     * @param flow 实例对象
+     * @param vehicle 实例对象
      * @return 影响行数
      */
-    int insert(Flow flow);
+    int insert(Vehicle vehicle);
 
     /**
      * 修改数据
      *
-     * @param flow 实例对象
+     * @param vehicle 实例对象
      * @return 影响行数
      */
-    int update(Flow flow);
+    int update(Vehicle vehicle);
 
     /**
      * 通过主键删除数据
      *
-     * @param flowId 主键
+     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long flowId);
+    int deleteById(Long id);
 
 }

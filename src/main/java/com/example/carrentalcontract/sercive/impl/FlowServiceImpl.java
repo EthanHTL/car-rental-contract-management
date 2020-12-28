@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.entity.Flow;
-import com.example.carrentalcontract.mapper.FlowDao;
+import com.example.carrentalcontract.mapper.FlowMapper;
 import com.example.carrentalcontract.sercive.FlowService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Service("flowService")
 public class FlowServiceImpl implements FlowService {
     @Resource
-    private FlowDao flowDao;
+    private FlowMapper flowDao;
 
     /**
      * 通过ID查询单条数据

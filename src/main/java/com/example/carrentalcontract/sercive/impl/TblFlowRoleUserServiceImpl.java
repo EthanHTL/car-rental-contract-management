@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.entity.TblFlowRoleUser;
-import com.example.carrentalcontract.mapper.TblFlowRoleUserDao;
+import com.example.carrentalcontract.mapper.TblFlowRoleUserMapper;
 import com.example.carrentalcontract.sercive.TblFlowRoleUserService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("tblFlowRoleUserService")
 public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
     @Resource
-    private TblFlowRoleUserDao tblFlowRoleUserDao;
+    private TblFlowRoleUserMapper tblFlowRoleUserDao;
 
     /**
      * 通过ID查询单条数据

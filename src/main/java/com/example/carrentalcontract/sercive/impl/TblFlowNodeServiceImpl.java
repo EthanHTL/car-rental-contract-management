@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.entity.TblFlowNode;
-import com.example.carrentalcontract.mapper.TblFlowNodeDao;
+import com.example.carrentalcontract.mapper.TblFlowNodeMapper;
 import com.example.carrentalcontract.sercive.TblFlowNodeService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Service("tblFlowNodeService")
 public class TblFlowNodeServiceImpl implements TblFlowNodeService {
     @Resource
-    private TblFlowNodeDao tblFlowNodeDao;
+    private TblFlowNodeMapper tblFlowNodeDao;
 
     /**
      * 通过ID查询单条数据

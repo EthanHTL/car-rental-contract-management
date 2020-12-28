@@ -13,7 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:54
  */
-public interface ContractService  {
+public interface ContractService {
 
     Result<List<Contract>> selectAll();
 

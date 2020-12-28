@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.entity.DataDictionary;
-import com.example.carrentalcontract.mapper.DataDictionaryDao;
+import com.example.carrentalcontract.mapper.DataDictionaryMapper;
 import com.example.carrentalcontract.sercive.DataDictionaryService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("dataDictionaryService")
 public class DataDictionaryServiceImpl implements DataDictionaryService {
     @Resource
-    private DataDictionaryDao dataDictionaryDao;
+    private DataDictionaryMapper dataDictionaryMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +27,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary queryById(Long typeCode) {
-        return this.dataDictionaryDao.queryById(typeCode);
+        return this.dataDictionaryMapper.queryById(typeCode);
     }
 
     /**
@@ -39,7 +39,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public List<DataDictionary> queryAllByLimit(int offset, int limit) {
-        return this.dataDictionaryDao.queryAllByLimit(offset, limit);
+        return this.dataDictionaryMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary insert(DataDictionary dataDictionary) {
-        this.dataDictionaryDao.insert(dataDictionary);
+        this.dataDictionaryMapper.insert(dataDictionary);
         return dataDictionary;
     }
 
@@ -62,7 +62,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary update(DataDictionary dataDictionary) {
-        this.dataDictionaryDao.update(dataDictionary);
+        this.dataDictionaryMapper.update(dataDictionary);
         return this.queryById(dataDictionary.getTypeCode());
     }
 
@@ -74,6 +74,6 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public boolean deleteById(Long typeCode) {
-        return this.dataDictionaryDao.deleteById(typeCode) > 0;
+        return this.dataDictionaryMapper.deleteById(typeCode) > 0;
     }
 }

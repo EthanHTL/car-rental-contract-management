@@ -1,25 +1,25 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.DataDictionary;
+import com.example.carrentalcontract.entity.Role;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 数据字典(DataDictionary)表数据库访问层
+ * 角色表(Role)表数据库访问层
  *
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
-public interface DataDictionaryDao {
+public interface RoleMapper {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param typeCode 主键
+     * @param id 主键
      * @return 实例对象
      */
-    DataDictionary queryById(Long typeCode);
+    Role queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -28,39 +28,39 @@ public interface DataDictionaryDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<DataDictionary> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Role> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param dataDictionary 实例对象
+     * @param role 实例对象
      * @return 对象列表
      */
-    List<DataDictionary> queryAll(DataDictionary dataDictionary);
+    List<Role> queryAll(Role role);
 
     /**
      * 新增数据
      *
-     * @param dataDictionary 实例对象
+     * @param role 实例对象
      * @return 影响行数
      */
-    int insert(DataDictionary dataDictionary);
+    int insert(Role role);
 
     /**
      * 修改数据
      *
-     * @param dataDictionary 实例对象
+     * @param role 实例对象
      * @return 影响行数
      */
-    int update(DataDictionary dataDictionary);
+    int update(Role role);
 
     /**
      * 通过主键删除数据
      *
-     * @param typeCode 主键
+     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long typeCode);
+    int deleteById(Long id);
 
 }

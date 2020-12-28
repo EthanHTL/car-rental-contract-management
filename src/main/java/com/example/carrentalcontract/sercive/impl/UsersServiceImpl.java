@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.entity.Users;
-import com.example.carrentalcontract.mapper.UsersDao;
+import com.example.carrentalcontract.mapper.UsersMapper;
 import com.example.carrentalcontract.sercive.UsersService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Service("usersService")
 public class UsersServiceImpl implements UsersService {
     @Resource
-    private UsersDao usersDao;
+    private UsersMapper usersDao;
 
     /**
      * 通过ID查询单条数据

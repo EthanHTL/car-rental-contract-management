@@ -11,7 +11,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
-public interface UserRoleDao {
+public interface UserRoleMapper {
 
     /**
      * 通过ID查询单条数据

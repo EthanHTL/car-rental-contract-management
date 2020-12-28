@@ -1,25 +1,25 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.Employees;
+import com.example.carrentalcontract.entity.VehicleType;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 员工信息表(Employees)表数据库访问层
+ * 车辆类型表(VehicleType)表数据库访问层
  *
  * @author makejava
- * @since 2020-12-27 22:11:56
+ * @since 2020-12-27 22:11:57
  */
-public interface EmployeesDao {
+public interface VehicleTypeMapper {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param code 主键
+     * @param id 主键
      * @return 实例对象
      */
-    Employees queryById(Long code);
+    VehicleType queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -28,39 +28,39 @@ public interface EmployeesDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Employees> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<VehicleType> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param employees 实例对象
+     * @param vehicleType 实例对象
      * @return 对象列表
      */
-    List<Employees> queryAll(Employees employees);
+    List<VehicleType> queryAll(VehicleType vehicleType);
 
     /**
      * 新增数据
      *
-     * @param employees 实例对象
+     * @param vehicleType 实例对象
      * @return 影响行数
      */
-    int insert(Employees employees);
+    int insert(VehicleType vehicleType);
 
     /**
      * 修改数据
      *
-     * @param employees 实例对象
+     * @param vehicleType 实例对象
      * @return 影响行数
      */
-    int update(Employees employees);
+    int update(VehicleType vehicleType);
 
     /**
      * 通过主键删除数据
      *
-     * @param code 主键
+     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long code);
+    int deleteById(Long id);
 
 }

@@ -1,25 +1,25 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.Users;
+import com.example.carrentalcontract.entity.DataDictionary;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 用户表(Users)表数据库访问层
+ * 数据字典(DataDictionary)表数据库访问层
  *
  * @author makejava
- * @since 2020-12-27 22:11:57
+ * @since 2020-12-27 22:11:56
  */
-public interface UsersDao {
+public interface DataDictionaryMapper {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param code 主键
+     * @param typeCode 主键
      * @return 实例对象
      */
-    Users queryById(Long code);
+    DataDictionary queryById(Long typeCode);
 
     /**
      * 查询指定行数据
@@ -28,39 +28,39 @@ public interface UsersDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Users> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<DataDictionary> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param users 实例对象
+     * @param dataDictionary 实例对象
      * @return 对象列表
      */
-    List<Users> queryAll(Users users);
+    List<DataDictionary> queryAll(DataDictionary dataDictionary);
 
     /**
      * 新增数据
      *
-     * @param users 实例对象
+     * @param dataDictionary 实例对象
      * @return 影响行数
      */
-    int insert(Users users);
+    int insert(DataDictionary dataDictionary);
 
     /**
      * 修改数据
      *
-     * @param users 实例对象
+     * @param dataDictionary 实例对象
      * @return 影响行数
      */
-    int update(Users users);
+    int update(DataDictionary dataDictionary);
 
     /**
      * 通过主键删除数据
      *
-     * @param code 主键
+     * @param typeCode 主键
      * @return 影响行数
      */
-    int deleteById(Long code);
+    int deleteById(Long typeCode);
 
 }

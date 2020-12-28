@@ -1,25 +1,25 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.Role;
+import com.example.carrentalcontract.entity.Permission;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 角色表(Role)表数据库访问层
+ * 权限表(Permission)表数据库访问层
  *
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
-public interface RoleDao {
+public interface PermissionMapper {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param 权限id 主键
      * @return 实例对象
      */
-    Role queryById(Long id);
+    Permission queryById(Long 权限id);
 
     /**
      * 查询指定行数据
@@ -28,39 +28,39 @@ public interface RoleDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Role> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Permission> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param role 实例对象
+     * @param permission 实例对象
      * @return 对象列表
      */
-    List<Role> queryAll(Role role);
+    List<Permission> queryAll(Permission permission);
 
     /**
      * 新增数据
      *
-     * @param role 实例对象
+     * @param permission 实例对象
      * @return 影响行数
      */
-    int insert(Role role);
+    int insert(Permission permission);
 
     /**
      * 修改数据
      *
-     * @param role 实例对象
+     * @param permission 实例对象
      * @return 影响行数
      */
-    int update(Role role);
+    int update(Permission permission);
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param 权限id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Long 权限id);
 
 }

@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.entity.Vehicle;
-import com.example.carrentalcontract.mapper.VehicleDao;
+import com.example.carrentalcontract.mapper.VehicleMapper;
 import com.example.carrentalcontract.sercive.VehicleService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("vehicleService")
 public class VehicleServiceImpl implements VehicleService {
     @Resource
-    private VehicleDao vehicleDao;
+    private VehicleMapper vehicleDao;
 
     /**
      * 通过ID查询单条数据

@@ -2,7 +2,7 @@ package com.example.carrentalcontract.sercive.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.Contract;
-import com.example.carrentalcontract.mapper.ContractDao;
+import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -23,7 +23,7 @@ import java.util.List;
 @Service("contractService")
 public class ContractServiceImpl implements ContractService {
     @Resource
-    private ContractDao contractDao;
+    private ContractMapper contractMapper;
 
     @Override
     public Result<Contract> get(Contract contract) {
@@ -32,7 +32,7 @@ public class ContractServiceImpl implements ContractService {
         if (StringUtils.isNotBlank(contract.getContractName())) {
             criteria.andLike("contractName", "%" + contract.getContractName() + "%");
         }
-        contractDao
+        //contractDao.
 
         return null;
     }
@@ -41,14 +41,14 @@ public class ContractServiceImpl implements ContractService {
     public Result<PageInfo<List<Contract>>> findPage(Contract contract) {
 
         PageHelper.startPage(contract.getPageNum(),contract.getPageSize());
-        Page<Contract> contracts = contractDao.all();
+        Page<Contract> contracts = contractMapper.all();
         PageInfo pageInfo = new PageInfo<>(contracts);
         return new Result(pageInfo);
     }
 
     @Override
     public Result<List<Contract>> selectAll() {
-        List<Contract> contractList = contractDao.selectAll();
+        List<Contract> contractList = contractMapper.selectAll();
         return Result.success(contractList) ;
     }
 

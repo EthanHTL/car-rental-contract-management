@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.entity.UserRole;
-import com.example.carrentalcontract.mapper.UserRoleDao;
+import com.example.carrentalcontract.mapper.UserRoleMapper;
 import com.example.carrentalcontract.sercive.UserRoleService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
     @Resource
-    private UserRoleDao userRoleDao;
+    private UserRoleMapper userRoleDao;
 
     /**
      * 通过ID查询单条数据

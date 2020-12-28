@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.entity.TblLeaveAudit;
-import com.example.carrentalcontract.mapper.TblLeaveAuditDao;
+import com.example.carrentalcontract.mapper.TblLeaveAuditMapper;
 import com.example.carrentalcontract.sercive.TblLeaveAuditService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Service("tblLeaveAuditService")
 public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
     @Resource
-    private TblLeaveAuditDao tblLeaveAuditDao;
+    private TblLeaveAuditMapper tblLeaveAuditDao;
 
     /**
      * 通过ID查询单条数据
