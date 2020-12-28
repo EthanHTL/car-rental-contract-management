@@ -1,5 +1,11 @@
 package com.example.carrentalcontract.entity;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,23 +15,29 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:52
  */
-public class Contract implements Serializable {
+@Data
+@Table(name = "contract")
+public class Contract extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = -71828205063435859L;
     /**
     * 编号
     */
+    @Id
     private Long contractId;
     /**
     * 合同编号
     */
+    @Column(name = "contract_numbers")
     private String contractNumbers;
     /**
     * 合同名称
     */
+    @Column(name = "contract_name")
     private String contractName;
     /**
     * 签订单位
     */
+    @Column(name = "sign_unit")
     private String signUnit;
     /**
     * 支付方式
@@ -38,6 +50,7 @@ public class Contract implements Serializable {
     /**
     * 客户联系人
     */
+    @Column(name = "contact_user_id")
     private Long contactUserId;
     /**
     * 备注
@@ -46,151 +59,38 @@ public class Contract implements Serializable {
     /**
     * 合同金额
     */
+    @Column(name = "contract_amount")
     private String contractAmount;
     /**
     * 已付金额
     */
+    @Column(name = "paid_amount")
     private String paidAmount;
     /**
     * 合同签订时间
     */
+    @Column(name = "sign_time")
     private Date signTime;
     /**
     * 合同有效期
     */
+    @Column(name = "end_time")
     private Date endTime;
     /**
     * 合同到期时间
     */
+    @Column(name = "contract_life")
     private Date contractLife;
     /**
     * 合同路径
     */
+    @Column(name = "contract_url")
     private String contractUrl;
     /**
     * 合同类型
     */
+    @Column(name = "contract_type")
     private Long contractType;
 
-
-    public Long getContractId() {
-        return contractId;
-    }
-
-    public void setContractId(Long contractId) {
-        this.contractId = contractId;
-    }
-
-    public String getContractNumbers() {
-        return contractNumbers;
-    }
-
-    public void setContractNumbers(String contractNumbers) {
-        this.contractNumbers = contractNumbers;
-    }
-
-    public String getContractName() {
-        return contractName;
-    }
-
-    public void setContractName(String contractName) {
-        this.contractName = contractName;
-    }
-
-    public String getSignUnit() {
-        return signUnit;
-    }
-
-    public void setSignUnit(String signUnit) {
-        this.signUnit = signUnit;
-    }
-
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public Long getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(Long principal) {
-        this.principal = principal;
-    }
-
-    public Long getContactUserId() {
-        return contactUserId;
-    }
-
-    public void setContactUserId(Long contactUserId) {
-        this.contactUserId = contactUserId;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getContractAmount() {
-        return contractAmount;
-    }
-
-    public void setContractAmount(String contractAmount) {
-        this.contractAmount = contractAmount;
-    }
-
-    public String getPaidAmount() {
-        return paidAmount;
-    }
-
-    public void setPaidAmount(String paidAmount) {
-        this.paidAmount = paidAmount;
-    }
-
-    public Date getSignTime() {
-        return signTime;
-    }
-
-    public void setSignTime(Date signTime) {
-        this.signTime = signTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Date getContractLife() {
-        return contractLife;
-    }
-
-    public void setContractLife(Date contractLife) {
-        this.contractLife = contractLife;
-    }
-
-    public String getContractUrl() {
-        return contractUrl;
-    }
-
-    public void setContractUrl(String contractUrl) {
-        this.contractUrl = contractUrl;
-    }
-
-    public Long getContractType() {
-        return contractType;
-    }
-
-    public void setContractType(Long contractType) {
-        this.contractType = contractType;
-    }
 
 }

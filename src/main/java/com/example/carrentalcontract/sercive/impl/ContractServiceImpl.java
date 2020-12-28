@@ -1,8 +1,15 @@
 package com.example.carrentalcontract.sercive.impl;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.Contract;
 import com.example.carrentalcontract.mapper.ContractDao;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,61 +25,33 @@ public class ContractServiceImpl implements ContractService {
     @Resource
     private ContractDao contractDao;
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param contractId 主键
-     * @return 实例对象
-     */
     @Override
-    public Contract queryById(Long contractId) {
-        return this.contractDao.queryById(contractId);
+    public Result<Contract> get(Contract contract) {
+        Weekend<Contract> weekend = new Weekend<>(Contract.class);
+        Example.Criteria criteria = weekend.createCriteria();
+        if (StringUtils.isNotBlank(contract.getContractName())) {
+            criteria.andLike("contractName", "%" + contract.getContractName() + "%");
+        }
+        contractDao
+
+        return null;
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
     @Override
-    public List<Contract> queryAllByLimit(int offset, int limit) {
-        return this.contractDao.queryAllByLimit(offset, limit);
+    public Result<PageInfo<List<Contract>>> findPage(Contract contract) {
+
+        PageHelper.startPage(contract.getPageNum(),contract.getPageSize());
+        Page<Contract> contracts = contractDao.all();
+        PageInfo pageInfo = new PageInfo<>(contracts);
+        return new Result(pageInfo);
     }
 
-    /**
-     * 新增数据
-     *
-     * @param contract 实例对象
-     * @return 实例对象
-     */
     @Override
-    public Contract insert(Contract contract) {
-        this.contractDao.insert(contract);
-        return contract;
+    public Result<List<Contract>> selectAll() {
+        List<Contract> contractList = contractDao.selectAll();
+        return Result.success(contractList) ;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param contract 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Contract update(Contract contract) {
-        this.contractDao.update(contract);
-        return this.queryById(contract.getContractId());
-    }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param contractId 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(Long contractId) {
-        return this.contractDao.deleteById(contractId) > 0;
-    }
+
 }

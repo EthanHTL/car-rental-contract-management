@@ -1,11 +1,14 @@
 package com.example.carrentalcontract.controller;
 
 
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 合同表(Contract)表控制层
@@ -14,7 +17,7 @@ import javax.annotation.Resource;
  * @since 2020-12-27 22:11:56
  */
 @RestController
-@RequestMapping("contract")
+@RequestMapping("/api/v1/car/contract")
 public class ContractController {
     /**
      * 服务对象
@@ -25,12 +28,20 @@ public class ContractController {
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Contract selectOne(Long id) {
-        return this.contractService.queryById(id);
+    @GetMapping("/find/all")
+    public Result<List<Contract>> selectAll() {
+        return this.contractService.selectAll();
+    }
+    @PostMapping("/find/page")
+    public Result<PageInfo<List<Contract>>> findPage(@RequestBody Contract contract) {
+        return this.contractService.findPage(contract);
+    }
+
+    @PostMapping("/get")
+    public Result<Contract> get(@RequestBody Contract contract) {
+        return this.contractService.get(contract);
     }
 
 }
