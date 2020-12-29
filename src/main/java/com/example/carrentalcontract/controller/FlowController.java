@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.Flow;
+import com.example.carrentalcontract.entity.view.Flow;
 import com.example.carrentalcontract.sercive.FlowService;
 import org.springframework.web.bind.annotation.*;
 

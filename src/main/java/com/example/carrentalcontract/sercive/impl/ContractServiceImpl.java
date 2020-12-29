@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.Contract;
+import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.github.pagehelper.Page;

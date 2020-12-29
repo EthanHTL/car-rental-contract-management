@@ -1,5 +1,5 @@
 package com.example.carrentalcontract.sercive.impl;
-import com.example.carrentalcontract.entity.TblFlowLine;
+import com.example.carrentalcontract.entity.view.TblFlowLine;
 import com.example.carrentalcontract.mapper.TblFlowLineMapper;
 import com.example.carrentalcontract.sercive.TblFlowLineService;
 import org.springframework.stereotype.Service;

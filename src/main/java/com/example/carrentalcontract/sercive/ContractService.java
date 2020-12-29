@@ -2,7 +2,7 @@ package com.example.carrentalcontract.sercive;
 
 
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.Contract;
+import com.example.carrentalcontract.entity.view.Contract;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

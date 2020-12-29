@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.DataDictionary;
+import com.example.carrentalcontract.entity.view.DataDictionary;
 import com.example.carrentalcontract.mapper.DataDictionaryMapper;
 import com.example.carrentalcontract.sercive.DataDictionaryService;
 import org.springframework.stereotype.Service;

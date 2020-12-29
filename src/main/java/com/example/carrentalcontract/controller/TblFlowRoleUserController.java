@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.controller;
 
-import com.example.carrentalcontract.entity.TblFlowRoleUser;
+import com.example.carrentalcontract.entity.view.TblFlowRoleUser;
 import com.example.carrentalcontract.sercive.TblFlowRoleUserService;
 import org.springframework.web.bind.annotation.*;
 

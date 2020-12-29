@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.UserContract;
+import com.example.carrentalcontract.entity.view.UserContract;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

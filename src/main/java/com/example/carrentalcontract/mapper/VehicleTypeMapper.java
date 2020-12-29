@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.VehicleType;
+import com.example.carrentalcontract.entity.view.VehicleType;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

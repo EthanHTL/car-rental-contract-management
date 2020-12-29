@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.TblLeaveAudit;
+import com.example.carrentalcontract.entity.view.TblLeaveAudit;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

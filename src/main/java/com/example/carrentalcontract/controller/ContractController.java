@@ -2,7 +2,7 @@ package com.example.carrentalcontract.controller;
 
 
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.Contract;
+import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;

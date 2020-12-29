@@ -1,5 +1,5 @@
 package com.example.carrentalcontract.sercive.impl;
-import com.example.carrentalcontract.entity.Users;
+import com.example.carrentalcontract.entity.view.Users;
 import com.example.carrentalcontract.mapper.UsersMapper;
 import com.example.carrentalcontract.sercive.UsersService;
 import org.springframework.stereotype.Service;

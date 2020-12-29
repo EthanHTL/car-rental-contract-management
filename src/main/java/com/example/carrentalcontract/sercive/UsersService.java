@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.Users;
+import com.example.carrentalcontract.entity.view.Users;
 
 import java.util.List;
 

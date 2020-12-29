@@ -1,4 +1,4 @@
-package com.example.carrentalcontract.entity;
+package com.example.carrentalcontract.entity.view;
 
 import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;

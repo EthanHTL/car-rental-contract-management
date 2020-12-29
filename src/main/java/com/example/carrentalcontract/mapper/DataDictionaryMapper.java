@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.DataDictionary;
+import com.example.carrentalcontract.entity.view.DataDictionary;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

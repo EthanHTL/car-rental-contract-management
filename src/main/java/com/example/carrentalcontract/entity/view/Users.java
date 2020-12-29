@@ -1,4 +1,4 @@
-package com.example.carrentalcontract.entity;
+package com.example.carrentalcontract.entity.view;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.Permission;
+import com.example.carrentalcontract.entity.view.Permission;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.Vehicle;
+import com.example.carrentalcontract.entity.view.Vehicle;
 import com.example.carrentalcontract.sercive.VehicleService;
 import org.springframework.web.bind.annotation.*;
 

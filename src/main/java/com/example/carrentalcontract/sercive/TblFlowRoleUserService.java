@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.TblFlowRoleUser;
+import com.example.carrentalcontract.entity.view.TblFlowRoleUser;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.UserRole;
+import com.example.carrentalcontract.entity.view.UserRole;
 import com.example.carrentalcontract.mapper.UserRoleMapper;
 import com.example.carrentalcontract.sercive.UserRoleService;
 import org.springframework.stereotype.Service;

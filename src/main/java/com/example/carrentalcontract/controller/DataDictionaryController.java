@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.DataDictionary;
+import com.example.carrentalcontract.entity.view.DataDictionary;
 import com.example.carrentalcontract.sercive.DataDictionaryService;
 import org.springframework.web.bind.annotation.*;
 

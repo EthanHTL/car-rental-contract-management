@@ -1,11 +1,10 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.mapper.Mapper;
-import com.example.carrentalcontract.entity.Contract;
+import com.example.carrentalcontract.entity.view.Contract;
 import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**

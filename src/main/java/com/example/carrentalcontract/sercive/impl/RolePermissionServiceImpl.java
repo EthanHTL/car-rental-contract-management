@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.RolePermission;
+import com.example.carrentalcontract.entity.view.RolePermission;
 import com.example.carrentalcontract.mapper.RolePermissionMapper;
 import com.example.carrentalcontract.sercive.RolePermissionService;
 import org.springframework.stereotype.Service;
