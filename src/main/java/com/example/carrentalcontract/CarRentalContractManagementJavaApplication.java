@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.example.carrentalcontract.mapper")
+@MapperScan(basePackages = {"com.example.carrentalcontract.mapper"})
 public class CarRentalContractManagementJavaApplication {
 
     public static void main(String[] args) {

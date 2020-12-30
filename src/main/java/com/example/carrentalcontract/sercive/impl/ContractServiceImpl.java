@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.mapper.ContractMapper;
@@ -21,9 +22,11 @@ import java.util.List;
  * @since 2020-12-27 22:11:55
  */
 @Service("contractService")
-public class ContractServiceImpl implements ContractService {
+public class ContractServiceImpl extends DbServiceImpl<Contract> implements ContractService {
+
     @Resource
     private ContractMapper contractMapper;
+
 
     @Override
     public Result<Contract> get(Contract contract) {
@@ -34,7 +37,7 @@ public class ContractServiceImpl implements ContractService {
         }
         //contractDao.
 
-        return null;
+        return super.selectOne(contract);
     }
 
     @Override
@@ -48,7 +51,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Result<List<Contract>> selectAll() {
-        List<Contract> contractList = contractMapper.selectAll();
+        List<Contract> contractList = contractMapper.findall();
         return Result.success(contractList) ;
     }
 

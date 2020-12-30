@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
+import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.github.pagehelper.PageInfo;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:54
  */
-public interface ContractService {
+public interface ContractService  {
 
     Result<List<Contract>> selectAll();
 

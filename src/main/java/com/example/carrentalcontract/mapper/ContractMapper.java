@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.baomidou.mybatisplus.core.mapper.Mapper;
+import com.example.carrentalcontract.common.DbMapper;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.github.pagehelper.Page;
 
@@ -13,9 +13,10 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:53
  */
-public interface ContractMapper extends Mapper<Contract> {
+public interface ContractMapper extends DbMapper<Contract>{
 
 
-    List<Contract> selectAll();
+    List<Contract> findall();
+
     Page<Contract> all();
 }

@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.github.pagehelper.PageInfo;
+import com.sun.istack.internal.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,6 +35,8 @@ public class ContractController {
     public Result<List<Contract>> selectAll() {
         return this.contractService.selectAll();
     }
+
+
     @PostMapping("/find/page")
     public Result<PageInfo<List<Contract>>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
