@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -91,6 +92,18 @@ public class Contract extends DbPageParameter implements Serializable {
     */
     @Column(name = "contract_type")
     private Long contractType;
+
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Transient
+    private String updatorId;
+
+    @Transient
+    private String creatorId;
 
 
 }

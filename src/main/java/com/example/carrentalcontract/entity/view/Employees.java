@@ -1,5 +1,8 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +11,8 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
-public class Employees implements Serializable {
+@Data
+public class Employees extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 251589816155827495L;
     /**
     * 用户编号
@@ -36,52 +40,5 @@ public class Employees implements Serializable {
     private String title;
 
 
-    public Long getCode() {
-        return code;
-    }
-
-    public void setCode(Long code) {
-        this.code = code;
-    }
-
-    public Object getSex() {
-        return sex;
-    }
-
-    public void setSex(Object sex) {
-        this.sex = sex;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
 }

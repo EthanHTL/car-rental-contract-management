@@ -26,7 +26,7 @@ public class TblFlowLineServiceImpl implements TblFlowLineService {
      */
     @Override
     public TblFlowLine queryById(Long flowLineId) {
-        return this.tblFlowLineDao.queryById(flowLineId);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class TblFlowLineServiceImpl implements TblFlowLineService {
      */
     @Override
     public List<TblFlowLine> queryAllByLimit(int offset, int limit) {
-        return this.tblFlowLineDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class TblFlowLineServiceImpl implements TblFlowLineService {
      */
     @Override
     public TblFlowLine insert(TblFlowLine tblFlowLine) {
-        this.tblFlowLineDao.insert(tblFlowLine);
-        return tblFlowLine;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class TblFlowLineServiceImpl implements TblFlowLineService {
      */
     @Override
     public TblFlowLine update(TblFlowLine tblFlowLine) {
-        this.tblFlowLineDao.update(tblFlowLine);
-        return this.queryById(tblFlowLine.getFlowLineId());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class TblFlowLineServiceImpl implements TblFlowLineService {
      */
     @Override
     public boolean deleteById(Long flowLineId) {
-        return this.tblFlowLineDao.deleteById(flowLineId) > 0;
+        return false;
     }
 }

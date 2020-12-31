@@ -7,6 +7,7 @@ import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import tk.mybatis.mapper.entity.Example;
@@ -18,6 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -25,12 +27,14 @@ import java.util.*;
  * @author: 黄天亮
  * @create: 2020-12-30 16:52
  **/
+
+@Component
 public class DbServiceImpl<T> implements DbService<T> {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     protected DbMapper<T> mapper;
-    @Autowired
-    protected ObjectIdGenerator objectIdGenerator;
+    // @Autowired
+    // protected ObjectIdGenerator objectIdGenerator;
     protected String idMethod = "setId";
     protected String getIdMethod = "getId";
     protected String flagMethod = "setFlag";
@@ -320,8 +324,19 @@ public class DbServiceImpl<T> implements DbService<T> {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
         } else {
-            long id = this.objectIdGenerator.newId();
-            this.setFieldValue(t, this.idMethod, id);
+            String machineId = "11";
+            SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+            String dayTime = sdf.format(new Date());
+            int hashCode = UUID.randomUUID().toString().hashCode();
+            if(hashCode < 0){
+                hashCode = -hashCode;
+            }
+            String value = machineId + dayTime + String.format("%010d", hashCode);
+            // System.out.println(value);
+
+            // long id = this.objectIdGenerator.newId();
+            this.setFieldValue(t, this.idMethod, value);
+            UUID uuid = UUID.randomUUID();
             this.setFieldValue(t, this.flagMethod, 1);
             this.setFieldValue(t, this.createTimeMethod, Calendar.getInstance().getTime());
             return t;

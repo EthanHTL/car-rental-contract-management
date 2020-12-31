@@ -1,14 +1,12 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
-/**
- * 流程角色_员工表(TblFlowRoleUser)实体类
- *
- * @author makejava
- * @since 2020-12-27 22:11:56
- */
-public class TblFlowRoleUser implements Serializable {
+@Data
+public class TblFlowRoleUser extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 302526176059017614L;
     /**
     * 主键
@@ -28,36 +26,5 @@ public class TblFlowRoleUser implements Serializable {
     private Long deptId;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFlowRoleName() {
-        return flowRoleName;
-    }
-
-    public void setFlowRoleName(String flowRoleName) {
-        this.flowRoleName = flowRoleName;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
 
 }

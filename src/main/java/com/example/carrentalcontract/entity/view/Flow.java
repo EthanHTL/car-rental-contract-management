@@ -1,5 +1,8 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +11,8 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
-public class Flow implements Serializable {
+@Data
+public class Flow extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = -42676884829400034L;
     /**
     * 流程编号，主键
@@ -26,38 +30,5 @@ public class Flow implements Serializable {
     * 备注
     */
     private String remark;
-
-
-    public Long getFlowId() {
-        return flowId;
-    }
-
-    public void setFlowId(Long flowId) {
-        this.flowId = flowId;
-    }
-
-    public Long getFlowNo() {
-        return flowNo;
-    }
-
-    public void setFlowNo(Long flowNo) {
-        this.flowNo = flowNo;
-    }
-
-    public String getFlowName() {
-        return flowName;
-    }
-
-    public void setFlowName(String flowName) {
-        this.flowName = flowName;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 
 }

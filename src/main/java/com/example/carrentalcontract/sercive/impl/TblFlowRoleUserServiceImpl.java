@@ -27,7 +27,7 @@ public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
      */
     @Override
     public TblFlowRoleUser queryById(Long id) {
-        return this.tblFlowRoleUserDao.queryById(id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
      */
     @Override
     public List<TblFlowRoleUser> queryAllByLimit(int offset, int limit) {
-        return this.tblFlowRoleUserDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
      */
     @Override
     public TblFlowRoleUser insert(TblFlowRoleUser tblFlowRoleUser) {
-        this.tblFlowRoleUserDao.insert(tblFlowRoleUser);
-        return tblFlowRoleUser;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
      */
     @Override
     public TblFlowRoleUser update(TblFlowRoleUser tblFlowRoleUser) {
-        this.tblFlowRoleUserDao.update(tblFlowRoleUser);
-        return this.queryById(tblFlowRoleUser.getId());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class TblFlowRoleUserServiceImpl implements TblFlowRoleUserService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.tblFlowRoleUserDao.deleteById(id) > 0;
+        return false;
     }
 }

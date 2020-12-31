@@ -1,5 +1,8 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
+@Data
 public class VehicleType implements Serializable {
     private static final long serialVersionUID = 337656210142209014L;
     /**
@@ -36,52 +40,5 @@ public class VehicleType implements Serializable {
     private String remark;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVehicleNo() {
-        return vehicleNo;
-    }
-
-    public void setVehicleNo(Long vehicleNo) {
-        this.vehicleNo = vehicleNo;
-    }
-
-    public String getVehicleTypeName() {
-        return vehicleTypeName;
-    }
-
-    public void setVehicleTypeName(String vehicleTypeName) {
-        this.vehicleTypeName = vehicleTypeName;
-    }
-
-    public Integer getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Integer inventory) {
-        this.inventory = inventory;
-    }
-
-    public Integer getRentOutNumber() {
-        return rentOutNumber;
-    }
-
-    public void setRentOutNumber(Integer rentOutNumber) {
-        this.rentOutNumber = rentOutNumber;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 
 }

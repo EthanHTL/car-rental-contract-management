@@ -1,14 +1,12 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
-/**
- * 用户车辆合同管理表(UserContract)实体类
- *
- * @author makejava
- * @since 2020-12-27 22:11:57
- */
-public class UserContract implements Serializable {
+@Data
+public class UserContract extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = -58234505158573253L;
     /**
     * 主键
@@ -40,60 +38,5 @@ public class UserContract implements Serializable {
     private Long currentNode;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getVehicleNumber() {
-        return vehicleNumber;
-    }
-
-    public void setVehicleNumber(Long vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
-    }
-
-    public Long getContractId() {
-        return contractId;
-    }
-
-    public void setContractId(Long contractId) {
-        this.contractId = contractId;
-    }
-
-    public Long getFlowNo() {
-        return flowNo;
-    }
-
-    public void setFlowNo(Long flowNo) {
-        this.flowNo = flowNo;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Long getCurrentNode() {
-        return currentNode;
-    }
-
-    public void setCurrentNode(Long currentNode) {
-        this.currentNode = currentNode;
-    }
 
 }

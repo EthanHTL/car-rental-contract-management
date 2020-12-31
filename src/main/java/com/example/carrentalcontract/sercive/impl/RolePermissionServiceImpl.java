@@ -27,7 +27,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      */
     @Override
     public RolePermission queryById(Long id) {
-        return this.rolePermissionDao.queryById(id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      */
     @Override
     public List<RolePermission> queryAllByLimit(int offset, int limit) {
-        return this.rolePermissionDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      */
     @Override
     public RolePermission insert(RolePermission rolePermission) {
-        this.rolePermissionDao.insert(rolePermission);
-        return rolePermission;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      */
     @Override
     public RolePermission update(RolePermission rolePermission) {
-        this.rolePermissionDao.update(rolePermission);
-        return this.queryById(rolePermission.getId());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.rolePermissionDao.deleteById(id) > 0;
+        return false;
     }
 }

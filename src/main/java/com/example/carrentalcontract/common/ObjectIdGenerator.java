@@ -1,5 +1,7 @@
 package com.example.carrentalcontract.common;
 
+import org.springframework.stereotype.Component;
+
 
 public class ObjectIdGenerator {
     private final long twepoch = 1420041600000L;

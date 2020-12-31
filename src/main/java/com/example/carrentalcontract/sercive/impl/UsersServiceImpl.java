@@ -26,7 +26,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public Users queryById(Long code) {
-        return this.usersDao.queryById(code);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public List<Users> queryAllByLimit(int offset, int limit) {
-        return this.usersDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public Users insert(Users users) {
-        this.usersDao.insert(users);
-        return users;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public Users update(Users users) {
-        this.usersDao.update(users);
-        return this.queryById(users.getCode());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public boolean deleteById(Long code) {
-        return this.usersDao.deleteById(code) > 0;
+        return false;
     }
 }

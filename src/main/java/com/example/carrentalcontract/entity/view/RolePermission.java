@@ -1,5 +1,8 @@
 package com.example.carrentalcontract.entity.view;
 
+import com.example.carrentalcontract.common.DbPageParameter;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +11,8 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
-public class RolePermission implements Serializable {
+@Data
+public class RolePermission extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = -49130009246332153L;
     /**
     * 主键
@@ -23,29 +27,5 @@ public class RolePermission implements Serializable {
     */
     private Long permissionId;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getPermissionId() {
-        return permissionId;
-    }
-
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
-    }
 
 }

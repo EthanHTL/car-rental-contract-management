@@ -26,7 +26,7 @@ public class FlowServiceImpl implements FlowService {
      */
     @Override
     public Flow queryById(Long flowId) {
-        return this.flowDao.queryById(flowId);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class FlowServiceImpl implements FlowService {
      */
     @Override
     public List<Flow> queryAllByLimit(int offset, int limit) {
-        return this.flowDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class FlowServiceImpl implements FlowService {
      */
     @Override
     public Flow insert(Flow flow) {
-        this.flowDao.insert(flow);
-        return flow;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class FlowServiceImpl implements FlowService {
      */
     @Override
     public Flow update(Flow flow) {
-        this.flowDao.update(flow);
-        return this.queryById(flow.getFlowId());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class FlowServiceImpl implements FlowService {
      */
     @Override
     public boolean deleteById(Long flowId) {
-        return this.flowDao.deleteById(flowId) > 0;
+        return false;
     }
 }

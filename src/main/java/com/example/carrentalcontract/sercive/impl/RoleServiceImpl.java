@@ -26,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role queryById(Long id) {
-        return this.roleDao.queryById(id);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> queryAllByLimit(int offset, int limit) {
-        return this.roleDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role insert(Role role) {
-        this.roleDao.insert(role);
-        return role;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role update(Role role) {
-        this.roleDao.update(role);
-        return this.queryById(role.getId());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.roleDao.deleteById(id) > 0;
+        return false;
     }
 }

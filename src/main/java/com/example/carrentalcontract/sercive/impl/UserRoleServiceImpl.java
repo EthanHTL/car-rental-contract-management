@@ -27,7 +27,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      */
     @Override
     public UserRole queryById(Long id) {
-        return this.userRoleDao.queryById(id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      */
     @Override
     public List<UserRole> queryAllByLimit(int offset, int limit) {
-        return this.userRoleDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      */
     @Override
     public UserRole insert(UserRole userRole) {
-        this.userRoleDao.insert(userRole);
-        return userRole;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      */
     @Override
     public UserRole update(UserRole userRole) {
-        this.userRoleDao.update(userRole);
-        return this.queryById(userRole.getId());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class UserRoleServiceImpl implements UserRoleService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.userRoleDao.deleteById(id) > 0;
+        return false;
     }
 }

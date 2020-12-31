@@ -27,7 +27,7 @@ public class EmployeesServiceImpl implements EmployeesService {
      */
     @Override
     public Employees queryById(Long code) {
-        return this.employeesDao.queryById(code);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class EmployeesServiceImpl implements EmployeesService {
      */
     @Override
     public List<Employees> queryAllByLimit(int offset, int limit) {
-        return this.employeesDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class EmployeesServiceImpl implements EmployeesService {
      */
     @Override
     public Employees insert(Employees employees) {
-        this.employeesDao.insert(employees);
-        return employees;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class EmployeesServiceImpl implements EmployeesService {
      */
     @Override
     public Employees update(Employees employees) {
-        this.employeesDao.update(employees);
-        return this.queryById(employees.getCode());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class EmployeesServiceImpl implements EmployeesService {
      */
     @Override
     public boolean deleteById(Long code) {
-        return this.employeesDao.deleteById(code) > 0;
+        return false;
     }
 }

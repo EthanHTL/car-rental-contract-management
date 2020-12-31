@@ -11,7 +11,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
-public interface UsersService {
+public interface UsersService  {
 
     /**
      * 通过ID查询单条数据
@@ -53,5 +53,7 @@ public interface UsersService {
      * @return 是否成功
      */
     boolean deleteById(Long code);
+
+
 
 }

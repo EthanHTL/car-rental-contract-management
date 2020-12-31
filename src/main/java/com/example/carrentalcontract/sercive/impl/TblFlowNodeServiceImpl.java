@@ -26,7 +26,7 @@ public class TblFlowNodeServiceImpl implements TblFlowNodeService {
      */
     @Override
     public TblFlowNode queryById(Long flowNodeId) {
-        return this.tblFlowNodeDao.queryById(flowNodeId);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class TblFlowNodeServiceImpl implements TblFlowNodeService {
      */
     @Override
     public List<TblFlowNode> queryAllByLimit(int offset, int limit) {
-        return this.tblFlowNodeDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class TblFlowNodeServiceImpl implements TblFlowNodeService {
      */
     @Override
     public TblFlowNode insert(TblFlowNode tblFlowNode) {
-        this.tblFlowNodeDao.insert(tblFlowNode);
-        return tblFlowNode;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class TblFlowNodeServiceImpl implements TblFlowNodeService {
      */
     @Override
     public TblFlowNode update(TblFlowNode tblFlowNode) {
-        this.tblFlowNodeDao.update(tblFlowNode);
-        return this.queryById(tblFlowNode.getFlowNodeId());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class TblFlowNodeServiceImpl implements TblFlowNodeService {
      */
     @Override
     public boolean deleteById(Long flowNodeId) {
-        return this.tblFlowNodeDao.deleteById(flowNodeId) > 0;
+        return false;
     }
 }

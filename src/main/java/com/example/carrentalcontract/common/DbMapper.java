@@ -5,4 +5,5 @@ import tk.mybatis.mapper.common.Mapper;
 
 @Component
 public interface DbMapper<T> extends Mapper<T>, DbInsertBatchMapper<T>, DbUpdateBatchMapper<T> {
+
 }

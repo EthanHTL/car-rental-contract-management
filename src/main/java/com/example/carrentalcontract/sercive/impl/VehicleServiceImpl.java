@@ -27,7 +27,7 @@ public class VehicleServiceImpl implements VehicleService {
      */
     @Override
     public Vehicle queryById(Long id) {
-        return this.vehicleDao.queryById(id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class VehicleServiceImpl implements VehicleService {
      */
     @Override
     public List<Vehicle> queryAllByLimit(int offset, int limit) {
-        return this.vehicleDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class VehicleServiceImpl implements VehicleService {
      */
     @Override
     public Vehicle insert(Vehicle vehicle) {
-        this.vehicleDao.insert(vehicle);
-        return vehicle;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class VehicleServiceImpl implements VehicleService {
      */
     @Override
     public Vehicle update(Vehicle vehicle) {
-        this.vehicleDao.update(vehicle);
-        return this.queryById(vehicle.getId());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class VehicleServiceImpl implements VehicleService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.vehicleDao.deleteById(id) > 0;
+        return false;
     }
 }

@@ -26,7 +26,7 @@ public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
      */
     @Override
     public TblLeaveAudit queryById(Long auditId) {
-        return this.tblLeaveAuditDao.queryById(auditId);
+        return null;
     }
 
     /**
@@ -38,7 +38,7 @@ public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
      */
     @Override
     public List<TblLeaveAudit> queryAllByLimit(int offset, int limit) {
-        return this.tblLeaveAuditDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -49,8 +49,7 @@ public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
      */
     @Override
     public TblLeaveAudit insert(TblLeaveAudit tblLeaveAudit) {
-        this.tblLeaveAuditDao.insert(tblLeaveAudit);
-        return tblLeaveAudit;
+        return null;
     }
 
     /**
@@ -61,8 +60,7 @@ public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
      */
     @Override
     public TblLeaveAudit update(TblLeaveAudit tblLeaveAudit) {
-        this.tblLeaveAuditDao.update(tblLeaveAudit);
-        return this.queryById(tblLeaveAudit.getAuditId());
+        return null;
     }
 
     /**
@@ -73,6 +71,6 @@ public class TblLeaveAuditServiceImpl implements TblLeaveAuditService {
      */
     @Override
     public boolean deleteById(Long auditId) {
-        return this.tblLeaveAuditDao.deleteById(auditId) > 0;
+        return false;
     }
 }

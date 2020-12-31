@@ -27,7 +27,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary queryById(Long typeCode) {
-        return this.dataDictionaryMapper.queryById(typeCode);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public List<DataDictionary> queryAllByLimit(int offset, int limit) {
-        return this.dataDictionaryMapper.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary insert(DataDictionary dataDictionary) {
-        this.dataDictionaryMapper.insert(dataDictionary);
-        return dataDictionary;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public DataDictionary update(DataDictionary dataDictionary) {
-        this.dataDictionaryMapper.update(dataDictionary);
-        return this.queryById(dataDictionary.getTypeCode());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      */
     @Override
     public boolean deleteById(Long typeCode) {
-        return this.dataDictionaryMapper.deleteById(typeCode) > 0;
+        return false;
     }
 }

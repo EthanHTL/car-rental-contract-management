@@ -5,11 +5,9 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.github.pagehelper.PageInfo;
-import com.sun.istack.internal.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 合同表(Contract)表控制层
@@ -31,20 +29,16 @@ public class ContractController {
      *
      * @return 单条数据
      */
-    @GetMapping("/find/all")
-    public Result<List<Contract>> selectAll() {
-        return this.contractService.selectAll();
-    }
+    // @GetMapping("/find/all")
+    // public Result<List<Contract>> selectAll() {
+    //     return this.contractService.selectAll();
+    // }
 
 
     @PostMapping("/find/page")
-    public Result<PageInfo<List<Contract>>> findPage(@RequestBody Contract contract) {
+    public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
     }
 
-    @PostMapping("/get")
-    public Result<Contract> get(@RequestBody Contract contract) {
-        return this.contractService.get(contract);
-    }
 
 }

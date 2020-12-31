@@ -27,7 +27,7 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public Permission queryById(Long 权限id) {
-        return this.permissionDao.queryById(权限id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public List<Permission> queryAllByLimit(int offset, int limit) {
-        return this.permissionDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public Permission insert(Permission permission) {
-        this.permissionDao.insert(permission);
-        return permission;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public Permission update(Permission permission) {
-        this.permissionDao.update(permission);
-        return this.queryById(permission.getPermission_id());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public boolean deleteById(Long 权限id) {
-        return this.permissionDao.deleteById(权限id) > 0;
+        return false;
     }
 }

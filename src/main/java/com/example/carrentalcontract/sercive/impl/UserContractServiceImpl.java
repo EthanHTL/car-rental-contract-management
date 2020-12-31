@@ -27,7 +27,7 @@ public class UserContractServiceImpl implements UserContractService {
      */
     @Override
     public UserContract queryById(Long id) {
-        return this.userContractDao.queryById(id);
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ public class UserContractServiceImpl implements UserContractService {
      */
     @Override
     public List<UserContract> queryAllByLimit(int offset, int limit) {
-        return this.userContractDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +50,7 @@ public class UserContractServiceImpl implements UserContractService {
      */
     @Override
     public UserContract insert(UserContract userContract) {
-        this.userContractDao.insert(userContract);
-        return userContract;
+        return null;
     }
 
     /**
@@ -62,8 +61,7 @@ public class UserContractServiceImpl implements UserContractService {
      */
     @Override
     public UserContract update(UserContract userContract) {
-        this.userContractDao.update(userContract);
-        return this.queryById(userContract.getId());
+        return null;
     }
 
     /**
@@ -74,6 +72,6 @@ public class UserContractServiceImpl implements UserContractService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.userContractDao.deleteById(id) > 0;
+        return false;
     }
 }
