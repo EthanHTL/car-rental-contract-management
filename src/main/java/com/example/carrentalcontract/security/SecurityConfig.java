@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +22,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 /**
  * @description:
@@ -36,20 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 创建配置类，设置使用哪个userDetailsService 实现类
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(password());
+        System.out.println("auth====>"+auth);
+        UserDetailsService detailsService = userDetailsService();
+        auth.userDetailsService(detailsService).passwordEncoder(password());
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 配置没有权限访问跳转自定义页面
-        http.exceptionHandling().accessDeniedPage("/unauth.html");
+        http.exceptionHandling().accessDeniedPage("/unauth");
         // 退出
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/test/hello").permitAll();
         http.formLogin() // 自定义自己编写的登录页面
-                .loginPage("/login.html") // 登录页面设置
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .loginPage("/login") // 登录页面设置
                 .loginProcessingUrl("/user/login") // 登录访问路径
-                .defaultSuccessUrl("/success.html").permitAll() // 登录成功之后，跳转路径
+                .defaultSuccessUrl("/success").permitAll() // 登录成功之后，跳转路径
                 .and().authorizeRequests()
                 .antMatchers("/", "/test/hello", "/user/login").permitAll() // 设置哪些路径不需要认证，可以直接访问
                 // 1. hasAuthority
@@ -60,10 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // .antMatchers("/test/index").hasRole("sale") //  如果当前的主体有任何提供的角色（给定的作为一个逗号分隔的字符串列表）的话，返回true
                 // 4.hasRole
                 // .antMatchers("/test/index").hasAnyRole("sale") //  如果当前的主体有任何提供的角色（给定的作为一个逗号分隔的字符串列表）的话，返回true
-                .anyRequest().authenticated()
+                // .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(600) // 设置有效时长，单位 秒
+                .tokenValiditySeconds(60) // 设置有效时长，单位 秒
                 .userDetailsService(userDetailsService())
                 .and().csrf().disable(); // 关闭 csrf 防护
 
@@ -80,10 +89,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         // 创建数据库
-        jdbcTokenRepository.setCreateTableOnStartup(true);
+        // jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 
+    @Override
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -91,12 +101,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             UsersMapper userMapper;
 
             @Override
-            public UserDetails loadUserByUsername(String code) throws UsernameNotFoundException {
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 Users loadUser = new Users();
-                loadUser.setCode(code);
+                loadUser.setCode(username);
                 Users user = userMapper.selectOne(loadUser);
+                if (user == null) {// 数据库没有用户名，认证失败
+                    throw new UsernameNotFoundException("用户名不存在");
+                }
+                List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList("admins,ROLE_sale");
+
                 // if (user==null){
-                return new org.springframework.security.core.userdetails.User(null, null, false, false, false, false, null);
+                return new User(user.getUserName(), user.getPassword(), auths);
                 // }
                 // return new org.springframework.security.core.userdetails.User(code,user.getPassword(),true,true,true,true,translatePowerToGrantedAuthority(user.getPowers()));
             }

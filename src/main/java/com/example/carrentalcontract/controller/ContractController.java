@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 合同表(Contract)表控制层
@@ -39,6 +40,11 @@ public class ContractController {
     public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
     }
+    @PostMapping("/find/all")
+    public Result<List<Contract>> findAll() {
+        return this.contractService.findAll();
+    }
+
 
 
 }

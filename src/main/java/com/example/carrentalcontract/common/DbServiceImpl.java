@@ -28,8 +28,8 @@ import java.util.*;
  * @create: 2020-12-30 16:52
  **/
 
-@Component
-public class DbServiceImpl<T> implements DbService<T> {
+
+public abstract class DbServiceImpl<T> implements DbService<T> {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     protected DbMapper<T> mapper;
@@ -49,7 +49,7 @@ public class DbServiceImpl<T> implements DbService<T> {
     public static String processLikeCharacter(String character) {
         return !StringUtils.isEmpty(character) ? character.replaceAll("\\%", "\\\\%").replaceAll("\\_", "\\\\_") : character;
     }
-
+    @Override
     public Result<T> insert(@NonNull T t) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -60,7 +60,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i == 1 ? new Result(t) : this.fail();
         }
     }
-
+    @Override
     public Result<Long> insertOne(@NonNull T t) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -69,7 +69,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i == 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result insertBatch(@NonNull List<T> list) {
         if (list == null) {
             throw new NullPointerException("list is marked non-null but is null");
@@ -78,7 +78,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i >= 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result update(@NonNull T t) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -89,7 +89,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i == 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result updateByExample(@NonNull T t, @NonNull Example example) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -112,7 +112,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i >= 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result delete(@NonNull T t) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -122,7 +122,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i == 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result destroy(@NonNull T t) {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
@@ -131,7 +131,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return i == 1 ? new Result() : this.fail();
         }
     }
-
+    @Override
     public Result<T> selectByPrimaryKey(@NonNull Long id) {
         if (id == null) {
             throw new NullPointerException("id is marked non-null but is null");
@@ -139,18 +139,19 @@ public class DbServiceImpl<T> implements DbService<T> {
             return new Result(this.mapper.selectByPrimaryKey(id));
         }
     }
-
+    @Override
     public Result<Integer> selectCount(T query) {
         this.setFieldValue(query, this.flagMethod, 1);
         int count = this.mapper.selectCount(query);
         return Result.success(count);
     }
 
+    @Override
     public Result<Integer> selectCountByExample(Weekend<T> weekend) {
         int count = this.mapper.selectCountByExample(weekend);
         return Result.success(count);
     }
-
+    @Override
     public Result<T> selectOne(@NonNull T query) {
         if (query == null) {
             throw new NullPointerException("query is marked non-null but is null");
@@ -159,7 +160,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return new Result(this.mapper.selectOne(query));
         }
     }
-
+    @Override
     public Result<List<T>> select(@NonNull T query) {
         if (query == null) {
             throw new NullPointerException("query is marked non-null but is null");
@@ -176,7 +177,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return new Result(this.mapper.selectByExample(query));
         }
     }
-
+    @Override
     public Result<List<T>> select(@NonNull T query, @NonNull String orderField) {
         if (query == null) {
             throw new NullPointerException("query is marked non-null but is null");
@@ -203,15 +204,15 @@ public class DbServiceImpl<T> implements DbService<T> {
             }
         }
     }
-
+    @Override
     public Result<List<T>> select(Example example) {
         return new Result(this.mapper.selectByExample(example));
     }
-
+    @Override
     public Result<List<T>> selectAll() {
         return new Result(this.mapper.selectAll());
     }
-
+    @Override
     public Result<PageInfo<T>> selectPage(@NonNull T query, @NonNull int pageNum, @NonNull int pageSize) {
         if (query == null) {
             throw new NullPointerException("query is marked non-null but is null");
@@ -220,7 +221,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return this.selectPage(query, pageNum, pageSize, this.createTimeField);
         }
     }
-
+    @Override
     public Result<PageInfo<T>> selectPage(@NonNull T query, @NonNull int pageNum, @NonNull int pageSize, @NonNull String orderField) {
         if (query == null) {
             throw new NullPointerException("query is marked non-null but is null");
@@ -240,7 +241,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return weekend == null ? this.fail() : ((DbServiceImpl) ObjectContainer.getObject(this.getClass())).selectPage(weekend, pageNum, pageSize, orderField, true);
         }
     }
-
+    @Override
     public Result<PageInfo<T>> selectPage(@NonNull Weekend<T> weekend, @NonNull int pageNum, @NonNull int pageSize) {
         if (weekend == null) {
             throw new NullPointerException("weekend is marked non-null but is null");
@@ -248,7 +249,7 @@ public class DbServiceImpl<T> implements DbService<T> {
             return ((DbServiceImpl)ObjectContainer.getObject(this.getClass())).selectPage(weekend, pageNum, pageSize, this.createTimeField, true);
         }
     }
-
+    @Override
     public Result<PageInfo<T>> selectPage(@NonNull Weekend<T> weekend, @NonNull int pageNum, @NonNull int pageSize, @NonNull String orderField, @NonNull boolean isDesc) {
         if (weekend == null) {
             throw new NullPointerException("weekend is marked non-null but is null");
@@ -422,15 +423,15 @@ public class DbServiceImpl<T> implements DbService<T> {
     private <T> Result<T> fail(T data) {
         return new Result(700, "数据库操作失败！", data);
     }
-
+    @Override
     public Result<List<T>> selectIn(Class<T> clazz, Collection<Long> idList) {
         return this.privateSelectIn(clazz, idList);
     }
-
+    @Override
     public Result<List<T>> selectIn(Class<T> clazz, List<Long> idList) {
         return this.privateSelectIn(clazz, idList);
     }
-
+    @Override
     public Result<List<T>> selectIn(Collection<Long> idList) {
         return this.privateSelectIn(this.getType(), idList);
     }
@@ -441,15 +442,15 @@ public class DbServiceImpl<T> implements DbService<T> {
         c.andEqualTo("flag", 1).andIn("id", idList);
         return this.select(e);
     }
-
+    @Override
     public Result<List<T>> selectNotIn(Class<T> clazz, Collection<Long> idList) {
         return this.privateSelectNotIn(clazz, idList);
     }
-
+    @Override
     public Result<List<T>> selectNotIn(Class<T> clazz, List<Long> idList) {
         return this.privateSelectNotIn(clazz, idList);
     }
-
+    @Override
     public Result<List<T>> selectNotIn(Collection<Long> idList) {
         return this.privateSelectNotIn(this.getType(), idList);
     }

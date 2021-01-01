@@ -12,6 +12,7 @@ import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 合同表(Contract)表服务实现类
@@ -25,6 +26,11 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Resource
     private ContractMapper contractMapper;
 
+
+    @Override
+    public Result<List<Contract>> findAll() {
+        return super.selectAll();
+    }
 
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {

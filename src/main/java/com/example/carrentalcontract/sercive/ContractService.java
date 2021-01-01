@@ -6,6 +6,8 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * 合同表(Contract)表服务接口
  *
@@ -15,4 +17,6 @@ import com.github.pagehelper.PageInfo;
 public interface ContractService extends DbService<Contract> {
 
     Result<PageInfo<Contract>> findPage(Contract contract);
+
+    Result<List<Contract>> findAll();
 }

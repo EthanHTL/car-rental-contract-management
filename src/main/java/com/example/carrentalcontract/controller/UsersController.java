@@ -1,8 +1,10 @@
 package com.example.carrentalcontract.controller;
 
 
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Users;
 import com.example.carrentalcontract.sercive.UsersService;
+import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,7 +16,7 @@ import javax.annotation.Resource;
  * @since 2020-12-27 22:11:57
  */
 @RestController
-@RequestMapping("users")
+@RequestMapping("/api/v1/car/users")
 public class UsersController {
     /**
      * 服务对象
@@ -22,15 +24,9 @@ public class UsersController {
     @Resource
     private UsersService usersService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Users selectOne(Long id) {
-        return this.usersService.queryById(id);
+    @PostMapping("/register")
+    public Result register(@RequestBody Users user){
+        return usersService.insert(user);
     }
 
 }

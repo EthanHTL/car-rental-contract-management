@@ -8,11 +8,7 @@ import tk.mybatis.mapper.weekend.Weekend;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @description:
- * @author: 黄天亮
- * @create: 2020-12-30 16:52
- **/
+
 public interface DbService<T> {
     Result<T> insert(@NonNull T t);
 
