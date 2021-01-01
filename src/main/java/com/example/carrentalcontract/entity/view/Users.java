@@ -1,10 +1,12 @@
 package com.example.carrentalcontract.entity.view;
 
 import com.example.carrentalcontract.common.DbPageParameter;
+import com.example.carrentalcontract.vdgroups.SaveGroup;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class Users implements Serializable {
     /**
     * 用户编号
     */
+    @NotBlank(message = "用户验证不能为空!",groups = {SaveGroup.class})
     private String code;
     /**
     * 性别
@@ -31,8 +34,9 @@ public class Users implements Serializable {
     * 姓名
     */
     @Column(name = "user_name")
+    @NotBlank(message = "用户名不能为空!")
     private String userName;
-
+    @NotBlank(message = "用户密码不能为空!")
     private String password;
     /**
     * 住址
