@@ -8,11 +8,14 @@ import java.lang.annotation.*;
 public @interface NotNull {
     String[] value() default "";
 
-    String Field() default "";
+    // 字段
+    String field() default "";
 
-    String status() default "200";
+    String name() default "";
 
-    String index() default "0";
+    int statusCode() default 200;
 
-    String message() default "not null";
+    int argIndex() default 0;
+
+
 }

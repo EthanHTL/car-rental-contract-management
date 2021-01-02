@@ -24,7 +24,6 @@ public class Users implements Serializable {
     /**
     * 用户编号
     */
-    @NotBlank(message = "用户验证不能为空!",groups = {SaveGroup.class})
     private String code;
     /**
     * 性别
@@ -34,9 +33,10 @@ public class Users implements Serializable {
     * 姓名
     */
     @Column(name = "user_name")
-    @NotBlank(message = "用户名不能为空!")
     private String userName;
-    @NotBlank(message = "用户密码不能为空!")
+    /**
+     * 密码
+     **/
     private String password;
     /**
     * 住址

@@ -2,7 +2,12 @@ package com.example.carrentalcontract.common;
 
 import org.springframework.stereotype.Component;
 
-
+/**
+ * @Author huangtianliang
+ * @Description //TODO 雪花算法
+ * @Date
+ * @Version 1.0
+ **/
 public class ObjectIdGenerator {
     private final long twepoch = 1420041600000L;
     private final long workerIdBits = 5L;

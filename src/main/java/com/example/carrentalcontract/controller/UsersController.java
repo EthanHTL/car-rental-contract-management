@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.plaf.PanelUI;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,20 +33,18 @@ public class UsersController {
     private UsersService usersService;
 
 
+    @NotNull(field = "code", name = "账号", statusCode = 701)
+    @NotNull(field = "password", name = "密码", statusCode = 702)
     @PostMapping("/register")
-    public Result register(@Validated({SaveGroup.class}) @RequestBody Users user, BindingResult result){
-        if(result.hasErrors()){
-            Result<List<ObjectError>> listResult = new Result<>(result.getAllErrors());
-            listResult.setStatusCode(400);
-            return listResult;
-        }
+    public Result register(@RequestBody Users user) {
         return usersService.insert(user);
     }
 
-    @NotNull(status = "400",message = "用户验证码不能为空!")
-    @PostMapping("/register2")
-    public Result register2(@RequestBody Users user){
-        return usersService.insert(user);
+    @NotNull(field = "id", name = "主键", statusCode = 701)
+    @PostMapping("/update/password")
+    public Result updatePassword(@RequestBody Users user) {
+        return usersService.update(user);
     }
+
 
 }

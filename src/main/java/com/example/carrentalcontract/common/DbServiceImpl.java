@@ -325,6 +325,7 @@ public abstract class DbServiceImpl<T> implements DbService<T> {
         if (t == null) {
             throw new NullPointerException("t is marked non-null but is null");
         } else {
+            // 千万级别数据id可以不重复
             String machineId = "11";
             SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
             String dayTime = sdf.format(new Date());
@@ -337,7 +338,7 @@ public abstract class DbServiceImpl<T> implements DbService<T> {
 
             // long id = this.objectIdGenerator.newId();
             this.setFieldValue(t, this.idMethod, value);
-            UUID uuid = UUID.randomUUID();
+            // UUID uuid = UUID.randomUUID();
             this.setFieldValue(t, this.flagMethod, 1);
             this.setFieldValue(t, this.createTimeMethod, Calendar.getInstance().getTime());
             return t;

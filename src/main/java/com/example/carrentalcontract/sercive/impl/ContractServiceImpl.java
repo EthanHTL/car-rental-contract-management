@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.view.Contract;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -34,6 +35,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
 
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {
+        PageInfo info = new PageInfo();
+
         Weekend<Contract> weekend = new Weekend<>(Contract.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {

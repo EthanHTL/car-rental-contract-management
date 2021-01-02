@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface UsersService {
 
+
     Result insert(Users user);
 
+    Result update(Users user);
 }
