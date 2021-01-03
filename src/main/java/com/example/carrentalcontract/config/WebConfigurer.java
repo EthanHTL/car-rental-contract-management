@@ -7,6 +7,7 @@ import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,5 +30,18 @@ public class WebConfigurer implements WebMvcConfigurer {
 
         builder.serializerByType(Date.class, new DateSerializer());
         converters.add(0, new MappingJackson2HttpMessageConverter(builder.build()));
+    }
+    @Override
+    public void addCorsMappings(CorsRegistry corsRegistry){
+        /**
+         * 所有请求都允许跨域，使用这种配置就不需要
+         * 在interceptor中配置header了
+         */
+        corsRegistry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                .allowedHeaders("*")
+                .maxAge(3600);
     }
 }

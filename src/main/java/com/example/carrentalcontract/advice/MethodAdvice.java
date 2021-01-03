@@ -18,14 +18,7 @@ import java.sql.SQLException;
 @RestControllerAdvice
 public class MethodAdvice {
 
-    @ExceptionHandler(Exception.class)
-    public Result<Object> getErrorAndReturn(Exception e){
-        Result<Object> objectResult = new Result<>();
-        objectResult.setStatusCode(200);
-        objectResult.setErrorStackTrace(e.getStackTrace().toString());
-        objectResult.setMessage(e.getMessage());
-        return objectResult;
-    }
+
 
     @ExceptionHandler(NotNullException.class)
     public Result<Object> getErrorAndReturn(NotNullException e){
@@ -36,12 +29,5 @@ public class MethodAdvice {
         return objectResult;
     }
 
-    @ExceptionHandler(SQLException.class)
-    public Result<Object> getSQLErrorAndReturn(Exception e){
-        Result<Object> objectResult = new Result<>();
-        objectResult.setStatusCode(200);
-        objectResult.setErrorStackTrace(e.getStackTrace().toString());
-        objectResult.setMessage(e.getMessage());
-        return objectResult;
-    }
+    
 }
