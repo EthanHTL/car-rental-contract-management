@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.view.UserRole;
+import com.example.carrentalcontract.entity.model.UserRole;
 import com.example.carrentalcontract.sercive.UserRoleService;
 import org.springframework.web.bind.annotation.*;
 

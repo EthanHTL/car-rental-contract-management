@@ -1,10 +1,6 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.view.TblFlowNode;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
-
 /**
  * 流程节点表(TblFlowNode)表数据库访问层
  *

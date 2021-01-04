@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.view.VehicleType;
+import com.example.carrentalcontract.entity.model.VehicleType;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.view.VehicleType;
+import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.mapper.VehicleTypeMapper;
 import com.example.carrentalcontract.sercive.VehicleTypeService;
 import org.springframework.stereotype.Service;

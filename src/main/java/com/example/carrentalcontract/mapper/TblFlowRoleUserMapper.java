@@ -1,10 +1,6 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.view.TblFlowRoleUser;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
-
 /**
  * 流程角色_员工表(TblFlowRoleUser)表数据库访问层
  *

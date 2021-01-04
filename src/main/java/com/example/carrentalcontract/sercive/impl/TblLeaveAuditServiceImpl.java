@@ -1,5 +1,5 @@
 package com.example.carrentalcontract.sercive.impl;
-import com.example.carrentalcontract.entity.view.TblLeaveAudit;
+import com.example.carrentalcontract.entity.model.TblLeaveAudit;
 import com.example.carrentalcontract.mapper.TblLeaveAuditMapper;
 import com.example.carrentalcontract.sercive.TblLeaveAuditService;
 import org.springframework.stereotype.Service;

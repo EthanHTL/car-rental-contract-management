@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.entity.request;
 
-import com.example.carrentalcontract.entity.view.Permission;
-import com.example.carrentalcontract.entity.view.Role;
+import com.example.carrentalcontract.entity.model.Permission;
+import com.example.carrentalcontract.entity.model.Role;
 import lombok.Data;
 
 import java.util.List;

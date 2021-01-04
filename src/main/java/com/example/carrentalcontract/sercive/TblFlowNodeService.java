@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.view.TblFlowNode;
+import com.example.carrentalcontract.entity.model.TblFlowNode;
 
 import java.util.List;
 

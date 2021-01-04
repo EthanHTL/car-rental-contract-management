@@ -3,6 +3,7 @@ package com.example.carrentalcontract.common;
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
+import com.example.carrentalcontract.entity.en.ResponseCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
@@ -141,5 +142,9 @@ public class Result<T> {
 
     public static <T> Result<T> success(T data) {
         return new Result(StatusCode.SUCCESS, "操作成功！", data);
+    }
+
+    public static <T> Result<T> error(ResponseCode data) {
+        return new Result(data.getCode(), data.getMsg());
     }
 }

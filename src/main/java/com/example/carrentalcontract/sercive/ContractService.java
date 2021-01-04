@@ -3,7 +3,7 @@ package com.example.carrentalcontract.sercive;
 
 import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.view.Contract;
+import com.example.carrentalcontract.entity.model.Contract;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

@@ -2,10 +2,9 @@ package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.view.Contract;
+import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

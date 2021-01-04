@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.view.TblFlowLine;
+import com.example.carrentalcontract.entity.model.TblFlowLine;
 import com.example.carrentalcontract.sercive.TblFlowLineService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.view.DataDictionary;
+import com.example.carrentalcontract.entity.model.DataDictionary;
 
 import java.util.List;
 

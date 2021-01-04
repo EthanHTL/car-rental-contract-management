@@ -1,6 +1,5 @@
-package com.example.carrentalcontract.entity.view;
+package com.example.carrentalcontract.entity.model;
 
-import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import java.io.Serializable;

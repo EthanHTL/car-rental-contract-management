@@ -1,11 +1,8 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.view.Users;
-
-import java.util.List;
+import com.example.carrentalcontract.entity.model.Users;
 
 /**
  * 用户表(Users)表服务接口

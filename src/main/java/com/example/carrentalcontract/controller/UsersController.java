@@ -3,19 +3,11 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.view.Users;
+import com.example.carrentalcontract.entity.model.Users;
 import com.example.carrentalcontract.sercive.UsersService;
-import com.example.carrentalcontract.vdgroups.SaveGroup;
-import org.apache.catalina.User;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.swing.plaf.PanelUI;
-import javax.validation.Valid;
-import java.util.List;
 
 /**
  * 用户表(Users)表控制层

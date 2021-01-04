@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.view.UserContract;
+import com.example.carrentalcontract.entity.model.UserContract;
 import com.example.carrentalcontract.sercive.UserContractService;
 import org.springframework.web.bind.annotation.*;
 

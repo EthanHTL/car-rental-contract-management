@@ -1,10 +1,6 @@
 package com.example.carrentalcontract.mapper;
 
 
-import com.example.carrentalcontract.entity.view.Permission;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
-
 /**
  * 权限表(Permission)表数据库访问层
  *

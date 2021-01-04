@@ -1,12 +1,9 @@
-package com.example.carrentalcontract.entity.view;
+package com.example.carrentalcontract.entity.model;
 
-import com.example.carrentalcontract.common.DbPageParameter;
-import com.example.carrentalcontract.vdgroups.SaveGroup;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,7 +21,7 @@ public class Users implements Serializable {
     /**
     * 用户编号
     */
-    private String code;
+    private String account;
     /**
     * 性别
     */
@@ -32,8 +29,7 @@ public class Users implements Serializable {
     /**
     * 姓名
     */
-    @Column(name = "user_name")
-    private String userName;
+    private String username;
     /**
      * 密码
      **/
@@ -53,11 +49,12 @@ public class Users implements Serializable {
     /**
     * 信誉分数
     */
-    private Integer reputation;
+    @Column(name = "reputation_score")
+    private Integer reputationScore;
     /**
     * 状态
     */
-    private int status;
+    private Integer flag;
 
     @Column(name = "create_time")
     private Date createTime;
@@ -65,15 +62,11 @@ public class Users implements Serializable {
     @Column(name = "update_time")
     private Date updateTime;
 
-    @Column(name = "updator_id")
+    @Transient
     private String updatorId;
 
-    @Column(name = "creator_id")
+    @Transient
     private String creatorId;
-
-    @Column(name = "flag")
-    private Integer flag;
-
 
 
 }

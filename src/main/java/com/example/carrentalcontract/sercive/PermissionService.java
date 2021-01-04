@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.view.Permission;
+import com.example.carrentalcontract.entity.model.Permission;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.view.RolePermission;
+import com.example.carrentalcontract.entity.model.RolePermission;
 import com.example.carrentalcontract.sercive.RolePermissionService;
 import org.springframework.web.bind.annotation.*;
 

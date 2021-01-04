@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.view.TblLeaveAudit;
+import com.example.carrentalcontract.entity.model.TblLeaveAudit;
 import com.example.carrentalcontract.sercive.TblLeaveAuditService;
 import org.springframework.web.bind.annotation.*;
 

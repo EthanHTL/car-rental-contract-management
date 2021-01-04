@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
-import com.example.carrentalcontract.entity.view.TblLeaveAudit;
+import com.example.carrentalcontract.entity.model.TblLeaveAudit;
 
 import java.util.List;
 

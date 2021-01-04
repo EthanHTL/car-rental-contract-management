@@ -2,19 +2,14 @@ package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.view.Contract;
-import com.example.carrentalcontract.entity.view.Users;
-import com.example.carrentalcontract.mapper.UsersMapper;
+import com.example.carrentalcontract.entity.en.UserEnum;
+import com.example.carrentalcontract.entity.model.Users;
 import com.example.carrentalcontract.sercive.UsersService;
-import lombok.NonNull;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -31,12 +26,11 @@ public class UsersServiceImpl extends DbServiceImpl<Users> implements UsersServi
     public Result insert(Users user) {
         // 账号查重
         if (checkUserCode(user)) {
-            return new Result(901, "账号已存在");
+            return new Result(UserEnum.USER_READY.getStatusCode(), UserEnum.USER_READY.getMessage());
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String bsPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(bsPassword);
-        System.out.println(user);
         return super.insert(user);
     }
 
@@ -46,9 +40,9 @@ public class UsersServiceImpl extends DbServiceImpl<Users> implements UsersServi
     }
 
     private boolean checkUserCode(Users user) {
-        Weekend<Contract> weekend = new Weekend<>(Contract.class);
+        Weekend<Users> weekend = new Weekend<>(Users.class);
         Example.Criteria criteria = weekend.createCriteria();
-        criteria.andEqualTo("code", user.getCode());
+        criteria.andEqualTo("account", user.getAccount());
         List<Users> data = select(weekend).getData();
         return data.size() > 0;
     }

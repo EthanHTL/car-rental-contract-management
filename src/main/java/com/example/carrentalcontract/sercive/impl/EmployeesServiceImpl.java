@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.view.Employees;
+import com.example.carrentalcontract.entity.model.Employees;
 import com.example.carrentalcontract.mapper.EmployeesMapper;
 import com.example.carrentalcontract.sercive.EmployeesService;
 import org.springframework.stereotype.Service;

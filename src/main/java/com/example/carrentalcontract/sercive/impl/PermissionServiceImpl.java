@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.view.Permission;
+import com.example.carrentalcontract.entity.model.Permission;
 import com.example.carrentalcontract.mapper.PermissionMapper;
 import com.example.carrentalcontract.sercive.PermissionService;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.entity.view.TblFlowRoleUser;
+import com.example.carrentalcontract.entity.model.TblFlowRoleUser;
 import com.example.carrentalcontract.mapper.TblFlowRoleUserMapper;
 import com.example.carrentalcontract.sercive.TblFlowRoleUserService;
 import org.springframework.stereotype.Service;
