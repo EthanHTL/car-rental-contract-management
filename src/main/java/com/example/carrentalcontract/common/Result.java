@@ -147,4 +147,7 @@ public class Result<T> {
     public static <T> Result<T> error(ResponseCode data) {
         return new Result(data.getCode(), data.getMsg());
     }
+    public static <T> Result<T> error(String message) {
+        return new Result(600,message);
+    }
 }

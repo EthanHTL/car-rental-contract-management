@@ -1,18 +1,22 @@
 package com.example.carrentalcontract.config;
 
 import com.alibaba.fastjson.JSON;
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.en.UserEnum;
 import com.example.carrentalcontract.entity.model.Users;
 import com.example.carrentalcontract.mapper.UsersMapper;
 import com.example.carrentalcontract.config.security.UnanthorizedEntryPotint;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +25,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -40,6 +46,7 @@ import java.util.List;
  **/
 @Configuration
 @EnableWebSecurity
+@Slf4j
 // @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -78,10 +85,47 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         response.setContentType("application/json");
                         response.setCharacterEncoding("utf-8");
                         PrintWriter out = response.getWriter();
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(request.getCookies()));
                         // String resp = JSON.toJSONString(rest);
-                        String cookies = JSON.toJSONString(request.getCookies()[0]);
+                        out.flush();
+                        out.close();
+                    }
+                })
+                .failureHandler(new AuthenticationFailureHandler(){
+                    @Override
+                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+                        Result result;
 
-                        response.getWriter().write(cookies);
+                        if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
+                            result = Result.error(e.getMessage());
+                        } else if (e instanceof LockedException) {
+                            result = Result.error("账户被锁定，请联系管理员!");
+                        } else if (e instanceof CredentialsExpiredException) {
+                            result = Result.error("证书过期，请联系管理员!");
+                        } else if (e instanceof AccountExpiredException) {
+                            result = Result.error("账户过期，请联系管理员!");
+                        } else if (e instanceof DisabledException) {
+                            result = Result.error("账户被禁用，请联系管理员!");
+                        } else {
+                            log.error("登录失败：", e);
+                            result = Result.error("登录失败!");
+                        }
+                        PrintWriter out = null;
+                        try {
+                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("application/json");
+                            out = response.getWriter();
+                            out.println(JSON.toJSONString(result));
+                        } catch (Exception ex) {
+                            log.error(ex + "输出JSON出错");
+                        } finally {
+                            if (out != null) {
+                                out.flush();
+                                out.close();
+                            }
+                        }
+
                     }
                 })
                 .and().authorizeRequests()
@@ -90,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60) // 设置有效时长，单位 秒
+                .tokenValiditySeconds(20) // 设置有效时长，单位 秒
                 .userDetailsService(userDetailsService())
                 .and().csrf().disable(); // 关闭 csrf 防护
 
