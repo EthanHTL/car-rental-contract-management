@@ -1,8 +1,8 @@
 package com.example.carrentalcontract.config.security;
 
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.model.Users;
-import com.example.carrentalcontract.entity.request.UserPermissionRequest;
+import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.MyUserDetails;
 import com.example.carrentalcontract.util.ServletUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,9 +35,9 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException {
         try {
-            Users user = new ObjectMapper().readValue(req.getInputStream(), Users.class);
+            SysUser user = new ObjectMapper().readValue(req.getInputStream(), SysUser.class);
             return authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(user.getAccount(), user.getPassword(),new ArrayList<>()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(),new ArrayList<>()));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -49,7 +49,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // 认证成功，得到认证成功之后用户信息
-        UserPermissionRequest user = (UserPermissionRequest) authResult.getPrincipal();
+        MyUserDetails user = (MyUserDetails) authResult.getPrincipal();
         // 根据用户生成token
         jwtTokenManager.generateToken(user);
         // 把用户名称和用户权限放到Redis

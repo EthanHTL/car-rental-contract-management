@@ -5433,7 +5433,7 @@ LABL 0 新宋体,8,N</a:FontList>
 <o:Table Id="o24">
 <a:ObjectID>4D91A077-9403-4C33-A03A-4685AA62C463</a:ObjectID>
 <a:Name>用户表</a:Name>
-<a:Code>users</a:Code>
+<a:Code>sysUser</a:Code>
 <a:CreationDate>1608875235</a:CreationDate>
 <a:Creator>admin</a:Creator>
 <a:ModificationDate>1609059551</a:ModificationDate>
@@ -5808,7 +5808,7 @@ LABL 0 新宋体,8,N</a:FontList>
 <o:Table Id="o32">
 <a:ObjectID>98174560-24C9-462C-8F6D-43C7D3BE8825</a:ObjectID>
 <a:Name>角色表</a:Name>
-<a:Code>role</a:Code>
+<a:Code>sysRole</a:Code>
 <a:CreationDate>1608875236</a:CreationDate>
 <a:Creator>admin</a:Creator>
 <a:ModificationDate>1609059551</a:ModificationDate>

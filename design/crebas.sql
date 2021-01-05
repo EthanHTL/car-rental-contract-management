@@ -14,7 +14,7 @@ drop table if exists flow;
 
 drop table if exists permission;
 
-drop table if exists role;
+drop table if exists sysRole;
 
 drop table if exists role_permission;
 
@@ -30,7 +30,7 @@ drop table if exists user_contract;
 
 drop table if exists user_role;
 
-drop table if exists users;
+drop table if exists sysUser;
 
 drop table if exists vehicle;
 
@@ -118,16 +118,16 @@ create table permission
 alter table permission comment '权限表';
 
 /*==============================================================*/
-/* Table: role                                                  */
+/* Table: sysRole                                                  */
 /*==============================================================*/
-create table role
+create table sysRole
 (
    id                   bigint(20) not null comment '角色id',
    role_name            varchar(100) comment '角色名',
    primary key (id)
 );
 
-alter table role comment '角色表';
+alter table sysRole comment '角色表';
 
 /*==============================================================*/
 /* Table: role_permission                                       */
@@ -234,9 +234,9 @@ create table user_role
 alter table user_role comment '用户角色关联表';
 
 /*==============================================================*/
-/* Table: users                                                 */
+/* Table: sysUser                                                 */
 /*==============================================================*/
-create table users
+create table sysUser
 (
    code                 bigint(20) not null comment '用户编号',
    sex                  tinyint(2) comment '性别',
@@ -249,7 +249,7 @@ create table users
    primary key (code)
 );
 
-alter table users comment '用户表';
+alter table sysUser comment '用户表';
 
 /*==============================================================*/
 /* Table: vehicle                                               */

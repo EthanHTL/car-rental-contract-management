@@ -1,7 +1,7 @@
 package com.example.carrentalcontract.entity.request;
 
 import com.example.carrentalcontract.entity.model.Permission;
-import com.example.carrentalcontract.entity.model.Role;
+import com.example.carrentalcontract.entity.model.SysRole;
 import lombok.Data;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Data
-public class RoleRequest extends Role {
+public class SysRoleRequest extends SysRole {
 
     /**
      * 权限列表

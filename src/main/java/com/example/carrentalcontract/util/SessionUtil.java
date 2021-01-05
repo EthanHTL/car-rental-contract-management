@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.util;
 
-import com.example.carrentalcontract.entity.model.Users;
+import com.example.carrentalcontract.entity.model.SysUser;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,12 +22,12 @@ public class SessionUtil {
         return null;
     }
     //得到当前登录的用户
-    public static Users getCurrentUser(){
+    public static SysUser getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails) {
-                Users currentuser = (Users) principal;
+                SysUser currentuser = (SysUser) principal;
                 return currentuser;
             }
             return null;

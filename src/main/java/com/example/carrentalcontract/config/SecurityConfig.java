@@ -2,9 +2,7 @@ package com.example.carrentalcontract.config;
 
 import com.alibaba.fastjson.JSON;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.en.UserEnum;
-import com.example.carrentalcontract.entity.model.Users;
-import com.example.carrentalcontract.mapper.UsersMapper;
+import com.example.carrentalcontract.config.security.MyUserDetailsService;
 import com.example.carrentalcontract.config.security.UnanthorizedEntryPotint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +15,21 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * @description:
@@ -52,12 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
-
+    @Resource
+    private MyUserDetailsService userDetailsService;
 
     // 创建配置类，设置使用哪个userDetailsService 实现类
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(password());
+        auth.userDetailsService(userDetailsService).passwordEncoder(password());
     }
 
 
@@ -75,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  }).permitAll();
 
         http.formLogin() // 自定义自己编写的登录页面
-                .usernameParameter("account")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 //.loginPage("/login") // 登录页面设置
                 .loginProcessingUrl("/user/login") // 登录访问路径
@@ -130,7 +123,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and().authorizeRequests()
                 .antMatchers("/", "/test/hello", "/user/login").permitAll() // 设置哪些路径不需要认证，可以直接访问
-                .antMatchers("/api/v1/car/contract/find/page").hasRole("sale")
+                .antMatchers("/api/v1/car/contract/find/page").hasRole("sale,admin")
+                // .antMatchers("/api/v1/**").hasAuthority("sale,admin")
                 .anyRequest().permitAll()
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
@@ -141,11 +135,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * 密码
+     */
     @Bean
     PasswordEncoder password() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 记住我操作
+     * @return PersistentTokenRepository
+     */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -153,30 +154,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 创建数据库
         // jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
-    }
-
-    //
-    @Override
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Autowired
-            UsersMapper userMapper;
-            @Override
-            public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
-                Users loadUser = new Users();
-                loadUser.setAccount(account);
-
-                Users user = userMapper.selectOne(loadUser);
-                if (user == null) {// 数据库没有用户名，认证失败
-                    throw new UsernameNotFoundException(UserEnum.ACCOUNT_NOT_EXIST.getMessage());
-                }
-                // 获取用户权限
-                List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList("admins,ROLE_sale");
-
-                return new User(user.getAccount() ,user.getPassword(),true,true,true,true, auths);
-            }
-        };
     }
 
 

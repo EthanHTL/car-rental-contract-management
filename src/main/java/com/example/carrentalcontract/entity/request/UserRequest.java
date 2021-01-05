@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.entity.request;
 
-import com.example.carrentalcontract.entity.model.Users;
+import com.example.carrentalcontract.entity.model.SysUser;
 import lombok.Data;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
  * @Version 1.0
  **/
 @Data
-public class UserRequest extends Users {
+public class UserRequest extends SysUser {
 
     /**
      * 角色列表
      */
-    private List<RoleRequest> roles;
+    private List<SysRoleRequest> roles;
 
 }

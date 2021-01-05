@@ -54,6 +54,7 @@ public class ServletUtil {
         return finalurl;
     }
 
+
     //把restresult打印到response
     public static void printRestResult(Result rest) {
         HttpServletResponse response= getResponse();

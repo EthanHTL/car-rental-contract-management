@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.SysMenuMapper">
+
+    <select id="findSysMenuByRoleofIds" resultType="com.example.carrentalcontract.entity.model.SysMenu">
+        select distinct sm.*
+        from sys_menu sm
+                 left join sys_role_menu srm on sm.id = srm.menu_id
+                 left join sys_role sr on srm.role_id = sr.id
+
+        <where>
+            sr.id in
+            <foreach collection="list" item="item"  separator="," open="(" close=")" index="">
+                #{item.id}
+            </foreach>
+        </where>
+
+
+    </select>
+</mapper>

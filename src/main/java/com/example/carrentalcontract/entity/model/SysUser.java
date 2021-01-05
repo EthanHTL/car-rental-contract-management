@@ -3,33 +3,40 @@ package com.example.carrentalcontract.entity.model;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户表(Users)实体类
+ * 用户表(SysUser)实体类
  *
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
 @Data
-public class Users implements Serializable {
+@Table(name = "sys_users")
+public class SysUser implements Serializable {
     private static final long serialVersionUID = 136163826059612169L;
 
+    /**
+     * 主键
+     */
+    @Id
     private String id;
     /**
-    * 用户编号
+    * 用户账号
     */
-    private String account;
+    private String username;
     /**
     * 性别
     */
-    private Object sex;
+    private Integer sex;
     /**
     * 姓名
     */
-    private String username;
+    private String nickname;
     /**
      * 密码
      **/
@@ -55,12 +62,20 @@ public class Users implements Serializable {
     * 状态
     */
     private Integer flag;
-
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
-
+    /**
+     * 更新时间
+     */
     @Column(name = "update_time")
     private Date updateTime;
+    /**
+     * 备注
+     */
+    private String remark;
 
     @Transient
     private String updatorId;
