@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import java.util.Date;
  */
 @Data
 @Table(name = "sys_users")
-public class SysUser implements Serializable {
+public class SysUser extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 136163826059612169L;
 
     /**

@@ -14,6 +14,7 @@ public enum ResponseCode {
     WEB_UNKOWN(999,"未知错误"),
 
     //login && access
+    LOGIN_SUCCESS(200, "登录成功"),
     LOGIN_FAIL(601, "登录失败"),
     ACCESS_DENIED(602, "无权访问"),
     //parameter

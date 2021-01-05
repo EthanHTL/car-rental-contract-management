@@ -60,8 +60,8 @@ public class SysApi implements Serializable {
     /**
     * 创建时间
     */
-    @Column(name = "creater_time")
-    private Date createrTime;
+    @Column(name = "create_time")
+    private Date createTime;
     /**
     * 修改时间
     */

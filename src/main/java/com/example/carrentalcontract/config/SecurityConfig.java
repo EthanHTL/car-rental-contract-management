@@ -2,6 +2,8 @@ package com.example.carrentalcontract.config;
 
 import com.alibaba.fastjson.JSON;
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.config.security.MyAuthenticationFailureHandler;
+import com.example.carrentalcontract.config.security.MyAuthenticationSuccessHandler;
 import com.example.carrentalcontract.config.security.MyUserDetailsService;
 import com.example.carrentalcontract.config.security.UnanthorizedEntryPotint;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Resource
     private MyUserDetailsService userDetailsService;
+    @Resource
+    private MyAuthenticationFailureHandler failureHandler;
+    @Resource
+    private MyAuthenticationSuccessHandler successHandler;
 
     // 创建配置类，设置使用哪个userDetailsService 实现类
     @Override
@@ -60,76 +66,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(new UnanthorizedEntryPotint());
         // 退出
         http.logout().logoutUrl("/logout")
-                .logoutSuccessHandler((req, resp, authentication) -> {
-                    resp.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = resp.getWriter();
-                    out.write("注销成功...");
-                    out.flush();
-                 }).permitAll();
+                .permitAll();
 
         http.formLogin() // 自定义自己编写的登录页面
                 .usernameParameter("username")
                 .passwordParameter("password")
-                //.loginPage("/login") // 登录页面设置
                 .loginProcessingUrl("/user/login") // 登录访问路径
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                        response.setContentType("application/json");
-                        response.setCharacterEncoding("utf-8");
-                        PrintWriter out = response.getWriter();
-                        out = response.getWriter();
-                        out.println(JSON.toJSONString(request.getCookies()));
-                        // String resp = JSON.toJSONString(rest);
-                        out.flush();
-                        out.close();
-                    }
-                })
-                .failureHandler(new AuthenticationFailureHandler(){
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-                        Result result;
-
-                        if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-                            result = Result.error(e.getMessage());
-                        } else if (e instanceof LockedException) {
-                            result = Result.error("账户被锁定，请联系管理员!");
-                        } else if (e instanceof CredentialsExpiredException) {
-                            result = Result.error("证书过期，请联系管理员!");
-                        } else if (e instanceof AccountExpiredException) {
-                            result = Result.error("账户过期，请联系管理员!");
-                        } else if (e instanceof DisabledException) {
-                            result = Result.error("账户被禁用，请联系管理员!");
-                        } else {
-                            log.error("登录失败：", e);
-                            result = Result.error("登录失败!");
-                        }
-                        PrintWriter out = null;
-                        try {
-                            response.setCharacterEncoding("UTF-8");
-                            response.setContentType("application/json");
-                            out = response.getWriter();
-                            out.println(JSON.toJSONString(result));
-                        } catch (Exception ex) {
-                            log.error(ex + "输出JSON出错");
-                        } finally {
-                            if (out != null) {
-                                out.flush();
-                                out.close();
-                            }
-                        }
-
-                    }
-                })
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
                 .and().authorizeRequests()
                 .antMatchers("/", "/test/hello", "/user/login").permitAll() // 设置哪些路径不需要认证，可以直接访问
-                .antMatchers("/api/v1/car/contract/find/page").hasRole("sale,admin")
                 // .antMatchers("/api/v1/**").hasAuthority("sale,admin")
-                .anyRequest().permitAll()
+                .anyRequest().access("@rbacService.hasPermission(request,authentication)")
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
+                .rememberMeParameter("remember-me-new") // 自定义 前端input name属性名
+                .rememberMeCookieName("remember-me-cookie") // 自定义前端储存cookie的名字
                 .tokenValiditySeconds(20) // 设置有效时长，单位 秒
                 .userDetailsService(userDetailsService())
+                .and()
+                .logout().logoutUrl("/logout")
+                .deleteCookies("JSESSIONID")
+                //.logoutSuccessUrl() 登出成功处理
+                //.and().sessionManagement()
+                //.maximumSessions(1) // 最大登录账户数量
+                //.maxSessionsPreventsLogin(false)
                 .and().csrf().disable(); // 关闭 csrf 防护
 
     }

@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.config.security;
 
 import com.example.carrentalcontract.entity.en.UserEnum;
+import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
 import com.example.carrentalcontract.entity.model.SysUser;
@@ -51,23 +52,22 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         // 将查询到的用户添加到 UserDetails 中
         MyUserDetails myUserDetails = new MyUserDetails(user);
+        myUserDetails.setEnabled(true);
         // 权限列表
         List<String> authorities = new ArrayList<>();
 
         // 获取用户角色列表
-        // List<SysRole> roles = roleMapper.findRoleByUserName(username);
-        // roles.forEach(rc -> authorities.add("ROLE_"+rc.getRoleName()));
-        //
-        // // 根据角色列表加载当前用户具有的权限
-        // List<SysMenu> menus = sysMenuMapper.findSysMenuByRoleofIds(roles);
-        // menus.forEach(menu -> authorities.add(menu.getUrl()));
+        List<SysRole> roles = roleMapper.findRoleByUserName(username);
+        roles.forEach(rc -> authorities.add("ROLE_" + rc.getRoleName()));
 
-        // myUserDetails.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",",authorities)));
+        // 根据角色列表加载当前用户具有的权限
+        List<SysMenu> menus = sysMenuMapper.findSysMenuByRoleofIds(roles);
+        menus.forEach(menu -> authorities.add(menu.getUrl()));
 
-        List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList("admins,ROLE_sale");
-        myUserDetails.setAuthorities(auths);
+        List<SysApi> apis = sysApiMapper.findSysApisByRolesIds(roles);
+        apis.forEach(api -> authorities.add(api.getUrl()));
 
-
+        myUserDetails.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", authorities)));
 
         return myUserDetails;
     }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.SysApiMapper">
+    <resultMap id="SysApiMap" type="com.example.carrentalcontract.entity.model.SysApi">
+        <id property="id" column="id"/>
+        <result property="apiPid" column="api_pid"/>
+        <result property="apiPids" column="api_pids"/>
+        <result property="isLeaf" column="is_leaf"/>
+        <result property="apiName" column="api_name"/>
+        <result property="url" column="url"/>
+        <result property="sort" column="sort"/>
+        <result property="level" column="level"/>
+        <result property="flag" column="flag"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updatorId" column="updator_id"/>
+    </resultMap>
+
+    <select id="findSysApisByRolesIds" resultMap="SysApiMap">
+        select distinct sa.* from sys_api sa
+        left join sys_role_api sra on sa.id = sra.api_id
+        left join sys_role sr on sra.role_id = sr.id
+        <where>
+            sr.id in
+            <foreach collection="list" item="item" separator="," open="(" close=")" index="">
+                #{item.id}
+            </foreach>
+        </where>
+    </select>
+</mapper>
