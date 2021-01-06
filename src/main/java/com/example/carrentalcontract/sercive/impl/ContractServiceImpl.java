@@ -3,9 +3,13 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.example.carrentalcontract.sercive.UsersService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
@@ -32,6 +36,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         return super.selectAll();
     }
 
+    @PreAuthorize("hasAnyRole('common')")
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {
         PageInfo info = new PageInfo();

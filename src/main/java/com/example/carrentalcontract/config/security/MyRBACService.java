@@ -24,8 +24,8 @@ public class MyRBACService {
             UserDetails userDetails = (UserDetails) principal;
             // 本次访问的资源
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(request.getRequestURI());
-            log.debug("simpleGrantedAuthority:{}",simpleGrantedAuthority);
-            log.debug("userDetails.getAuthorities():{}",userDetails.getAuthorities());
+            log.info("操作路径:{}",simpleGrantedAuthority);
+            log.info("所有权限:{}",userDetails.getAuthorities());
 
             // userDetails.getAuthorities() 中包含所有的请求
             return userDetails.getAuthorities().contains(simpleGrantedAuthority);

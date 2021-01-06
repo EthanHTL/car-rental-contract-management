@@ -3,6 +3,7 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.entity.model.UserRole;
 import com.example.carrentalcontract.mapper.UserRoleMapper;
 import com.example.carrentalcontract.sercive.UserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +17,8 @@ import java.util.List;
  */
 @Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
-    @Resource
+
+    @Autowired
     private UserRoleMapper userRoleDao;
 
     /**

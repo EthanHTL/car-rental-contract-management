@@ -25,7 +25,7 @@ public class UsersController {
     private UsersService usersService;
 
 
-    @NotNull(field = "code", name = "账号", statusCode = 701)
+    @NotNull(field = "username", name = "账号", statusCode = 701)
     @NotNull(field = "password", name = "密码", statusCode = 702)
     @PostMapping("/register")
     public Result register(@RequestBody SysUser user) {

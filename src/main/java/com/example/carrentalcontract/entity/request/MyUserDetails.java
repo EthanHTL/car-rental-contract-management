@@ -21,6 +21,8 @@ public class MyUserDetails implements UserDetails {
     // 账户是否可用
     private boolean enabled;
 
+    private String token;
+
     // 当前权限
     private Collection<? extends GrantedAuthority> authorities;
 

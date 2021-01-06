@@ -9,6 +9,4 @@ package com.example.carrentalcontract.mapper;
  */
 public interface UserRoleMapper {
 
-
-
 }

@@ -2,16 +2,14 @@ package com.example.carrentalcontract.config;
 
 import com.alibaba.fastjson.JSON;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.config.security.MyAuthenticationFailureHandler;
-import com.example.carrentalcontract.config.security.MyAuthenticationSuccessHandler;
-import com.example.carrentalcontract.config.security.MyUserDetailsService;
-import com.example.carrentalcontract.config.security.UnanthorizedEntryPotint;
+import com.example.carrentalcontract.config.security.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -41,7 +39,7 @@ import java.io.PrintWriter;
 @Configuration
 @EnableWebSecurity
 @Slf4j
-// @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -52,6 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MyAuthenticationFailureHandler failureHandler;
     @Resource
     private MyAuthenticationSuccessHandler successHandler;
+    @Resource
+    private MyAccessDeniedHandler accessDeniedHandler;
+    @Resource
+    private UnanthorizedEntryPotint unanthorizedEntryPotint;
 
     // 创建配置类，设置使用哪个userDetailsService 实现类
     @Override
@@ -63,21 +65,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 配置没有权限访问处理
-        http.exceptionHandling().authenticationEntryPoint(new UnanthorizedEntryPotint());
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(unanthorizedEntryPotint);
+
         // 退出
-        http.logout().logoutUrl("/logout")
-                .permitAll();
+        http.logout().logoutUrl("/logout").permitAll();
 
         http.formLogin() // 自定义自己编写的登录页面
                 .usernameParameter("username")
                 .passwordParameter("password")
+                // .loginPage("/login")
                 .loginProcessingUrl("/user/login") // 登录访问路径
                 .successHandler(successHandler)
+                // .defaultSuccessUrl("/success")
                 .failureHandler(failureHandler)
                 .and().authorizeRequests()
-                .antMatchers("/", "/test/hello", "/user/login").permitAll() // 设置哪些路径不需要认证，可以直接访问
-                // .antMatchers("/api/v1/**").hasAuthority("sale,admin")
-                .anyRequest().access("@rbacService.hasPermission(request,authentication)")
+                .antMatchers("/","/user/login","/api/v1/car/users/register").permitAll() // 设置哪些路径不需要认证，可以直接访问
+                .antMatchers("/api/v1/**").access("@rbacService.hasPermission(request,authentication)")
+                .anyRequest().permitAll()
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .rememberMeParameter("remember-me-new") // 自定义 前端input name属性名

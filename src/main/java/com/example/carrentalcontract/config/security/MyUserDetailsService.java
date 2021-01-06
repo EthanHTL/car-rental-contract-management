@@ -10,6 +10,7 @@ import com.example.carrentalcontract.mapper.RoleMapper;
 import com.example.carrentalcontract.mapper.SysApiMapper;
 import com.example.carrentalcontract.mapper.SysMenuMapper;
 import com.example.carrentalcontract.mapper.UsersMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -29,6 +30,7 @@ import java.util.List;
  * @create: 2021-01-05 11:32
  **/
 @Component
+@Slf4j
 public class MyUserDetailsService implements UserDetailsService {
     @Resource
     UsersMapper usersMapper;
@@ -68,7 +70,7 @@ public class MyUserDetailsService implements UserDetailsService {
         apis.forEach(api -> authorities.add(api.getUrl()));
 
         myUserDetails.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", authorities)));
-
+        log.info("UserDetails:{}",myUserDetails);
         return myUserDetails;
     }
 }

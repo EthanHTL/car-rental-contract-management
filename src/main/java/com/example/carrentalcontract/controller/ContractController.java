@@ -4,7 +4,13 @@ package com.example.carrentalcontract.controller;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.example.carrentalcontract.util.SessionUtil;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/car/contract")
+@Slf4j
 public class ContractController {
     /**
      * 服务对象
@@ -35,16 +42,18 @@ public class ContractController {
     //     return this.contractService.selectAll();
     // }
 
-
     @PostMapping("/find/page")
     public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
     }
     @PostMapping("/find/all")
     public Result<List<Contract>> findAll() {
+        UserDetails userInfo = getUserInfo();
         return this.contractService.findAll();
     }
-
+    public UserDetails getUserInfo(){
+        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 
 
 }

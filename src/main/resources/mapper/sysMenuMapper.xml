@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.carrentalcontract.mapper.SysMenuMapper">
     <resultMap id="SysMenuMap" type="com.example.carrentalcontract.entity.model.SysMenu">
-        <id property="id" column="id"/>
-        <result property="menuPid" column="menu_pid"/>
-        <result property="menuPids" column="menu_pids"/>
-        <result property="isLeaf" column="is_leaf"/>
-        <result property="menuName" column="menu_name"/>
-        <result property="icon" column="icon"/>
-        <result property="url" column="url"/>
-        <result property="sort" column="sort"/>
-        <result property="level" column="level"/>
-        <result property="flag" column="flag"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="creatorId" column="creator_id"/>
-        <result property="updatorId" column="updator_id"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="menuPid" column="menu_pid" jdbcType="BIGINT"/>
+        <result property="menuPids" column="menu_pids" jdbcType="VARCHAR"/>
+        <result property="isLeaf" column="is_leaf" jdbcType="TINYINT"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="flag" column="flag" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="creatorId" column="creator_id" jdbcType="BIGINT"/>
+        <result property="updatorId" column="updator_id" jdbcType="BIGINT"/>
     </resultMap>
     <sql id="columns">
         id,menu_pid,menu_pids,is_leaf,menu_name,url,icon,sort,level,flag,create_time,update_time,creator_id,updator_id
