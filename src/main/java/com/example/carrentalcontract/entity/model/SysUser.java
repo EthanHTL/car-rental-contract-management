@@ -25,7 +25,7 @@ public class SysUser extends DbPageParameter implements Serializable {
      * 主键
      */
     @Id
-    private String id;
+    private Long id;
     /**
     * 用户账号
     */

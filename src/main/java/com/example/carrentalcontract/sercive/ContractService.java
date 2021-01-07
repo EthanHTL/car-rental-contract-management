@@ -19,4 +19,6 @@ public interface ContractService extends DbService<Contract> {
     Result<PageInfo<Contract>> findPage(Contract contract);
 
     Result<List<Contract>> findAll();
+
+    Result insert(Contract contract);
 }

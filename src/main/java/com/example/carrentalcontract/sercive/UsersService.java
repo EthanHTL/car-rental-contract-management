@@ -17,4 +17,8 @@ public interface UsersService extends DbService<SysUser> {
     Result insert(SysUser user);
 
     Result update(SysUser user);
+
+    Result updatePassword(SysUser user);
+
+    Result<SysUser> selectByUsername(String username);
 }

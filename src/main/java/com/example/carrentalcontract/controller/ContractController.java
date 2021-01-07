@@ -32,25 +32,28 @@ public class ContractController {
     @Resource
     private ContractService contractService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @return 单条数据
-     */
-    // @GetMapping("/find/all")
-    // public Result<List<Contract>> selectAll() {
-    //     return this.contractService.selectAll();
-    // }
 
+    /**
+     * 分页
+     * @param contract
+     * @return
+     */
     @PostMapping("/find/page")
     public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
     }
+
+    /**
+     * 查询所有用户
+     * @return
+     */
     @PostMapping("/find/all")
     public Result<List<Contract>> findAll() {
         UserDetails userInfo = getUserInfo();
         return this.contractService.findAll();
     }
+
+
     public UserDetails getUserInfo(){
         return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }

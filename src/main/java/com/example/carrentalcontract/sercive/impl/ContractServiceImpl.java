@@ -8,6 +8,7 @@ import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.example.carrentalcontract.sercive.UsersService;
 import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,11 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         }
 
         return super.selectPage(weekend,contract.getPageNum(),contract.getPageSize());
+    }
+
+    @Override
+    public Result<Contract> insert(@NonNull Contract contract) {
+        return super.insert(contract);
     }
 
     // @Override

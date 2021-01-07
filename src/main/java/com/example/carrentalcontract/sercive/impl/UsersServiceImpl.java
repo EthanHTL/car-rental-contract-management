@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.sercive.impl;
 
+import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.en.UserEnum;
@@ -46,17 +47,30 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
 
     @Override
     public Result update(SysUser sysUser) {
+        if (!checkUserCode(sysUser)) {
+            return new  Result(901,"账户不存在");
+        }
         return super.update(sysUser);
+
     }
 
+    @Override
+    public Result<SysUser> selectByUsername(String username) {
+        return null;
+    }
 
-
+    @Override
+    public Result updatePassword(SysUser user) {
+        return super.update(user);
+    }
 
 
     private boolean checkUserCode(SysUser user) {
         Weekend<SysUser> weekend = new Weekend<>(SysUser.class);
         Example.Criteria criteria = weekend.createCriteria();
         criteria.andEqualTo("username", user.getUsername());
+
+
         List<SysUser> data = select(weekend).getData();
         return data.size() > 0;
     }

@@ -18,7 +18,8 @@ import java.util.List;
  */
 @Service("roleService")
 public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleService {
-    @Autowired
+
+    @Resource
     private RoleMapper roleMapper;
 
     @Override
@@ -27,4 +28,16 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         return Result.success(roleMapper.findRoleByUserName("111"));
         // return super.selectAll();
     }
+
+    @Override
+    public Result insert(SysRole role) {
+        return super.insertOne(role);
+    }
+
+    @Override
+    public Result<SysRole> selectByPrimaryKey(Long id) {
+        return super.selectByPrimaryKey(id);
+    }
+
+
 }

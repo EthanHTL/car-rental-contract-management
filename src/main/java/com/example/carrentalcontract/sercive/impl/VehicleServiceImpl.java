@@ -1,8 +1,11 @@
 package com.example.carrentalcontract.sercive.impl;
 
+import com.example.carrentalcontract.common.DbServiceImpl;
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.mapper.VehicleMapper;
 import com.example.carrentalcontract.sercive.VehicleService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,32 +18,23 @@ import java.util.List;
  * @since 2020-12-27 22:11:57
  */
 @Service("vehicleService")
-public class VehicleServiceImpl implements VehicleService {
+public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements VehicleService {
     @Resource
     private VehicleMapper vehicleDao;
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
+     * 主键查询
      */
     @Override
-    public Vehicle queryById(Long id) {
-        return null;
+    public Result<Vehicle> selectByPrimaryKey(Long id) {
+        return super.selectByPrimaryKey(id);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
     @Override
-    public List<Vehicle> queryAllByLimit(int offset, int limit) {
-        return null;
+    public Result<PageInfo<Vehicle>> findPage(Vehicle vehicle) {
+        return super.selectPage(vehicle,vehicle.getPageNum(),vehicle.getPageSize());
     }
+
 
     /**
      * 新增数据
@@ -49,7 +43,7 @@ public class VehicleServiceImpl implements VehicleService {
      * @return 实例对象
      */
     @Override
-    public Vehicle insert(Vehicle vehicle) {
+    public Result insert(Vehicle vehicle) {
         return null;
     }
 
@@ -60,7 +54,7 @@ public class VehicleServiceImpl implements VehicleService {
      * @return 实例对象
      */
     @Override
-    public Vehicle update(Vehicle vehicle) {
+    public Result update(Vehicle vehicle) {
         return null;
     }
 
@@ -73,5 +67,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public boolean deleteById(Long id) {
         return false;
+    }
+
+    @Override
+    public Result<List<Vehicle>> findAll() {
+        return null;
     }
 }

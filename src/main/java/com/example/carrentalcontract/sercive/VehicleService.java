@@ -1,7 +1,9 @@
 package com.example.carrentalcontract.sercive;
 
 
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -15,28 +17,30 @@ public interface VehicleService {
 
     /**
      * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
      */
-    Vehicle queryById(Long id);
+    Result<Vehicle> selectByPrimaryKey(Long id);
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param vehicle 车辆信息
      * @return 对象列表
      */
-    List<Vehicle> queryAllByLimit(int offset, int limit);
+    Result<PageInfo<Vehicle>> findPage(Vehicle vehicle);
+    
+    /**
+     * 插入
+     *
+     * @param vehicle 车辆
+     */
+    Result insert(Vehicle vehicle);
 
     /**
-     * 新增数据
+     * 批量插入
      *
-     * @param vehicle 实例对象
-     * @return 实例对象
+     * @param vehicles 车辆
      */
-    Vehicle insert(Vehicle vehicle);
+    Result insertBatch(List<Vehicle> vehicles);
 
     /**
      * 修改数据
@@ -44,7 +48,7 @@ public interface VehicleService {
      * @param vehicle 实例对象
      * @return 实例对象
      */
-    Vehicle update(Vehicle vehicle);
+    Result update(Vehicle vehicle);
 
     /**
      * 通过主键删除数据
@@ -54,4 +58,5 @@ public interface VehicleService {
      */
     boolean deleteById(Long id);
 
+    Result<List<Vehicle>> findAll();
 }

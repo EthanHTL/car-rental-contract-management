@@ -4,6 +4,7 @@ package com.example.carrentalcontract.mapper;
 import com.example.carrentalcontract.common.DbMapper;
 import com.example.carrentalcontract.entity.model.SysRole;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

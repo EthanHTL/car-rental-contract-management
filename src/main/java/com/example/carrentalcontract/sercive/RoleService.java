@@ -16,5 +16,24 @@ import java.util.List;
 public interface RoleService extends DbService<SysRole> {
 
 
+    /**
+     * 查询所有角色
+     */
     Result<List<SysRole>> findAll();
+
+    /**
+     * 创建角色
+     */
+    Result insert(SysRole role);
+
+    /**
+     * 修改角色
+     */
+    Result update(SysRole role);
+
+
+    Result<SysRole> selectByPrimaryKey(Long id);
+
+
+
 }
