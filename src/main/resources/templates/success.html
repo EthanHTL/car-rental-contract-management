@@ -6,6 +6,12 @@
 </head>
 <body>
 登录成功
+<form method="POST" enctype="multipart/form-data" action="/api/v1/car/contract/upload">
+    File to upload: <input type="file" name="upfile"><br/>
+    Notes about the file: <input type="text" name="note"><br/>
+    <br/>
+    <input type="submit" value="Press"> to upload the file!
+</form>
 <a href="/logout">退出</a>
 </body>
 </html>
