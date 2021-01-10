@@ -29,7 +29,7 @@ public class FileHandler {
             SysResource resource = new SysResource();
             // 上传简单文件名
             String oldFileName = file.getOriginalFilename();
-            String description = oldFileName.substring(0, oldFileName.indexOf('.'));
+//            String description = oldFileName.substring(0, oldFileName.indexOf('.'));
             // 获取文件后缀
             String extension = "." + FilenameUtils.getExtension(file.getOriginalFilename());
             // 生成新的文件名称
@@ -64,8 +64,8 @@ public class FileHandler {
             }
 
             resource.setOldFilename(oldFileName).setNewFilename(newFileName).setExt(extension)
-                    .setSize(String.valueOf(size)).setType(Long.valueOf(type))
-                    .setPath(dataDirPath).setDescription(description);
+                    .setSize(String.valueOf(size)).setType(type)
+                    .setPath("/static/files/"+FileEnum.PROFILE_PHOTO.getCode());
 
             resources.add(resource);
         }

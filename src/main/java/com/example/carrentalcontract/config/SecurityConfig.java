@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // .loginPage("/login")
                 .loginProcessingUrl("/user/login") // 登录访问路径
                 .successHandler(successHandler)
-                .defaultSuccessUrl("/success")
+//                .defaultSuccessUrl("/success")
                 .failureHandler(failureHandler)
                 .and().authorizeRequests()
                 .antMatchers("/","/user/login","/api/v1/car/users/register").permitAll() // 设置哪些路径不需要认证，可以直接访问
@@ -93,10 +93,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutUrl("/logout")
                 .deleteCookies("JSESSIONID")
-                //.logoutSuccessUrl() 登出成功处理
-                //.and().sessionManagement()
-                //.maximumSessions(1) // 最大登录账户数量
-                //.maxSessionsPreventsLogin(false)
                 .and().csrf().disable(); // 关闭 csrf 防护
 
     }

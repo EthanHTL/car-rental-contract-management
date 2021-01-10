@@ -18,14 +18,14 @@ import java.util.Date;
 @Table(name = "sys_resource")
 public class SysResource {
     @Id
-    private Long id;
+    private String id;
     @Column(name = "old_filename")
     private String oldFilename;
     @Column(name = "new_filename")
     private String newFilename;
     private String ext;
     private String size;
-    private Long type;
+    private String type;
     private String path;
     private String description;
     /**

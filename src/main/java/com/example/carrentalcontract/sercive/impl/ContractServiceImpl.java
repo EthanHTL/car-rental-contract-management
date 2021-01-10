@@ -41,7 +41,6 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {
         PageInfo info = new PageInfo();
-
         Weekend<Contract> weekend = new Weekend<>(Contract.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {

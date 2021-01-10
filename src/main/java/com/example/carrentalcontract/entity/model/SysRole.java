@@ -2,7 +2,9 @@ package com.example.carrentalcontract.entity.model;
 
 import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
+import javax.jws.HandlerChain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,6 +16,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-12-27 22:11:56
  */
+@Accessors(chain = true)
 @Data
 @Table(name = "sys_role")
 public class SysRole extends DbPageParameter implements Serializable {

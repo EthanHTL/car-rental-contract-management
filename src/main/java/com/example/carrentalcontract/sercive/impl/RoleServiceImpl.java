@@ -2,6 +2,7 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.request.SysUserRequest;
 import com.example.carrentalcontract.mapper.RoleMapper;
 import com.example.carrentalcontract.sercive.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     @Override
     public Result insert(SysRole role) {
         return super.insertOne(role);
+    }
+
+    @Override
+    public Result insertUserRole(SysUserRequest user) {
+        return null;
     }
 
     @Override

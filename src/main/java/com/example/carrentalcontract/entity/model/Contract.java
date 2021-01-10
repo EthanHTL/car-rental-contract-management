@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.annotation.Dict;
 import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
@@ -43,6 +44,7 @@ public class Contract extends DbPageParameter implements Serializable {
     /**
     * 支付方式
     */
+    @Dict(dictCode = "payment")
     private String payment;
     /**
     * 合同负责人

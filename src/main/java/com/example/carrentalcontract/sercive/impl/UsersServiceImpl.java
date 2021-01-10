@@ -4,17 +4,21 @@ import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.en.UserEnum;
+import com.example.carrentalcontract.entity.model.SysRole;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.SysUserRequest;
 import com.example.carrentalcontract.mapper.UsersMapper;
 import com.example.carrentalcontract.sercive.RoleService;
 import com.example.carrentalcontract.sercive.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,15 +38,26 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
 
 
     @Override
+    @Transactional
     public Result insert(SysUser user) {
         // 账号查重
         if (checkUserCode(user)) {
-            return new Result(UserEnum.USER_READY.getStatusCode(), UserEnum.USER_READY.getMessage());
+            return new Result(UserEnum.USER_READY);
         }
+        Result<SysUser> userResult = super.insert(user);
+        // 密码加密
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String bsPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(bsPassword);
-        return super.insert(user);
+        // 设置用户角色
+        SysUserRequest userRequest = new SysUserRequest();
+        SysRole role = new SysRole();
+        role.setId("1");
+        List<SysRole> roles = new ArrayList<>();
+        roles.add(role);
+        userRequest.setRoleList(roles).setId(userResult.getData().getId());
+        // 分配角色
+        return roleService.insertUserRole(userRequest);
     }
 
     @Override

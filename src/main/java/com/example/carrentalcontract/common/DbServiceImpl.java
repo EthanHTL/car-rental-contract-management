@@ -74,6 +74,7 @@ public abstract class DbServiceImpl<T> implements DbService<T> {
         if (list == null) {
             throw new NullPointerException("list is marked non-null but is null");
         } else {
+            list.forEach(item ->item =this.setDefaultFieldValues(item));
             int i = this.mapper.insertBatch(list);
             return i >= 1 ? new Result() : this.fail();
         }

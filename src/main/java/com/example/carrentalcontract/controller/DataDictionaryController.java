@@ -1,11 +1,14 @@
 package com.example.carrentalcontract.controller;
 
 
-import com.example.carrentalcontract.entity.model.DataDictionary;
-import com.example.carrentalcontract.sercive.DataDictionaryService;
+import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.model.SysDict;
+import com.example.carrentalcontract.sercive.SysDictService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 数据字典(DataDictionary)表控制层
@@ -14,23 +17,42 @@ import javax.annotation.Resource;
  * @since 2020-12-27 22:11:56
  */
 @RestController
-@RequestMapping("dataDictionary")
+@RequestMapping("/api/v1/car/dictionary")
 public class DataDictionaryController {
     /**
      * 服务对象
      */
     @Resource
-    private DataDictionaryService dataDictionaryService;
+    private SysDictService sysDictService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public DataDictionary selectOne(Long id) {
-        return this.dataDictionaryService.queryById(id);
+    @PostMapping("/find/all")
+    public Result<List<SysDict>> findAll(){
+        return sysDictService.findAll();
+    }
+
+    @PostMapping("/find/page")
+    public Result<PageInfo<SysDict>> findPage(SysDict dictionary){
+        return sysDictService.findPage(dictionary);
+    }
+
+    @PostMapping("/insert")
+    public Result insert(SysDict dictionary){
+        return sysDictService.insert(dictionary);
+    }
+
+    @PostMapping("/update")
+    public Result update(SysDict dictionary){
+        return sysDictService.update(dictionary);
+    }
+
+    @PostMapping("/delete")
+    public Result delete(SysDict dictionary){
+        return sysDictService.delete(dictionary);
+    }
+
+    @PostMapping("/destory")
+    public Result destory(SysDict dictionary){
+        return sysDictService.destory(dictionary);
     }
 
 }

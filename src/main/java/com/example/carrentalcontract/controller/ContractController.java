@@ -70,7 +70,6 @@ public class ContractController {
      */
     @PostMapping("/find/all")
     public Result<List<Contract>> findAll() {
-        UserDetails userInfo = getUserInfo();
         return this.contractService.findAll();
     }
 

@@ -4,6 +4,7 @@ package com.example.carrentalcontract.common;
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 import com.example.carrentalcontract.entity.en.ResponseCode;
+import com.example.carrentalcontract.entity.en.UserEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
@@ -58,6 +59,12 @@ public class Result<T> {
         this.isSuccess = false;
         this.setStatusCode(statusCode);
         this.setMessage(message);
+    }
+    public Result(UserEnum userEnum) {
+        this.statusCode = StatusCode.SUCCESS;
+        this.isSuccess = false;
+        this.setStatusCode(userEnum.getStatusCode());
+        this.setMessage(userEnum.getMessage());
     }
 
     public Result(int statusCode, String message, T data) {

@@ -1,7 +1,9 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.annotation.Dict;
 import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import java.util.Date;
  * @since 2020-12-27 22:11:57
  */
 @Data
+@Accessors(chain = true)
 @Table(name = "sys_users")
 public class SysUser extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 136163826059612169L;
@@ -33,6 +36,7 @@ public class SysUser extends DbPageParameter implements Serializable {
     /**
     * 性别
     */
+    @Dict(dictCode = "sex")
     private Integer sex;
     /**
     * 姓名
