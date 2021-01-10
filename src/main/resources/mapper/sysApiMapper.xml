@@ -28,4 +28,7 @@
             </foreach>
         </where>
     </select>
+    <select id="selectByRole" resultMap="SysApiMap">
+
+    </select>
 </mapper>

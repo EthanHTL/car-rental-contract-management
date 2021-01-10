@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/car/dictionary")
-public class DataDictionaryController {
+public class SysDictController {
     /**
      * 服务对象
      */

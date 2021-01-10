@@ -11,4 +11,6 @@ import java.util.Set;
 public interface SysMenuMapper extends DbMapper<SysMenu> {
 
     List<SysMenu> findSysMenuByRoleofIds(List<SysRole> roles);
+
+    List<SysMenu> selectByRole(SysRole role);
 }

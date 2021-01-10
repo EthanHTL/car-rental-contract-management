@@ -1,6 +1,6 @@
 package com.example.carrentalcontract.entity.request;
 
-import com.example.carrentalcontract.entity.model.Permission;
+import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
 import lombok.Data;
 
@@ -15,9 +15,8 @@ import java.util.List;
 @Data
 public class SysRoleRequest extends SysRole {
 
-    /**
-     * 权限列表
-     */
-    private List<Permission> permissionList;
+    private List<SysMenuRequest> menuRequestList;
+
+    private List<SysApiRequestion> apiRequestions;
 
 }

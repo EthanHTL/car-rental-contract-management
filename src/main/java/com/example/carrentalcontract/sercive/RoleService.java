@@ -4,6 +4,7 @@ package com.example.carrentalcontract.sercive;
 import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.request.SysRoleRequest;
 import com.example.carrentalcontract.entity.request.SysUserRequest;
 
 import java.util.List;
@@ -42,7 +43,5 @@ public interface RoleService extends DbService<SysRole> {
     Result update(SysRole role);
 
 
-
-
-
+    Result<SysRoleRequest> findSecurity(SysRole role);
 }
