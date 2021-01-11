@@ -3,6 +3,8 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysDict;
+import com.example.carrentalcontract.entity.model.SysDictDetail;
+import com.example.carrentalcontract.sercive.SysDictDetailService;
 import com.example.carrentalcontract.sercive.SysDictService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,8 @@ public class SysDictController {
      */
     @Resource
     private SysDictService sysDictService;
+    @Resource
+    private SysDictDetailService sysDictDetailService;
 
     @PostMapping("/find/all")
     public Result<List<SysDict>> findAll(){
@@ -31,7 +35,7 @@ public class SysDictController {
     }
 
     @PostMapping("/find/page")
-    public Result<PageInfo<SysDict>> findPage(SysDict dictionary){
+    public Result<PageInfo<SysDict>> findPage(@RequestBody SysDict dictionary){
         return sysDictService.findPage(dictionary);
     }
 
@@ -53,6 +57,11 @@ public class SysDictController {
     @PostMapping("/destory")
     public Result destory(SysDict dictionary){
         return sysDictService.destory(dictionary);
+    }
+
+    @PostMapping("/find/code")
+    public Result<List<SysDictDetail>> findDetailByCode(@RequestBody SysDict dict){
+        return sysDictDetailService.findDetailByCode(dict);
     }
 
 }

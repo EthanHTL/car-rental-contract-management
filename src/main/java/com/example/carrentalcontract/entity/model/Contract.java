@@ -44,7 +44,6 @@ public class Contract extends DbPageParameter implements Serializable {
     /**
     * 支付方式
     */
-    @Dict(dictCode = "payment")
     private String payment;
     /**
     * 合同负责人

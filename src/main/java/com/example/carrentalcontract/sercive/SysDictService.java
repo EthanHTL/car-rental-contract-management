@@ -31,7 +31,6 @@ public interface SysDictService {
 
     Result destory(SysDict dictionary);
 
-    Result<SysDictDetail> getDictDataByTypeAndValue(String dictType, String key);
 
 
 }

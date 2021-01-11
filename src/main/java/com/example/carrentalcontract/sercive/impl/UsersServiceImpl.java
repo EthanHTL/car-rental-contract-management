@@ -70,8 +70,12 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
     }
 
     @Override
-    public Result<SysUser> selectByUsername(String username) {
-        return null;
+    public Result<Boolean> selectByUsername(String username) {
+        Weekend<SysUser> weekend = new Weekend<>(SysUser.class);
+        Example.Criteria criteria = weekend.createCriteria();
+        criteria.andEqualTo("username", username);
+        List<SysUser> data = select(weekend).getData();
+        return Result.success(data.size() > 0);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.Optional;
 @Aspect
 @Component
 @Slf4j
-public class MethodAop {
+public class NotNullAop {
 
     @Pointcut("@annotation(com.example.carrentalcontract.annotation.NotNull)")
     public void pointCut() {

@@ -4,6 +4,7 @@ import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysDict;
 import com.example.carrentalcontract.entity.model.SysDictDetail;
+import com.example.carrentalcontract.mapper.SysDictDetailMapper;
 import com.example.carrentalcontract.mapper.SysDictMapper;
 import com.example.carrentalcontract.sercive.SysDictService;
 import com.github.pagehelper.PageInfo;
@@ -26,12 +27,9 @@ public class SysDictServiceImpl extends DbServiceImpl<SysDict> implements SysDic
     @Resource
     private SysDictMapper sysDictMapper;
 
+    @Resource
+    SysDictDetailMapper sysDictDetailMapper;
 
-    @Override
-    public Result<SysDictDetail> getDictDataByTypeAndValue(String dictType, String key) {
-        SysDictDetail detail = sysDictMapper.getDictDataByTypeAndValue(dictType, key);
-        return Result.success(detail);
-    }
 
     @Override
     public Result destory(SysDict dict) {

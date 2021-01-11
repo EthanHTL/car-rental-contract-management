@@ -14,5 +14,4 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysDictMapper extends DbMapper<SysDict> {
 
-    SysDictDetail getDictDataByTypeAndValue(@Param("dicType") String dictType,@Param("key") String key);
 }

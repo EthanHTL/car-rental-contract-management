@@ -20,5 +20,5 @@ public interface UsersService extends DbService<SysUser> {
 
     Result updatePassword(SysUser user);
 
-    Result<SysUser> selectByUsername(String username);
+    Result<Boolean> selectByUsername(String username);
 }

@@ -63,7 +63,7 @@ public class MyUserDetailsService implements UserDetailsService {
         roles.forEach(rc -> authorities.add("ROLE_" + rc.getRoleName()));
 
         // 根据角色列表加载当前用户具有的权限
-        List<SysMenu> menus = sysMenuMapper.findSysMenuByRoleofIds(roles);
+        List<SysMenu> menus = sysMenuMapper.findSysMenuByRoleIds(roles);
         menus.forEach(menu -> authorities.add(menu.getUrl()));
 
         List<SysApi> apis = sysApiMapper.findSysApisByRolesIds(roles);

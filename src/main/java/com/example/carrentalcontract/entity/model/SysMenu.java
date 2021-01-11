@@ -20,12 +20,12 @@ public class SysMenu extends DbPageParameter implements Serializable {
     /**
     * 主键
     */
-    private String id;
+    private Long id;
     /**
     * 父节点
     */
     @Column(name = "menu_pid")
-    private String menuPid;
+    private Long menuPid;
     /**
     * 当前菜单所有父菜单
     */

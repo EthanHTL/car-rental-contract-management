@@ -9,12 +9,5 @@
     </resultMap>
 
 
-    <select id="getDictDataByTypeAndValue" resultMap="DictDetailMap">
-        select sdd.dict_code,sdd.code,sdd.name
-        from sys_dict sd
-                 left join sys_dict_detail sdd on sd.id = sdd.dict_code
-        where sd.code = #{dicType}
-          and sdd.code = #{key}
 
-    </select>
 </mapper>

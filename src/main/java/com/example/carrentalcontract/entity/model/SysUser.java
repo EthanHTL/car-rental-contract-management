@@ -36,7 +36,6 @@ public class SysUser extends DbPageParameter implements Serializable {
     /**
     * 性别
     */
-    @Dict(dictCode = "sex")
     private Integer sex;
     /**
     * 姓名

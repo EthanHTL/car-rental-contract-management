@@ -39,6 +39,11 @@ public class UsersController {
         return usersService.insert(user);
     }
 
+    @NotNull(field = "username", name = "账号", statusCode = 701)
+    @PostMapping("/check/username")
+    public Result<Boolean> checkUsername(@RequestBody SysUser user) {
+        return usersService.selectByUsername(user.getUsername());
+    }
     /**
      * 查询所有用户
      *
@@ -64,7 +69,7 @@ public class UsersController {
     }
 
     @PostMapping("/find/password")
-    public Result<SysUser> getOldPassword() {
+    public Result<Boolean> getOldPassword() {
         return usersService.selectByUsername(getUserInfo().getUsername());
     }
 

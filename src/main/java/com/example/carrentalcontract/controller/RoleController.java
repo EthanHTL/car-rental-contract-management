@@ -3,7 +3,7 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysRole;
-import com.example.carrentalcontract.entity.request.SysRoleRequest;
+import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
 import com.example.carrentalcontract.sercive.RoleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2020-12-27 22:11:56
  */
 @RestController
-@RequestMapping("/api/v1/car/role/")
+@RequestMapping("/api/v1/car/role")
 public class RoleController {
     /**
      * 服务对象
@@ -31,8 +31,8 @@ public class RoleController {
     }
 
     @PostMapping("/find/role/security")
-    public Result<SysRoleRequest> findSecurity(SysRole role) {
-        return this.roleService.findSecurity(role);
+    public Result<SysRoleResponseInfo> findSecurity() {
+        return this.roleService.findAllSecurity();
     }
 
 

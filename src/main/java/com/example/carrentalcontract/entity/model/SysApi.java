@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.annotation.Dict;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -20,12 +21,12 @@ public class SysApi implements Serializable {
     /**
     * 接口权限主键
     */
-    private String id;
+    private Long id;
     /**
     * 父节点
     */
     @Column(name = "api_pid")
-    private String apiPid;
+    private Long apiPid;
     /**
     * 当前接口所有父节点
     */
@@ -35,6 +36,7 @@ public class SysApi implements Serializable {
     * 0：不是子节点，1，是子节点
     */
     @Column(name = "is_leaf")
+    @Dict(dictCode = "is_leaf")
     private Integer isLeaf;
     /**
     * 接口名
@@ -77,14 +79,5 @@ public class SysApi implements Serializable {
     */
     @Column(name = "updator_id")
     private String updatorId;
-
-
-
-
-
-
-
-
-
 
 }

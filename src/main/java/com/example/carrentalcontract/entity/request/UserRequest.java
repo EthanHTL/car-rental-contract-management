@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.entity.request;
 
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
 import lombok.Data;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public class UserRequest extends SysUser {
     /**
      * 角色列表
      */
-    private List<SysRoleRequest> roles;
+    private List<SysRoleResponseInfo> roles;
 
 }
