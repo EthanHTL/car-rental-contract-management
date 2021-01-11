@@ -53,7 +53,7 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
 
     @Override
     public Result insertUserRole(SysUserRequest user) {
-        return null;
+        return Result.success(roleMapper.insertUserAndRole(user.getRoleList(),user.getId()));
     }
 
     @Override

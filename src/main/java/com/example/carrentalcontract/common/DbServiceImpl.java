@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageRowBounds;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ import java.util.*;
  * @create: 2020-12-30 16:52
  **/
 
-
+@Slf4j
 public abstract class DbServiceImpl<T> implements DbService<T> {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    // 这里必须是 Autowired
     @Autowired
     protected DbMapper<T> mapper;
     // @Autowired
@@ -335,10 +337,7 @@ public abstract class DbServiceImpl<T> implements DbService<T> {
                 hashCode = -hashCode;
             }
             String value = machineId + dayTime + String.format("%010d", hashCode);
-            // System.out.println(value);
-
-            // long id = this.objectIdGenerator.newId();
-            this.setFieldValue(t, this.idMethod, value);
+            this.setFieldValue(t, this.idMethod, Long.parseLong(value));
             // UUID uuid = UUID.randomUUID();
             this.setFieldValue(t, this.flagMethod, 1);
             this.setFieldValue(t, this.createTimeMethod, Calendar.getInstance().getTime());

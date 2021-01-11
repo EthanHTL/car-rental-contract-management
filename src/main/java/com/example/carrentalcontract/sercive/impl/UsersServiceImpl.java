@@ -44,11 +44,12 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
         if (checkUserCode(user)) {
             return new Result(UserEnum.USER_READY);
         }
-        Result<SysUser> userResult = super.insert(user);
         // 密码加密
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String bsPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(bsPassword);
+
+        Result<SysUser> userResult = super.insert(user);
         // 设置用户角色
         SysUserRequest userRequest = new SysUserRequest();
         SysRole role = new SysRole();

@@ -9,6 +9,12 @@
         <result property="remark" column="remark"/>
         <result property="sort" column="sort"/>
     </resultMap>
+    <insert id="insertUserAndRole" >
+        insert into sys_user_role(user_id, role_id) values
+            <foreach collection="list" item="item" index="index" separator=",">
+                (#{id},#{item.id})
+            </foreach>
+    </insert>
 
     <select id="findRoleByUserName" resultMap="SysRoleMap">
         select sr.*
