@@ -25,7 +25,7 @@ public class SysDict extends DbPageParameter implements Serializable {
      * 主键
      */
     @Id
-    private String id;
+    private Long id;
 
     /**
     * 编码
@@ -43,9 +43,10 @@ public class SysDict extends DbPageParameter implements Serializable {
     /**
      * 标识
      */
+    @Transient
     private Integer flag;
 
-    @Transient
+    @Column(name = "create_time")
     private Date createTime;
 
     @Transient

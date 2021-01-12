@@ -38,7 +38,10 @@ public class SysDictController {
     public Result<PageInfo<SysDict>> findPage(@RequestBody SysDict dictionary){
         return sysDictService.findPage(dictionary);
     }
-
+    @PostMapping("get")
+    public Result get(SysDict dictionary){
+        return sysDictService.selectByPrimaryKey(dictionary.getId());
+    }
     @PostMapping("/insert")
     public Result insert(SysDict dictionary){
         return sysDictService.insert(dictionary);
@@ -49,19 +52,31 @@ public class SysDictController {
         return sysDictService.update(dictionary);
     }
 
-    @PostMapping("/delete")
-    public Result delete(SysDict dictionary){
-        return sysDictService.delete(dictionary);
-    }
-
     @PostMapping("/destory")
     public Result destory(SysDict dictionary){
         return sysDictService.destory(dictionary);
     }
 
+    // -------字典详情操作
     @PostMapping("/find/code")
     public Result<List<SysDictDetail>> findDetailByCode(@RequestBody SysDict dict){
         return sysDictDetailService.findDetailByCode(dict);
+    }
+    @PostMapping("/detail/get")
+    public Result getDetail(@RequestBody SysDictDetail detail){
+        return sysDictDetailService.selectByPrimaryKey(detail.getId());
+    }
+    @PostMapping("/detail/insert")
+    public Result insertDetail(@RequestBody SysDictDetail detail){
+        return sysDictDetailService.insert(detail);
+    }
+    @PostMapping("/detail/update")
+    public Result updateDetail(@RequestBody SysDictDetail detail){
+        return sysDictDetailService.update(detail);
+    }
+    @PostMapping("/detail/destroy")
+    public Result deleteDetail(@RequestBody SysDictDetail detail){
+        return sysDictDetailService.destroy(detail);
     }
 
 }

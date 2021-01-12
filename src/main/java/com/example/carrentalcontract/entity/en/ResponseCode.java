@@ -15,7 +15,7 @@ public enum ResponseCode {
 
     //login && access
     LOGIN_SUCCESS(200, "登录成功"),
-    LOGIN_FAIL(601, "登录失败"),
+    LOGIN_FAIL(601, "账户或密码错误"),
     ACCESS_DENIED(602, "无权访问"),
     //parameter
     ARG_TYPE_MISMATCH(1000,"参数类型错误"),
