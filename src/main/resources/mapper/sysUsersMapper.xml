@@ -2,11 +2,21 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.carrentalcontract.mapper.UsersMapper">
 
-    <select id="findEmployeeAll" resultType="com.example.carrentalcontract.entity.model.SysUser">
+    <resultMap id="SysUserMap" type="com.example.carrentalcontract.entity.model.SysUser">
+        <id property="id" column="id"/>
+        <result property="idCard" column="id_card"/>
+        <result property="reputationScore" column="reputation_score"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updatorId" column="updator_id"/>
+    </resultMap>
+
+    <select id="findEmployeeAll" resultMap="SysUserMap">
         select su.*
         from sys_users su
                  left join sys_user_role sur on su.id = sur.user_id
                  left join sys_role sr on sur.role_id = sr.id
-        where sr.id = 3
+        where sr.id = '3'
     </select>
 </mapper>
