@@ -32,6 +32,7 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
 
     @Resource
     UsersMapper userMapper;
+
     @Autowired
     RoleService roleService;
 
@@ -77,6 +78,12 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
         criteria.andEqualTo("username", username);
         List<SysUser> data = select(weekend).getData();
         return Result.success(data.size() > 0);
+    }
+
+    @Override
+    public Result<List<SysUser>> findEmployeeAll() {
+
+        return Result.success(userMapper.findEmployeeAll());
     }
 
     @Override

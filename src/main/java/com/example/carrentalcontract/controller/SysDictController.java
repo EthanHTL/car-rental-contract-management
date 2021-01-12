@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.controller;
 
 
+import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysDict;
 import com.example.carrentalcontract.entity.model.SysDictDetail;
@@ -39,25 +40,26 @@ public class SysDictController {
         return sysDictService.findPage(dictionary);
     }
     @PostMapping("get")
-    public Result get(SysDict dictionary){
+    public Result get(@RequestBody SysDict dictionary){
         return sysDictService.selectByPrimaryKey(dictionary.getId());
     }
     @PostMapping("/insert")
-    public Result insert(SysDict dictionary){
+    public Result insert(@RequestBody SysDict dictionary){
         return sysDictService.insert(dictionary);
     }
 
     @PostMapping("/update")
-    public Result update(SysDict dictionary){
+    public Result update(@RequestBody SysDict dictionary){
         return sysDictService.update(dictionary);
     }
 
     @PostMapping("/destory")
-    public Result destory(SysDict dictionary){
+    public Result destory(@RequestBody SysDict dictionary){
         return sysDictService.destory(dictionary);
     }
 
     // -------字典详情操作
+    @NotNull(field = "code",name = "代码",statusCode = 601)
     @PostMapping("/find/code")
     public Result<List<SysDictDetail>> findDetailByCode(@RequestBody SysDict dict){
         return sysDictDetailService.findDetailByCode(dict);

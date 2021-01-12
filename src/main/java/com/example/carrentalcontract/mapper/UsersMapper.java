@@ -4,6 +4,8 @@ package com.example.carrentalcontract.mapper;
 import com.example.carrentalcontract.common.DbMapper;
 import com.example.carrentalcontract.entity.model.SysUser;
 
+import java.util.List;
+
 /**
  * 用户表(SysUser)表数据库访问层
  *
@@ -13,4 +15,5 @@ import com.example.carrentalcontract.entity.model.SysUser;
 public interface UsersMapper extends DbMapper<SysUser> {
 
 
+    List<SysUser> findEmployeeAll();
 }

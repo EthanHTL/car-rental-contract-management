@@ -26,7 +26,6 @@ public class UsersController {
     @Resource
     private UsersService usersService;
 
-
     /**
      * 注册
      *
