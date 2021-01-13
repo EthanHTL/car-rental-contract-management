@@ -13,6 +13,8 @@ import com.example.carrentalcontract.mapper.RoleMapper;
 import com.example.carrentalcontract.mapper.SysApiMapper;
 import com.example.carrentalcontract.mapper.SysMenuMapper;
 import com.example.carrentalcontract.sercive.RoleService;
+import com.example.carrentalcontract.sercive.SysApiService;
+import com.example.carrentalcontract.sercive.SysMenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,6 +38,8 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     private RoleMapper roleMapper;
     @Resource
     private SysMenuMapper sysMenuMapper;
+    @Resource
+    private SysApiService sysApiService;
     @Resource
     private SysApiMapper sysApiMapper;
 
@@ -71,6 +75,27 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         roleResponseInfo.setApiResponseInfos(apis);
 
         return Result.success(roleResponseInfo);
+    }
+
+    @Override
+    public Result<List<SysMenuResponseInfo>> findMenuTree() {
+        List<SysMenu> sysMenus = sysMenuMapper.selectAll();
+        List<SysMenuResponseInfo> menuResponseInfos = ObjectMapper.clone(sysMenus,SysMenuResponseInfo.class);
+        List<SysMenuResponseInfo> menus = getMenuChildren(0L,menuResponseInfos);
+        return Result.success(menus);
+    }
+
+    @Override
+    public Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo) {
+        return null;
+    }
+
+    @Override
+    public Result<List<SysApiResponseInfo>> findApiTree() {
+        List<SysApi> sysApis = sysApiMapper.selectAll();
+        List<SysApiResponseInfo> apiResponseInfos = ObjectMapper.clone(sysApis,SysApiResponseInfo.class);
+        List<SysApiResponseInfo> apis = getApiChildren(0L,apiResponseInfos);
+        return Result.success(apis);
     }
 
     private List<SysMenuResponseInfo> getMenuChildren(Long parentId, List<SysMenuResponseInfo> menuResponseInfos) {

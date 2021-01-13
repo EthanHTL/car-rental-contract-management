@@ -3,7 +3,10 @@ package com.example.carrentalcontract.sercive;
 
 import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
+import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
 import com.example.carrentalcontract.entity.request.SysUserRequest;
 
@@ -46,4 +49,10 @@ public interface RoleService extends DbService<SysRole> {
     Result<List<SysRoleResponseInfo>> findSecurityByRoles(List<SysRole> roles);
 
     Result<SysRoleResponseInfo> findAllSecurity();
+
+    Result<List<SysMenuResponseInfo>> findMenuTree();
+
+    Result<List<SysApiResponseInfo>> findApiTree();
+
+    Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo);
 }

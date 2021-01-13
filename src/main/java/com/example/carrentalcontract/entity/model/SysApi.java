@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.entity.model;
 
 import com.example.carrentalcontract.annotation.Dict;
+import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Table(name = "sys_api")
-public class SysApi implements Serializable {
+public class SysApi extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 703134571616434232L;
     /**
     * 接口权限主键

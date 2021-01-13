@@ -2,7 +2,9 @@ package com.example.carrentalcontract.sercive;
 
 
 import com.example.carrentalcontract.common.DbService;
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysApi;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -15,4 +17,5 @@ import java.util.List;
 public interface SysApiService extends DbService<SysApi> {
 
 
+    Result<PageInfo<SysApi>> findPage(SysApi sysApi);
 }
