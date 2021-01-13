@@ -4,6 +4,7 @@ package com.example.carrentalcontract.sercive;
 import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface UsersService extends DbService<SysUser> {
     Result<Boolean> selectByUsername(String username);
 
     Result<List<SysUser>> findEmployeeAll();
+
+    Result<PageInfo<SysUser>> findEmployeePage(SysUser employee);
 }

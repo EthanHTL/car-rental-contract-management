@@ -1,6 +1,5 @@
 package com.example.carrentalcontract.sercive.impl;
 
-import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.en.UserEnum;
@@ -10,6 +9,7 @@ import com.example.carrentalcontract.entity.request.SysUserRequest;
 import com.example.carrentalcontract.mapper.UsersMapper;
 import com.example.carrentalcontract.sercive.RoleService;
 import com.example.carrentalcontract.sercive.UsersService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -81,9 +81,21 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
     }
 
     @Override
+    public Result<PageInfo<SysUser>> findEmployeePage(SysUser employee) {
+        Integer pageNum = (employee.getPageNum()-1)* employee.getPageSize();
+        Integer pageSize = employee.getPageSize();
+
+        List<SysUser> employeePage = userMapper.findEmployeeAll(pageNum, pageSize,employee);
+        PageInfo info = new PageInfo(employeePage);
+
+
+        return Result.success(info);
+    }
+
+    @Override
     public Result<List<SysUser>> findEmployeeAll() {
 
-        return Result.success(userMapper.findEmployeeAll());
+        return Result.success();
     }
 
     @Override

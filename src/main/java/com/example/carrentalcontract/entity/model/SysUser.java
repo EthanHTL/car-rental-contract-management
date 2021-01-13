@@ -65,6 +65,7 @@ public class SysUser extends DbPageParameter implements Serializable {
     /**
     * 状态
     */
+    @Column(name = "flag")
     private Integer flag;
     /**
      * 创建时间

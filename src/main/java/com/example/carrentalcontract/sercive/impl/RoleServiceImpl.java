@@ -42,8 +42,8 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     @Override
     public Result<List<SysRole>> findAll() {
 
-        return Result.success(roleMapper.findRoleByUserName("111"));
-        // return super.selectAll();
+        // return Result.success(roleMapper.findRoleByUserName("111"));
+        return super.selectAll();
     }
 
     @Override

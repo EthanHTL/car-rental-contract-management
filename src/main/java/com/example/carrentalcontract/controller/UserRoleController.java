@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2020-12-27 22:11:57
  */
 @RestController
-@RequestMapping("/api/v1/car/users/manager")
+@RequestMapping("/a")
 public class UserRoleController {
     /**
      * 服务对象
@@ -26,14 +26,7 @@ public class UserRoleController {
     @Resource
     private UserRoleService userRoleService;
 
-    @Resource
-    private UsersService usersService;
 
-
-    @PostMapping("/find/employee/all")
-    public Result<List<SysUser>> findAll(){
-        return usersService.findEmployeeAll();
-    }
 
 
 }

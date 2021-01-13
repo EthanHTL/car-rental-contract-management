@@ -10,6 +10,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="creatorId" column="creator_id"/>
         <result property="updatorId" column="updator_id"/>
+        <result property="flag" column="flag"/>
     </resultMap>
 
     <select id="findEmployeeAll" resultMap="SysUserMap">
@@ -19,4 +20,5 @@
                  left join sys_role sr on sur.role_id = sr.id
         where sr.id = '3'
     </select>
+
 </mapper>

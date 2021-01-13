@@ -3,6 +3,7 @@ package com.example.carrentalcontract.mapper;
 
 import com.example.carrentalcontract.common.DbMapper;
 import com.example.carrentalcontract.entity.model.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ import java.util.List;
 public interface UsersMapper extends DbMapper<SysUser> {
 
 
-    List<SysUser> findEmployeeAll();
+    List<SysUser> findEmployeeAll(Integer pageNum,Integer pageSize,SysUser employee);
+
 }
