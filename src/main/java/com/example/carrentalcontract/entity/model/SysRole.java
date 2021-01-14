@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 角色表(SysRole)实体类
@@ -48,4 +49,10 @@ public class SysRole extends DbPageParameter implements Serializable {
      * 排序
      */
     private Integer sort;
+
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "update_time")
+    private Date updateTime;
 }
