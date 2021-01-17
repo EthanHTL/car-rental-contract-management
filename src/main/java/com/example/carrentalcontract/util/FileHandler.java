@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.util;
 
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.en.FileEnum;
 import com.example.carrentalcontract.entity.model.SysResource;
 import org.apache.commons.io.FilenameUtils;
@@ -20,9 +21,9 @@ import java.util.UUID;
  * @author: 黄天亮
  * @create: 2021-01-08 16:42
  **/
-public class FileHandler {
+public class  FileHandler {
 
-    public List<SysResource> transferFiles(MultipartFile[] files) {
+    public static List<SysResource> transferFiles(MultipartFile[] files) throws IOException {
         List<SysResource> resources = new ArrayList<>();
 
         for (MultipartFile file : files) {
@@ -41,31 +42,24 @@ public class FileHandler {
             String type = file.getContentType();
             // 处理根据日期生成目录
             String realPath = null;
-            try {
-                realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files";
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+                realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+
+            String dateFormat = new SimpleDateFormat("yyy-MM-dd").format(new Date());
+
             // 上传文件的路径
-            String dataDirPath = realPath + "/" + FileEnum.PROFILE_PHOTO.getCode();
-            // switch (type){
-            //
-            // }
+            String dataDirPath = realPath + dateFormat;
 
             File dateDir = new File(dataDirPath);
             if (!dateDir.exists()) {
                 dateDir.mkdirs();
             }
             // 处理文件上传
-            try {
-                file.transferTo(new File(dateDir, newFileName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            file.transferTo(new File(dateDir, newFileName));
+
 
             resource.setOldFilename(oldFileName).setNewFilename(newFileName).setExt(extension)
                     .setSize(String.valueOf(size)).setType(type)
-                    .setPath("/static/files/"+FileEnum.PROFILE_PHOTO.getCode());
+                    .setPath(dateFormat);
 
             resources.add(resource);
         }

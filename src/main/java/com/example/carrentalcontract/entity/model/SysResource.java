@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,13 +17,22 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 @Table(name = "sys_resource")
-public class SysResource {
+public class SysResource extends DbPageParameter {
     @Id
     private String id;
     @Column(name = "old_filename")
     private String oldFilename;
     @Column(name = "new_filename")
     private String newFilename;
+
+    // 图片
+    private byte[] img;
+
+    // 内容（合同）
+    private String  content;
+
+    private String dictType;
+
     private String ext;
     private String size;
     private String type;

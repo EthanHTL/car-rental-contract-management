@@ -55,14 +55,6 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         return super.insert(contract);
     }
 
-    // @Override
-    // public Result<PageInfo<List<Contract>>> findPage(Contract contract) {
-    //
-    //     PageHelper.startPage(contract.getPageNum(), contract.getPageSize());
-    //     Page<Contract> contracts = contractMapper.all();
-    //     PageInfo pageInfo = new PageInfo<>(contracts);
-    //     return new Result(pageInfo);
-    // }
 
 
 

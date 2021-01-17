@@ -16,6 +16,6 @@ import java.util.List;
 public interface UsersMapper extends DbMapper<SysUser> {
 
 
-    List<SysUser> findEmployeeAll(Integer pageNum,Integer pageSize,SysUser employee);
+    List<SysUser> findEmployeeAll(SysUser employee);
 
 }

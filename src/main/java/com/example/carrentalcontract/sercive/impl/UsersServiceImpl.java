@@ -82,13 +82,11 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
 
     @Override
     public Result<PageInfo<SysUser>> findEmployeePage(SysUser employee) {
-        Integer pageNum = (employee.getPageNum()-1)* employee.getPageSize();
+        Integer pageNum =  employee.getPageNum();
         Integer pageSize = employee.getPageSize();
 
-        List<SysUser> employeePage = userMapper.findEmployeeAll(pageNum, pageSize,employee);
+        List<SysUser> employeePage = userMapper.findEmployeeAll(employee);
         PageInfo info = new PageInfo(employeePage);
-
-
         return Result.success(info);
     }
 

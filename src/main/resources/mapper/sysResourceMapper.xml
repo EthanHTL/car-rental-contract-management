@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.SysResourceMapper">
+
+    <resultMap id="SysResourceMap" type="com.example.carrentalcontract.entity.model.SysResource">
+        <id property="id" column="id"/>
+        <result property="oldFilename" column="old_filename"/>
+        <result property="newFilename" column="new_filename"/>
+        <result property="dictType" column="dict_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updatorId" column="updator_id"/>
+    </resultMap>
+
+    <select id="findContractPage" resultMap="SysResourceMap">
+        select *
+        from sys_resource sr
+                 left join sys_dict_detail sd on sr.dict_type = sd.code
+                 left join sys_dict s on sd.dict_code = s.id
+        where s.code = 'file'
+          and sd.code = 'contract'
+    </select>
+</mapper>

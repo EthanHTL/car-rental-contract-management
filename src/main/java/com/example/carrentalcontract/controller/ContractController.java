@@ -55,8 +55,6 @@ public class ContractController {
     /**
      * 分页
      *
-     * @param contract
-     * @return
      */
     @PostMapping("/find/page")
     public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
@@ -66,7 +64,6 @@ public class ContractController {
     /**
      * 查询所有用户
      *
-     * @return
      */
     @PostMapping("/find/all")
     public Result<List<Contract>> findAll() {
@@ -75,11 +72,7 @@ public class ContractController {
 
     @PostMapping("/upload")
     public Result upload(@RequestParam("files") MultipartFile[] files) {
-        FileHandler fileHandler = new FileHandler();
-        List<SysResource> resources = fileHandler.transferFiles(files);
-        // 将信息插入数据库
-
-        return sysResourceService.insertBatch(resources);
+        return sysResourceService.uploadFiles(files);
     }
 
 

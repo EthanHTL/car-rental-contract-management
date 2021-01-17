@@ -16,4 +16,5 @@ public enum ContractEnum {
     public Integer getStatus() {
         return status;
     }
+
 }
