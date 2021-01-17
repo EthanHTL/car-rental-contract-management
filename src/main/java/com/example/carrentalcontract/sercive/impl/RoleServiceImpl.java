@@ -85,9 +85,42 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         return Result.success(menus);
     }
 
+    /**
+     * 分配权限
+     * @param roleResponseInfo 角色权限
+     * @return
+     */
     @Override
     public Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo) {
+        List<SysApiResponseInfo> sysApiResponseInfos = apiTreeTOList(roleResponseInfo.getApiResponseInfos());
+        List<SysMenuResponseInfo> menuResponseInfos = menuTreeToList(roleResponseInfo.getMenuResponseInfos());
+        List<SysMenu> sysMenus   = ObjectMapper.clone(menuResponseInfos,SysMenu.class);
+        List<SysApi> sysApis  = ObjectMapper.clone(sysApiResponseInfos,SysApi.class);
+
+
         return null;
+    }
+
+    private List<SysApiResponseInfo> apiTreeTOList(List<SysApiResponseInfo> tree){
+        List<SysApiResponseInfo> list = new ArrayList<>();
+        tree.forEach(item ->{
+            list.add(item);
+            if (item.getChildren().size() > 0 ){
+                apiTreeTOList(item.getChildren());
+            }
+        });
+        return list;
+    }
+
+    private List<SysMenuResponseInfo> menuTreeToList(List<SysMenuResponseInfo> tree){
+        List<SysMenuResponseInfo> list = new ArrayList<>();
+        tree.forEach(item ->{
+            list.add(item);
+            if (item.getChildren().size() > 0 ){
+                menuTreeToList(item.getChildren());
+            }
+        });
+        return list;
     }
 
     @Override
@@ -120,7 +153,6 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
             return false;
         }).collect(Collectors.toList());;
         Collections.sort(children, Comparator.comparing(SysApiResponseInfo::getSort));
-
         return children;
     }
 

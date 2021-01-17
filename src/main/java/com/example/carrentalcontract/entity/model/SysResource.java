@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name = "sys_resource")
 public class SysResource extends DbPageParameter {
     @Id
-    private String id;
+    private Long id;
     @Column(name = "old_filename")
     private String oldFilename;
     @Column(name = "new_filename")
@@ -31,6 +31,7 @@ public class SysResource extends DbPageParameter {
     // 内容（合同）
     private String  content;
 
+    // 对应字典类型
     private String dictType;
 
     private String ext;

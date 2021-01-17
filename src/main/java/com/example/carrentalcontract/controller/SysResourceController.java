@@ -42,4 +42,32 @@ public class SysResourceController {
         return sysResourceService.updateContractTemplate(sysResource);
     }
 
+    @PostMapping("/contract/template/delete")
+    public Result deleteContractTemplate(@RequestBody SysResource sysResource){
+        return sysResourceService.delete(sysResource);
+    }
+
+    /**
+     * 查找合同模板分页
+     */
+    @PostMapping("/find/page")
+    public Result<PageInfo<SysResource>> findPage(@RequestBody SysResource sysResource){
+        return sysResourceService.findPage(sysResource);
+    }
+
+    @PostMapping("/get")
+    public Result<SysResource> get(@RequestBody SysResource sysResource){
+        return sysResourceService.selectByPrimaryKey(sysResource.getId());
+    }
+
+    @PostMapping("/update")
+    public Result<SysResource> updateResource(@RequestBody SysResource sysResource){
+        return sysResourceService.updateResource(sysResource);
+    }
+
+    @PostMapping("/delete")
+    public Result<SysResource> deleteResource(@RequestBody SysResource sysResource){
+        return sysResourceService.deleteResource(sysResource);
+    }
+
 }

@@ -8,6 +8,7 @@ import com.example.carrentalcontract.mapper.SysResourceMapper;
 import com.example.carrentalcontract.sercive.SysResourceService;
 import com.example.carrentalcontract.util.FileHandler;
 import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,12 +58,32 @@ public class SysResourceServiceImpl extends DbServiceImpl<SysResource> implement
     }
 
     @Override
+    public Result<SysResource> selectByPrimaryKey(Long id) {
+        return super.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Result<SysResource> deleteResource(SysResource sysResource) {
+        return null;
+    }
+
+    @Override
+    public Result<SysResource> updateResource(SysResource sysResource) {
+        return null;
+    }
+
+    @Override
+    public Result<PageInfo<SysResource>> findPage(SysResource sysResource) {
+        return null;
+    }
+
+    @Override
     public Result updateContractTemplate(SysResource sysResource) {
         return super.update(sysResource);
     }
 
     @Override
     public Result createContract(SysResource sysResource) {
-        return null;
+        return super.insertOne(sysResource);
     }
 }
