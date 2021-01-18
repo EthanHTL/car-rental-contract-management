@@ -3,11 +3,11 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysApi;
+import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
 import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
 import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
-import com.example.carrentalcontract.mapper.SysMenuMapper;
 import com.example.carrentalcontract.sercive.RoleService;
 import com.example.carrentalcontract.sercive.SysApiService;
 import com.example.carrentalcontract.sercive.SysMenuService;
@@ -33,6 +33,8 @@ public class RoleController {
     private RoleService roleService;
     @Resource
     private SysApiService sysApiService;
+    @Resource
+    private SysMenuService sysMenuService;
 
     // --------role
     @PostMapping("/role/find/all")
@@ -71,6 +73,11 @@ public class RoleController {
     @PostMapping("/menu/find/tree")
     public Result<List<SysMenuResponseInfo>> findMenuTree() {
         return this.roleService.findMenuTree();
+    }
+
+    @PostMapping("/menu/find/all")
+    public Result<List<SysMenu>> findMenuAll() {
+        return this.sysMenuService.selectAll();
     }
 
     // --------api

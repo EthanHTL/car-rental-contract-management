@@ -9,6 +9,7 @@ import com.example.carrentalcontract.mapper.SysMenuMapper;
 import com.example.carrentalcontract.sercive.SysMenuService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author: 黄天亮
  * @create: 2021-01-05 17:06
  **/
+@Service("sysMenuService")
 public class SysMenuServiceImpl extends DbServiceImpl<SysMenu> implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
