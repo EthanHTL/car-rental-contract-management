@@ -19,6 +19,6 @@
                  left join sys_dict_detail sd on sr.dict_type = sd.code
                  left join sys_dict s on sd.dict_code = s.id
         where s.code = 'file'
-          and sd.code = 'contract'
+          and sd.code in ('contract_component')
     </select>
 </mapper>
