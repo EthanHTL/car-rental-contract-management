@@ -2,6 +2,8 @@ package com.example.carrentalcontract;
 
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -255,11 +257,11 @@ public class ActivitiTests {
 
     /**
      * 删除流程部署信息
-     *  主要删除的
+     * 主要删除的
      * `ACT_GE_BYTEARRAY`
      * `ACT_RE_DEPLOYMENT`
      * `ACT_RE_PROCDEF`
-     *
+     * <p>
      * `ACT_RU_EVENT_SUBSCR`
      * `ACT_RU_IDENTITYLINK`
      * 当前的流程如果并没有完成，想要删除的话需要使用特殊方式，原理就是级联删除
@@ -274,7 +276,7 @@ public class ActivitiTests {
         String deleteDeploymentId = "2501";
         // repositoryService.deleteDeployment(deleteDeploymentId);
         // 级联删除
-        repositoryService.deleteDeployment(deleteDeploymentId,true);
+        repositoryService.deleteDeployment(deleteDeploymentId, true);
 
     }
 
@@ -312,8 +314,8 @@ public class ActivitiTests {
         FileOutputStream bpmnOutputStream = new FileOutputStream(bpmnFile);
 
         // 输出流，输出流的转换
-        IOUtils.copy(pngInputStream,pngOutputStream);
-        IOUtils.copy(bpmnInputStream,bpmnOutputStream);
+        IOUtils.copy(pngInputStream, pngOutputStream);
+        IOUtils.copy(bpmnInputStream, bpmnOutputStream);
 
         // 关闭流
         pngOutputStream.close();
@@ -323,9 +325,32 @@ public class ActivitiTests {
 
     }
 
+    @Test
+    public void findHistoryInfo() {
+//    获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        // 获取 RepositoryService
+        HistoryService historyService = processEngine.getHistoryService();
+
+        HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
+
+        List<HistoricActivityInstance> list =
+                instanceQuery
+                        .processDefinitionId("hello:1:10004")  // 根据 DefinitionId 查询
+                        // .processInstanceId("12501") // 根据 InstanceId 查询
+                        .orderByHistoricActivityInstanceStartTime() // 排序 ，根据开始时间排序
+                        .asc() // 升序
+                        .list();
+        for (HistoricActivityInstance instance : list) {
+            System.out.println(instance.getActivityId());
+            System.out.println(instance.getActivityName());
+            System.out.println(instance.getProcessDefinitionId());
+            System.out.println(instance.getProcessInstanceId());
+            System.out.println("<=====================================>");
+        }
 
 
-
+    }
 
 
 }
