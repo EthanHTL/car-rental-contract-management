@@ -41,12 +41,12 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-devtools</artifactId>-->
+        <!--            <scope>runtime</scope>-->
+        <!--            <optional>true</optional>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -152,6 +152,74 @@
         </dependency>
 
 
+        <!--    org.activiti    -->
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+        <!-- bpmn 模型处理器 -->
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-model -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-model</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+        <!-- bpmn 模型转换 -->
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-converter -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-converter</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+        <!-- bpmn json数据转换 -->
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-json-converter -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-json-converter</artifactId>
+            <version>7.1.0.M6</version>
+        </dependency>
+        <!-- bpmn 布局 -->
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-layout -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-layout</artifactId>
+            <version>7.1.0.M6</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.activiti.cloud/activiti-cloud-services-api -->
+        <dependency>
+            <groupId>org.activiti.cloud</groupId>
+            <artifactId>activiti-cloud-services-api</artifactId>
+            <version>7-201802-EA</version>
+        </dependency>
+
+        <!-- 官方推荐 -->
+        <!--<dependency>
+            <groupId>org.activiti.dependencies</groupId>
+            <artifactId>activiti-dependencies</artifactId>
+            <version>7.1.0.M6</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>-->
+
+
+
+
 
         <!-- jwt 生成token-->
         <dependency>
@@ -164,25 +232,31 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.71</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <excludes>-->
-<!--                        <exclude>-->
-<!--                            <groupId>org.projectlombok</groupId>-->
-<!--                            <artifactId>lombok</artifactId>-->
-<!--                        </exclude>-->
-<!--                    </excludes>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.springframework.boot</groupId>-->
+    <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    <excludes>-->
+    <!--                        <exclude>-->
+    <!--                            <groupId>org.projectlombok</groupId>-->
+    <!--                            <artifactId>lombok</artifactId>-->
+    <!--                        </exclude>-->
+    <!--                    </excludes>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
 
     <repositories>
         <repository>
