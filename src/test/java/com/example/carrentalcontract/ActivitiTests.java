@@ -56,6 +56,10 @@ public class ActivitiTests {
 
     /**
      * 测试流程部署
+     * `ACT_RE_PROCDEF`
+     * `ACT_RE_DEPLOYMENT`
+     * `ACT_GE_BYTEARRAY`
+     *
      */
     @Test
     public void testDeployment() {
@@ -273,7 +277,7 @@ public class ActivitiTests {
         // 获取 RepositoryService
         RepositoryService repositoryService = processEngine.getRepositoryService();
         // 通过部署id来删除部署流程信息
-        String deleteDeploymentId = "2501";
+        String deleteDeploymentId = "35001";
         // repositoryService.deleteDeployment(deleteDeploymentId);
         // 级联删除
         repositoryService.deleteDeployment(deleteDeploymentId, true);

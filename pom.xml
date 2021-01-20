@@ -201,11 +201,18 @@
             <version>7.1.0.M6</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.activiti.cloud/activiti-cloud-services-api -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.activiti.cloud/activiti-cloud-services-api &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.activiti.cloud</groupId>-->
+<!--            <artifactId>activiti-cloud-services-api</artifactId>-->
+<!--            <version>7-201802-EA</version>-->
+<!--        </dependency>-->
+        <!-- Test Unit -->
         <dependency>
-            <groupId>org.activiti.cloud</groupId>
-            <artifactId>activiti-cloud-services-api</artifactId>
-            <version>7-201802-EA</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- 官方推荐 -->
@@ -232,12 +239,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.71</version>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
+
 
     </dependencies>
 
