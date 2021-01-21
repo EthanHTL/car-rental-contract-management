@@ -43,14 +43,14 @@ public class ActivitiTests {
         //     repositoryService.createDeployment();
 
         //
-        ProcessEngineConfiguration processEngineConfiguration =
-                ProcessEngineConfiguration
-                        .createProcessEngineConfigurationFromResource("activiti.cfg.xml",
-                                "processEngineConfiguration");
+        // ProcessEngineConfiguration processEngineConfiguration =
+        //         ProcessEngineConfiguration
+        //                 .createProcessEngineConfigurationFromResource("activiti.cfg.xml",
+        //                         "processEngineConfiguration");
 
         // 获取流程引擎对象
-        ProcessEngine processEngine = processEngineConfiguration.buildProcessEngine();
-        System.out.println(processEngine);
+        // ProcessEngine processEngine = processEngineConfiguration.buildProcessEngine();
+        // System.out.println(processEngine);
 
     }
 
