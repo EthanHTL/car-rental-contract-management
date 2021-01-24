@@ -19,7 +19,7 @@ spring:
   activiti:
     database-schema-update: true
     db-history-used: true
-    history-level: audit
+    history-level: full
     check-process-definitions: true
     process-definition-location-prefix: classpath:/processes/
 #    process-definition-location-suffixes:

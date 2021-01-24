@@ -23,7 +23,7 @@ public class DemoApplicationConfig {
      */
     @Bean
     public UserDetailsService myUserDetailsService() {
-        //    吧用户存储在内存中
+        //    把用户存储在内存中
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
         //    构建用户的信息
         String[][] userGroupAndRoles = {
@@ -41,7 +41,7 @@ public class DemoApplicationConfig {
             log.info(">Registering new user:" + users[0] + " with the following Authorities[" + authStr + "]");
             inMemoryUserDetailsManager.createUser(new User(users[0]
                     , password().encode(users[1])
-                    , authStr.stream().map(str -> new SimpleGrantedAuthority(str)).collect(Collectors.toList()))
+                    , authStr.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()))
             );
         }
         return inMemoryUserDetailsManager;
