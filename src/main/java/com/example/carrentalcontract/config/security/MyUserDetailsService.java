@@ -29,7 +29,7 @@ import java.util.List;
  * @author: 黄天亮
  * @create: 2021-01-05 11:32
  **/
-// @Component
+@Component
 @Slf4j
 public class MyUserDetailsService implements UserDetailsService {
     @Resource

@@ -9,6 +9,7 @@ import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.runtime.TaskRuntime;
+import org.activiti.engine.RuntimeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class ActivitiSpringTest {
     private ProcessRuntime processRuntime;
     @Autowired
     private TaskRuntime taskRuntime;
+    @Autowired
+    private RuntimeService runtimeService;
     @Resource
     private SecurityUtil securityUtil;
 
@@ -61,13 +64,14 @@ public class ActivitiSpringTest {
     @Test
     public void startProcess() {
         //    设置登陆用户
-        securityUtil.logInAs("jack");
-        ProcessInstance instance = processRuntime.start(ProcessPayloadBuilder
+        securityUtil.logInAs("system");
+        ProcessInstance testDemo = processRuntime.start(ProcessPayloadBuilder
                 .start()
                 .withProcessDefinitionKey("testDemo")
                 .build());
+        // org.activiti.engine.runtime.ProcessInstance instance = runtimeService.startProcessInstanceByKey("testDemo");
 
-        log.info("流程实例的内容：{}", instance);
+        log.info("流程实例的内容：{}", testDemo);
     }
 
     @Test

@@ -16,12 +16,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Configuration
+// @Configuration
 public class DemoApplicationConfig {
     /**
      * 添加security的用户
      */
-    @Bean
+    // @Bean
     public UserDetailsService myUserDetailsService() {
         //    把用户存储在内存中
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
@@ -47,7 +47,7 @@ public class DemoApplicationConfig {
         return inMemoryUserDetailsManager;
     }
 
-    @Bean
+    // @Bean
     PasswordEncoder password() {
         return new BCryptPasswordEncoder();
     }

@@ -24,7 +24,7 @@ public class ActivitiBusinessDemo {
         //    3、启动流程的过程中，添加businesskey
         //        第一个参数：流程定义的key
         //        第二个参数：businessKey,存出差申请单的Id，就是1001
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("hello", "1001");
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("testDemo", "1001");
         System.out.println("businesskey==>" + instance.getBusinessKey());
 
     }

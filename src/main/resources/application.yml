@@ -51,3 +51,7 @@ logging:
     org.activiti. engine.impl.persistence.entity: trace
 
 
+project:
+  manifest:
+    file:
+      path: classpath:/default-project.json
