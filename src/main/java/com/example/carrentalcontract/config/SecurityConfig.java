@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
         // 配置没有权限访问处理
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)

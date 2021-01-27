@@ -89,10 +89,16 @@ public class Contract extends DbPageParameter implements Serializable {
     @Column(name = "contract_url")
     private String contractUrl;
     /**
-    * 合同类型
-    */
+     * 合同类型
+     */
     @Column(name = "contract_type")
     private Long contractType;
+    /**
+     * 合同内容
+     */
+    private String content;
+
+    private Integer flag;
 
     @Column(name = "create_time")
     private Date createTime;

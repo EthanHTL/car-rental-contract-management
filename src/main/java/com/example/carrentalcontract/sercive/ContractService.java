@@ -21,4 +21,6 @@ public interface ContractService extends DbService<Contract> {
     Result<List<Contract>> findAll();
 
     Result insert(Contract contract);
+
+    Result createContract(Contract contract);
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://8.131.59.205:3306/car_rental_contract_manager?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&createDatabaseIfNotExist=true
+    url: jdbc:mysql://8.131.59.205:3306/car_rental_contract_manager?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&createDatabaseIfNotExist=true&nullCatalogMeansCurrent=true
     username: huang
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -21,7 +21,8 @@ spring:
     db-history-used: true
     history-level: full
     check-process-definitions: true
-    process-definition-location-prefix: classpath:/processes/
+    async-executor-activate: false
+#    process-definition-location-prefix: classpath:/processes/
 #    process-definition-location-suffixes:
 #      - **.bpmn
 #      - **.bpmn20.xml

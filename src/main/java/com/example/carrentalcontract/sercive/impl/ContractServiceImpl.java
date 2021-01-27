@@ -6,12 +6,15 @@ import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.example.carrentalcontract.sercive.ProcessDefinitionService;
+import com.example.carrentalcontract.sercive.ProcessInstanceService;
 import com.example.carrentalcontract.sercive.UsersService;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +33,10 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
 
     @Resource
     private ContractMapper contractMapper;
+    @Autowired
+    private ProcessDefinitionService definitionService;
+    @Autowired
+    private ProcessInstanceService instanceService;
 
 
     @Override
@@ -55,8 +62,17 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         return super.insert(contract);
     }
 
-
-
+    @Transactional
+    @Override
+    public Result createContract(Contract contract) {
+        // 创建合同
+        Contract data = super.insert(contract).getData();
+        // 启动合同审核流程
+        instanceService.startProcess("contractActiviti",data.getContractName()
+                ,"1"
+                ,"Contract:"+data.getContractId());
+        return null;
+    }
 
 
 }
