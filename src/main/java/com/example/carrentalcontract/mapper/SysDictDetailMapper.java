@@ -12,5 +12,7 @@ public interface SysDictDetailMapper extends DbMapper<SysDictDetail> {
 
     SysDictDetail getDictDataByTypeAndValue(@Param("dicType") String dictType,@Param("key") String key);
 
+    SysDictDetail getDictDataByTypeAndId(@Param("dicType") String dictType,@Param("id") String id);
+
     List<SysDictDetail> findDetailByCode(@Param("dicType") String dicType);
 }

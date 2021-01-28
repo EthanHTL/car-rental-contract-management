@@ -23,6 +23,12 @@ public class SysDictDetailServiceImpl extends DbServiceImpl<SysDictDetail>  impl
     }
 
     @Override
+    public Result<SysDictDetail> getDictDataByTypeAndId(String dictType, String key) {
+        SysDictDetail detail = sysDictDetailMapper.getDictDataByTypeAndId(dictType, key);
+        return Result.success(detail);
+    }
+
+    @Override
     public Result<List<SysDictDetail>> findDetailByCode(SysDict dict) {
         return Result.success(sysDictDetailMapper.findDetailByCode(dict.getCode()));
     }

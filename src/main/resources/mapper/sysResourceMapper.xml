@@ -16,9 +16,10 @@
     <select id="findContractPage" resultMap="SysResourceMap">
         select *
         from sys_resource sr
-                 left join sys_dict_detail sd on sr.dict_type = sd.code
+                 left join sys_dict_detail sd on sr.dict_type = sd.id
                  left join sys_dict s on sd.dict_code = s.id
         where s.code = 'file'
-          and sd.code in ('contract_component')
+          and sd.code in (1, 2)
+
     </select>
 </mapper>

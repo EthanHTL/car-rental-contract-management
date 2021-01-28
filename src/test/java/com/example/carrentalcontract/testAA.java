@@ -14,10 +14,35 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class testAA {
 
     @Test
-    public void testOne(){
-        int a = 44;
-        System.out.println(a << 1);
-        System.out.println(a >> 2);
+    public void testBitOperation(){
+        System.out.println("44                二进制：" + Integer.toBinaryString(44));
+        System.out.println("44 << 1:十进制：" + (44 << 1) + " 二进制：" + Integer.toBinaryString(44 << 1));
+        System.out.println("44 << 2:十进制：" + (44 << 2) + " 二进制：" + Integer.toBinaryString(44 << 2));
+        System.out.println("44 << 2:十进制：" + (44 << 3) + " 二进制：" + Integer.toBinaryString(44 << 3));
+        System.out.println();
+        System.out.println("44 >> 1:十进制：" + (44 >> 1) + " 二进制：" + Integer.toBinaryString(44 >> 1));
+        System.out.println("44 >> 2:十进制：" + (44 >> 2) + " 二进制：" + Integer.toBinaryString(44 >> 2));
+        System.out.println("44 >> 3:十进制：" + (44 >> 3) + " 二进制：" + Integer.toBinaryString(44 >> 3));
+        System.out.println();
+
+        System.out.println("-44     :二进制：" + Integer.toBinaryString(-44));
+        System.out.println("-44 << 1:十进制：" + (-44 << 1) + " 二进制：" + Integer.toBinaryString(-44 << 1));
+        System.out.println("-44 << 2:十进制：" + (-44 << 2) + " 二进制：" + Integer.toBinaryString(-44 << 2));
+        System.out.println("-44 << 3:十进制：" + (-44 << 3) + " 二进制：" + Integer.toBinaryString(-44 << 3));
+        System.out.println();
+        System.out.println("-44 >> 1:十进制：" + (-44 >> 1) + " 二进制：" + Integer.toBinaryString(-44 >> 1));
+        System.out.println("-44 >> 2:十进制：" + (-44 >> 2) + " 二进制：" + Integer.toBinaryString(-44 >> 2));
+        System.out.println("-44 >> 3:十进制：" + (-44 >> 3) + " 二进制：" + Integer.toBinaryString(-44 >> 3));
+        System.out.println();
+
+        System.out.println("44 >>> 1:十进制：" + (44 >>> 1) + " 二进制：" + Integer.toBinaryString(44 >>> 1));
+        System.out.println("44 >>> 2:十进制：" + (44 >>> 2) + " 二进制：" + Integer.toBinaryString(44 >>> 2));
+        System.out.println("44 >>> 3:十进制：" + (44 >>> 3) + " 二进制：" + Integer.toBinaryString(44 >>> 3));
+        System.out.println();
+        System.out.println("-44 >>> 1:十进制：" + (-44 >>> 1) + " 二进制：0" + Integer.toBinaryString(-44 >>> 1));
+        System.out.println("-44 >>> 2:十进制：" + (-44 >>> 2) + " 二进制：00" + Integer.toBinaryString(-44 >>> 2));
+        System.out.println("-44 >>> 3:十进制：" + (-44 >>> 3) + " 二进制：000" + Integer.toBinaryString(-44 >>> 3));
+
     }
 
 }

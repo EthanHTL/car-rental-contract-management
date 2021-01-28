@@ -20,7 +20,7 @@
     <sql id="columns">
         id,menu_pid,menu_pids,is_leaf,menu_name,url,icon,sort,level,flag,create_time,update_time,creator_id,updator_id
     </sql>
-    <select id="findSysMenuByRoleIds" resultType="com.example.carrentalcontract.entity.model.SysMenu">
+    <select id="findSysMenuByRoleIds" resultMap="SysMenuMap">
         select distinct sm.*
         from sys_menu sm
         left join sys_role_menu srm on sm.id = srm.menu_id

@@ -11,5 +11,7 @@ public interface SysDictDetailService extends DbService<SysDictDetail> {
 
     Result<SysDictDetail> getDictDataByTypeAndValue(String dictType, String key);
 
+    Result<SysDictDetail> getDictDataByTypeAndId(String dictType, String id);
+
     Result<List<SysDictDetail>> findDetailByCode(SysDict dict);
 }

@@ -3,12 +3,10 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.model.SysDictDetail;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.mapper.ContractMapper;
-import com.example.carrentalcontract.sercive.ContractService;
-import com.example.carrentalcontract.sercive.ProcessDefinitionService;
-import com.example.carrentalcontract.sercive.ProcessInstanceService;
-import com.example.carrentalcontract.sercive.UsersService;
+import com.example.carrentalcontract.sercive.*;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     private ContractMapper contractMapper;
     @Autowired
     private ProcessDefinitionService definitionService;
+    @Autowired
+    private SysDictDetailService sysDictDetailService;
     @Autowired
     private ProcessInstanceService instanceService;
 
@@ -65,13 +65,18 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Transactional
     @Override
     public Result createContract(Contract contract) {
+        SysDictDetail contractActiviti = sysDictDetailService.getDictDataByTypeAndId("file", "10").getData();
+
         // 创建合同
         Contract data = super.insert(contract).getData();
+
         // 启动合同审核流程
-        instanceService.startProcess("contractActiviti",data.getContractName()
-                ,"1"
-                ,"Contract:"+data.getContractId());
-        return null;
+        return instanceService.startProcess(
+                contractActiviti.getCode()
+                , data.getContractName()
+                , null
+                , "Contract:" + data.getContractId());
+
     }
 
 

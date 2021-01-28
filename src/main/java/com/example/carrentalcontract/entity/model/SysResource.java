@@ -32,7 +32,7 @@ public class SysResource extends DbPageParameter {
     private String  content;
 
     // 对应字典类型
-    private String dictType;
+    private Integer dictType;
 
     private String ext;
     private String size;

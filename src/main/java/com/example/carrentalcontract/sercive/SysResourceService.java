@@ -7,6 +7,8 @@ import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface SysResourceService extends DbService<SysResource> {
 
 
