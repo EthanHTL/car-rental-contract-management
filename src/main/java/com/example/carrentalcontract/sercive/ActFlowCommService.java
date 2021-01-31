@@ -34,5 +34,5 @@ public interface ActFlowCommService {
      * @param taskId
      * @param userId
      */
-    void completeProcess(String remark, String taskId, String userId);
+    Result completeProcess(String remark, String taskId, String userId);
 }

@@ -91,14 +91,14 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public void completeProcess(String remark, String taskId, String userId) {
+    public Result completeProcess(String remark, String taskId, String userId) {
         Task task = taskService.createTaskQuery()
                 .taskId(taskId)
                 .taskAssignee(userId)
                 .singleResult();
         if (task == null) {
             log.error("completeProcess - task is null");
-            return;
+            return new Result(901,"任务不存在");
         }
         log.info("------完成任务操作  开始 ------");
         String processInstanceId = task.getProcessInstanceId();
@@ -112,6 +112,6 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         log.info("任务名称：{}", task.getName());
         taskService.complete(task.getId());
         log.info("------完成任务操作  接受 ------");
-
+        return Result.success();
     }
 }

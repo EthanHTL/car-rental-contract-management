@@ -101,13 +101,13 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
                     && map.get("processDefinitionId").toString().equals(processDefinitionId)){
                         log.info("processDefinitionId is {}", map.get("processDefinitionId"));
                         log.info("taskId is {}", map.get("taskId").toString());
-                        actFlowCommService.completeProcess("同意",map.get("taskId").toString(),userId.toString());
+                        Result result = actFlowCommService.completeProcess("同意", map.get("taskId").toString(), userId.toString());
                     }
                 }
             }
         }
         // 启动合同审核流程
-        return null;
+        return Result.success();
 
     }
 
