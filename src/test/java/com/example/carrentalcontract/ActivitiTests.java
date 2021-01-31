@@ -70,8 +70,8 @@ public class ActivitiTests {
         //    3、使用service进行流程的部署，定义一个流程的名字，把bpmn和png部署到数据中
         Deployment deploy = repositoryService.createDeployment()
                 .name("出差申请流程")
-                .addClasspathResource("bpmn/hello.bpmn")
-                .addClasspathResource("bpmn/hello.png")
+                .addClasspathResource("resources/bpmn/testDemo.bpmn20.xml")
+                // .addClasspathResource("bpmn/hello.png")
                 .deploy();
         //    4、输出部署信息
         log.info("流程部署ID={}", deploy.getId());
@@ -95,7 +95,7 @@ public class ActivitiTests {
         //  2、获取 RuntimeService
         RuntimeService runtimeService = processEngine.getRuntimeService();
         //  3、根据流程定义的id启动流程
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("hello");
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("testDemo");
         log.info("流程定义ID：{}", instance.getProcessDefinitionId());
         log.info("流程实例ID：{}", instance.getId());
         log.info("当前活动ID：{}", instance.getActivityId());
@@ -172,8 +172,8 @@ public class ActivitiTests {
 
         // jk - hello对应的任务
         Task task = taskService.createTaskQuery()
-                .processDefinitionKey("hello")
-                .taskAssignee("jk")
+                .processDefinitionKey("testDemo")
+                // .taskAssignee("jk")
                 .singleResult();
         // 完成jk的任务
         /*
