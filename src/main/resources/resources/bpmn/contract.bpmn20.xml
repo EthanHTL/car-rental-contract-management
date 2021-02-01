@@ -11,26 +11,26 @@
     <exclusiveGateway id="_6"/>
     <endEvent id="_7" name="noPassEnd"/>
     <sequenceFlow id="sid-b6f35abf-47bc-49db-b73e-b58927cdbf18" sourceRef="_6" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43" name="审核不通过">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 0</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-e9459c47-85c5-4e77-a7f0-17594fdf109d" sourceRef="_6" targetRef="_4" name="审核通过">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 1</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-b567bad0-94dc-4454-b3ce-431ff5c607f6" sourceRef="_3" targetRef="_6"/>
     <exclusiveGateway id="_8"/>
     <sequenceFlow id="sid-09869994-6fa4-4c96-8a97-f0897b5cc6bf" name="审核不通过" sourceRef="_8" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 0</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-e632f96c-1d46-4f0f-8b64-1379bb953e29" name="审核通过" sourceRef="_8" targetRef="_5">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 1</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-99957764-d415-4594-aed2-ab76cfaa8dc2" sourceRef="_4" targetRef="_8"/>
     <exclusiveGateway id="_10"/>
     <sequenceFlow id="sid-52e06baa-6329-470a-8e02-18c421245186" name="审核不通过" sourceRef="_10" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 0</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-4aa5b6e7-c583-4a59-b685-66fc9b98c39a" name="审核通过" sourceRef="_10" targetRef="sid-5e4dfe49-2804-4508-a1ad-1a8fd0965322">
-      <conditionExpression xsi:type="tFormalExpression">contract.state = 1</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-080903fb-b7ed-44f2-8015-369c2c251fec" sourceRef="_5" targetRef="_10"/>
     <endEvent id="_12" name="passEnd"/>
@@ -78,6 +78,7 @@
       </bpmdi:BPMNEdge>
       <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-d9714947-cefa-4833-9c81-f1f09089d379" bpmnElement="sid-e9459c47-85c5-4e77-a7f0-17594fdf109d">
         <omgdi:waypoint x="488.5556" y="187.00002"/>
+        <omgdi:waypoint x="522.7488" y="187.0"/>
         <omgdi:waypoint x="554.9419" y="187.0"/>
       </bpmdi:BPMNEdge>
       <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-3fb9a9d2-b345-4f45-9ab6-113c3af4425c" bpmnElement="sid-b567bad0-94dc-4454-b3ce-431ff5c607f6">

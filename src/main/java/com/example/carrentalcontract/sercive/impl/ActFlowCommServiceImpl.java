@@ -121,4 +121,14 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         log.info("------完成任务操作  接受 ------");
         return Result.success();
     }
+
+    /**
+     * 设置局部流程变量
+     * @param taskId 任务id
+     * @param variables 变量
+     */
+    @Override
+    public void setLocalVariables(String taskId, Map<String, Object> variables) {
+        taskService.setVariablesLocal(taskId,variables);
+    }
 }

@@ -13,6 +13,7 @@ public interface ActFlowCommService {
 
     /**
      * 启动流程
+     *
      * @param formKey
      * @param beanName
      * @param businessKey
@@ -23,6 +24,7 @@ public interface ActFlowCommService {
 
     /**
      * 我的任务列表
+     *
      * @param userId
      * @return
      */
@@ -30,9 +32,17 @@ public interface ActFlowCommService {
 
     /**
      * 完成任务
+     *
      * @param remark
      * @param taskId
      * @param userId
      */
     Result completeProcess(String remark, String taskId, String userId);
+
+    /**
+     * 设置局部流程变量
+     * @param taskId 任务id
+     * @param variables 变量
+     */
+    void setLocalVariables(String taskId, Map<String, Object> variables);
 }

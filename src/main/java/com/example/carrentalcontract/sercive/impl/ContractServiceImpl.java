@@ -93,8 +93,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             // 流程实例id
             String processDefinitionId = processInstance.getProcessDefinitionId();
             log.info("processDefinitionId is {}", processDefinitionId);
-
-            List<Map<String, Object>> taskList = actFlowCommService.myTaskList(userId.toString());
+            // processDefinitionId is contract:1:5003
+            List<Map<String, Object>> taskList = actFlowCommService.myTaskList(contract.getContactUserId().toString());
             if (!CollectionUtils.isEmpty(taskList)){
                 for (Map<String, Object> map : taskList) {
                     if (map.get("assignee").toString().equals(userId.toString())

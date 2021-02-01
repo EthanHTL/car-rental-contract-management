@@ -11,6 +11,8 @@ import org.activiti.engine.delegate.JavaDelegate;
 public class ContractErrorEndRunningTask  implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) {
+        String businessKey = delegateExecution.getParent().getProcessInstanceBusinessKey();
+        // contract:1102020853784996
         System.out.println("合同审核不通过");
     }
 }
