@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.example.carrentalcontract.sercive.SysResourceService;
+import com.example.carrentalcontract.util.SessionUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,13 +58,11 @@ public class ContractController {
 
     @PostMapping("/create")
     public Result createContract(@RequestBody Contract contract){
-        return contractService.createContract(contract);
+        Long uid = SessionUtil.getCurrentUser().getId();
+        return contractService.createContract(contract,uid);
     }
 
 
-    public UserDetails getUserInfo() {
-        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 
 
 }

@@ -22,5 +22,5 @@ public interface ContractService extends DbService<Contract> {
 
     Result insert(Contract contract);
 
-    Result createContract(Contract contract);
+    Result createContract(Contract contract , Long userId);
 }

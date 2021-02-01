@@ -25,7 +25,7 @@ public class Contract extends DbPageParameter implements Serializable {
     * 编号
     */
     @Id
-    private Long contractId;
+    private Long id;
     /**
     * 合同编号
     */
@@ -99,6 +99,11 @@ public class Contract extends DbPageParameter implements Serializable {
     private String content;
 
     private Integer flag;
+
+    /**
+     * 合同状态
+     */
+    private Integer state;
 
     @Column(name = "create_time")
     private Date createTime;
