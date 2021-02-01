@@ -3,7 +3,7 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.sercive.ActFlowCommService;
-import com.example.carrentalcontract.sercive.IActFlowCustomService;
+import com.example.carrentalcontract.sercive.ContractFlowService;
 import com.example.carrentalcontract.sercive.UsersService;
 import com.example.carrentalcontract.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +32,8 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     private TaskService taskService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private ContractFlowService flowService;
 
     @Override
     public Result saveNewDeploy() {
@@ -40,11 +42,10 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
     @Override
     public ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id) {
-        IActFlowCustomService customService = (IActFlowCustomService) SpringContextUtil.getBean(beanName);
         // 修改业务状态
-        customService.startRunTask(id);
+        Result result = flowService.startRunTask(id, formKey);
 
-        Map<String, Object> variables = customService.setVariables(id);
+        Map<String, Object> variables = flowService.setVariables(id);
         variables.put("businessKey", businessKey);
         // 启动流程
         log.info("【启动流程】，formKey : {},businessKey : {}", formKey, businessKey);
@@ -53,6 +54,12 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         String definitionId = processInstance.getProcessDefinitionId();
         log.info("【启动流程】，成功,definitionId : {}", definitionId);
         return processInstance;
+        /*
+        【启动流程】，formKey : contract,businessKey : contract:1102010319513959
+
+        【启动流程】，成功,definitionId : contract:1:5003
+          processDefinitionId is contract:1:5003
+         */
     }
 
     @Override

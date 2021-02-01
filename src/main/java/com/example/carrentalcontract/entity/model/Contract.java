@@ -100,11 +100,6 @@ public class Contract extends DbPageParameter implements Serializable {
 
     private Integer flag;
 
-    /**
-     * 合同状态
-     */
-    private Integer state;
-
     @Column(name = "create_time")
     private Date createTime;
 

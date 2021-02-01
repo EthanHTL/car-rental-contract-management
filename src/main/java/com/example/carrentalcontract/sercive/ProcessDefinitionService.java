@@ -2,16 +2,13 @@ package com.example.carrentalcontract.sercive;
 
 
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.entity.model.Flow;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
- * 流程表(Flow)表服务接口
+ * 流程表(ContractFlow)表服务接口
  *
  * @author makejava
  * @since 2020-12-27 22:11:56

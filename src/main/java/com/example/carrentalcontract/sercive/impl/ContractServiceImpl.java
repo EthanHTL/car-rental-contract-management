@@ -84,8 +84,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             // 启动流程
             Contract c = data.getData();
             Long id = c.getId();
-            String formKey = "Contract";
-            String beanName = formKey + "Service";
+            String formKey = "contract";
+            String beanName = formKey + "FlowService";
             // 使用流程变量设置字符串（格式：Contract：id 的形式）
             // 使用正在执行对象表中的一个字典BUSINESS_KEY(Activiti 提供的一个字典)，让启动的流程（流程实例）关联业务
             String businessKey = formKey + ":" + id;
