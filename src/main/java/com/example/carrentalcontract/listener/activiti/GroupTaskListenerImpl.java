@@ -4,6 +4,7 @@ import com.example.carrentalcontract.entity.model.SysRole;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.sercive.RoleService;
 import com.example.carrentalcontract.sercive.UsersService;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author: 黄天亮
  * @create: 2021-02-02 17:16
  **/
+@Slf4j
 public class GroupTaskListenerImpl implements TaskListener {
 
     @Autowired
@@ -39,6 +41,7 @@ public class GroupTaskListenerImpl implements TaskListener {
             role.setRoleName("loader");
         }
         users = roleService.findUsersByRole(role).getData();
+        log.info("分配代理人，id:{}：users：{}",id,users);
         users.forEach(item ->{
             delegateTask.addCandidateUser(item.getId().toString());
         });
