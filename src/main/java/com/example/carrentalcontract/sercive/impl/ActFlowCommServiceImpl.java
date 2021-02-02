@@ -37,7 +37,8 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id,Map<String, Object> variables) {
+    public ProcessInstance startProcess(String formKey, String beanName, String businessKey,
+                                        Long id, Map<String, Object> variables) {
         // 修改业务状态
 
         variables.put("businessKey", businessKey);
@@ -64,36 +65,49 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(userId);
 
         List<Task> taskList = taskQuery.orderByTaskCreateTime().desc().list();
-        TaskQuery taskGroupQuery = taskService.createTaskQuery().taskCandidateUser(userId);
+        // TaskQuery taskGroupQuery = taskService.createTaskQuery().taskCandidateUser(userId);
 
-        List<Task> groupTaskList = taskGroupQuery.orderByTaskCreateTime().desc().list();
+        // List<Task> groupTaskList = taskGroupQuery.orderByTaskCreateTime().desc().list();
         List<Map<String, Object>> listMap = new ArrayList<>();
         translateTaskList(taskList, listMap);
-        translateTaskList(groupTaskList, listMap);
+        // translateTaskList(groupTaskList, listMap);
+        return listMap;
+    }
+
+    @Override
+    public List<Map<String, Object>> myGTaskList(String username) {
+        List<Task> list = taskService.createTaskQuery()
+                .taskCandidateOrAssigned(username)
+                .list();
+        List<Map<String, Object>> listMap = new ArrayList<>();
+
+        translateTaskList(list, listMap);
         return listMap;
     }
 
     private void translateTaskList(List<Task> taskList, List<Map<String, Object>> listMap) {
         for (Task task : taskList) {
             Map<String, Object> map = new HashMap<>();
-            map.put("taskId",task.getId());
-            map.put("taskName",task.getName());
-            map.put("description",task.getDescription());
-            map.put("priority",task.getPriority());
-            map.put("owner",task.getOwner());
-            map.put("assignee",task.getAssignee());
-            map.put("delegationState",task.getDelegationState());
-            map.put("processInstanceId",task.getProcessInstanceId());
-            map.put("executionId",task.getExecutionId());
-            map.put("processDefinitionId",task.getProcessDefinitionId());
-            map.put("createTime",task.getCreateTime());
-            map.put("dueDate",task.getDueDate());
-            map.put("category",task.getCategory());
+            map.put("taskId", task.getId());
+            map.put("taskName", task.getName());
+            map.put("description", task.getDescription());
+            map.put("priority", task.getPriority());
+            map.put("owner", task.getOwner());
+            map.put("assignee", task.getAssignee());
+            map.put("delegationState", task.getDelegationState());
+            map.put("processInstanceId", task.getProcessInstanceId());
+            map.put("executionId", task.getExecutionId());
+            map.put("processDefinitionId", task.getProcessDefinitionId());
+            map.put("createTime", task.getCreateTime());
+            map.put("dueDate", task.getDueDate());
+            map.put("category", task.getCategory());
 
             SysUser user = new SysUser();
-            user.setId(Long.valueOf(task.getAssignee()));
-            SysUser sysUser = usersService.selectOne(user).getData();
-            map.put("assigneeUser",sysUser.getUsername());
+            user.setUsername(task.getAssignee());
+            List<SysUser> sysUser = usersService.select(user).getData();
+            if (sysUser != null && sysUser.size() >0) {
+                map.put("assigneeUser", sysUser.get(0).getUsername());
+            }
             listMap.add(map);
         }
     }
@@ -106,14 +120,14 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
                 .singleResult();
         if (task == null) {
             log.error("completeProcess - task is null");
-            return new Result(901,"任务不存在");
+            return new Result(901, "任务不存在");
         }
         log.info("------完成任务操作  开始 ------");
         String processInstanceId = task.getProcessInstanceId();
         // 设置审批人的userID
         Authentication.setAuthenticatedUserId(userId);
         // 添加记录
-        taskService.addComment(taskId,processInstanceId,remark);
+        taskService.addComment(taskId, processInstanceId, remark);
         log.info("流程实例ID：{}", task.getProcessInstanceId());
         log.info("任务ID：{}", task.getId());
         log.info("任务责任人：{}", task.getAssignee());
@@ -125,20 +139,22 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
     /**
      * 设置局部流程变量
-     * @param taskId 任务id
+     *
+     * @param taskId    任务id
      * @param variables 变量
      */
     @Override
-    public Result setLocalVariables(String taskId, Map<String, Object> variables) {
+    public void setLocalVariables(String taskId, Map<String, Object> variables) {
         Task task = taskService.createTaskQuery()
                 .taskId(taskId)
                 .singleResult();
         if (task == null) {
             log.error("setLocalVariables - task is null");
-            return new Result(901,"任务不存在");
+            new Result(901, "任务不存在");
+            return;
         }
-        taskService.setVariablesLocal(taskId,variables);
-        return Result.success();
+        taskService.setVariablesLocal(taskId, variables);
+        Result.success();
     }
 
 

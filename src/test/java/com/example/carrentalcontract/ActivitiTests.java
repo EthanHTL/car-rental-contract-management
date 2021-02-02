@@ -70,7 +70,7 @@ public class ActivitiTests {
         //    3、使用service进行流程的部署，定义一个流程的名字，把bpmn和png部署到数据中
         Deployment deploy = repositoryService.createDeployment()
                 .name("出差申请流程")
-                .addClasspathResource("resources/bpmn/testDemo.bpmn20.xml")
+                .addClasspathResource("resources/bpmn/contract.bpmn20.xml")
                 // .addClasspathResource("bpmn/hello.png")
                 .deploy();
         //    4、输出部署信息

@@ -4,6 +4,7 @@ package com.example.carrentalcontract.sercive;
 import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.model.SysUser;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface ContractService extends DbService<Contract> {
 
     Result insert(Contract contract);
 
-    Result createContract(Contract contract , Long userId);
+    Result createContract(Contract contract , SysUser user);
 
     Map<String, Object> setVariables(Long id);
 }

@@ -25,17 +25,14 @@ public interface ActFlowCommService {
     /**
      * 我的任务列表
      *
-     * @param userId
-     * @return
      */
     List<Map<String, Object>> myTaskList(String userId);
+
+    List<Map<String, Object>> myGTaskList(String username);
 
     /**
      * 完成任务
      *
-     * @param remark
-     * @param taskId
-     * @param userId
      */
     Result completeProcess(String remark, String taskId, String userId);
 
@@ -44,5 +41,5 @@ public interface ActFlowCommService {
      * @param taskId 任务id
      * @param variables 变量
      */
-    Result setLocalVariables(String taskId, Map<String, Object> variables);
+    void setLocalVariables(String taskId, Map<String, Object> variables);
 }

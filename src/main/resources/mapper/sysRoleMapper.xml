@@ -33,7 +33,10 @@
                  left outer join sys_users su on sur.user_id = su.id
         where su.username = #{username}
     </select>
-    <select id="findUsersByRole" resultMap="SysUserMap">
-
+    <select id="findUsersByRole" resultMap="SysUserMap" parameterType="com.example.carrentalcontract.entity.model.SysRole">
+        select su.*
+from sys_users su left join sys_user_role sur on su.id = sur.user_id
+        left join sys_role sr on sr.id = sur.role_id
+where sr.role_name = #{role.roleName}
     </select>
 </mapper>

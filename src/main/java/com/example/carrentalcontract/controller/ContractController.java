@@ -3,6 +3,7 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.request.TaskInfo;
 import com.example.carrentalcontract.sercive.ActFlowCommService;
 import com.example.carrentalcontract.sercive.ContractService;
@@ -65,8 +66,8 @@ public class ContractController {
 
     @PostMapping("/create")
     public Result createContract(@RequestBody Contract contract){
-        Long uid = SessionUtil.getCurrentUser().getId();
-        return contractService.createContract(contract,uid);
+        SysUser currentUser = SessionUtil.getCurrentUser();
+        return contractService.createContract(contract,currentUser);
     }
     @PostMapping("/flow/tasks")
     public Result findMyTaskList(){
@@ -87,9 +88,21 @@ public class ContractController {
         return Result.success(maps);
     }
 
+    @PostMapping("/flow/tasks/group")
+    public Result findMyGTaskList(){
+        String username = SessionUtil.getCurrentUser().getUsername();
+
+        List<Map<String, Object>> maps = actFlowCommService.myGTaskList(username);
+
+        return Result.success(maps);
+    }
+
     @PostMapping("/flow/task/complete")
     public Result complete(@RequestBody TaskInfo taskInfo){
         Long uid = SessionUtil.getCurrentUser().getId();
+        if (uid == null){
+            return new Result(901,"请登录");
+        }
         Map<String, Object> variables = new HashMap<>();
         variables.put("contract",taskInfo);
         actFlowCommService.setLocalVariables(taskInfo.getTaskId(),variables);

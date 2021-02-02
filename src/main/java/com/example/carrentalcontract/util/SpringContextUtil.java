@@ -3,7 +3,9 @@ package com.example.carrentalcontract.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SpringContextUtil implements ApplicationContextAware {
 
     public static ApplicationContext applicationContext;
@@ -23,6 +25,10 @@ public class SpringContextUtil implements ApplicationContextAware {
      */
     public static Object getBean(String beanName){
         return applicationContext.getBean(beanName);
+    }
+
+    public static <T> T getObject(Class<T> clazz){
+        return applicationContext.getBean(clazz);
     }
 
     /**
