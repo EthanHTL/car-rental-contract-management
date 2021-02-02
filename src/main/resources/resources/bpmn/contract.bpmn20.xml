@@ -6,8 +6,16 @@
     <userTask id="_3" name="销售人员审核" activiti:assignee="${assignee1}"/>
     <sequenceFlow id="sid-96964f94-f0b2-43c9-ba2b-0d7c7cbb798b" sourceRef="_1" targetRef="_2"/>
     <sequenceFlow id="sid-0e40358e-e5c1-42d9-aa92-cd456b73d0fe" sourceRef="_2" targetRef="_3"/>
-    <userTask id="_4" name="经理审批" activiti:assignee="${assignee2}"/>
-    <userTask id="_5" name="总经理审批" activiti:assignee="${assignee3}"/>
+    <userTask id="_4" name="经理审批" >
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.example.carrentalcontract.listener.activiti.GroupTaskListenerImpl"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="_5" name="总经理审批">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.example.carrentalcontract.listener.activiti.GroupTaskListenerImpl"/>
+      </extensionElements>
+    </userTask>
     <exclusiveGateway id="_6"/>
     <endEvent id="_7" name="noPassEnd"/>
     <sequenceFlow id="sid-b6f35abf-47bc-49db-b73e-b58927cdbf18" sourceRef="_6" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43" name="审核不通过">

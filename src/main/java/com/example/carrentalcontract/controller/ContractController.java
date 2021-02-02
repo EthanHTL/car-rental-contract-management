@@ -69,20 +69,20 @@ public class ContractController {
         return contractService.createContract(contract,uid);
     }
     @PostMapping("/flow/tasks")
-    public Result createContract(){
+    public Result findMyTaskList(){
         Long uid = SessionUtil.getCurrentUser().getId();
         // 1101110410767877
         List<Map<String, Object>> maps = actFlowCommService.myTaskList(uid.toString());
         // {
-        //         "processInstanceId": "ce895fe2-6476-11eb-8357-00e04c031e96",
-        //         "processDefinitionId": "contract:1:5003",
-        //         "assigneeUser": "user1",
-        //         "priority": 50,
-        //         "executionId": "ce8a4a4d-6476-11eb-8357-00e04c031e96",
-        //         "createTime": 1612174699932,
-        //         "taskName": "创建合同",
-        //         "assignee": "1101121603322469",
-        //         "taskId": "ce921280-6476-11eb-8357-00e04c031e96"
+        //   "processInstanceId": "ce895fe2-6476-11eb-8357-00e04c031e96",
+        //   "processDefinitionId": "contract:1:5003",
+        //   "assigneeUser": "user1",
+        //   "priority": 50,
+        //   "executionId": "ce8a4a4d-6476-11eb-8357-00e04c031e96",
+        //   "createTime": 1612174699932,
+        //   "taskName": "创建合同",
+        //   "assignee": "1101121603322469",
+        //   "taskId": "ce921280-6476-11eb-8357-00e04c031e96"
         // }
         return Result.success(maps);
     }

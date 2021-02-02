@@ -55,6 +55,20 @@ public class Contract extends DbPageParameter implements Serializable {
     @Column(name = "contact_user_id")
     private Long contactUserId;
     /**
+     * 审核状态 1：待审核，2：不通过，3：通过
+     */
+    private Integer state;
+    /**
+     * 流程id，EXECUTION_ID_
+     */
+    @Column(name = "act_ecu_id")
+    private String actEcuId;
+    /**
+     * 流程id,business
+     */
+    @Column(name = "act_bus_id")
+    private String actBusId;
+    /**
     * 备注
     */
     private String remark;

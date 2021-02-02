@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.translate.ObjectMapper;
 import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
 import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
@@ -99,6 +100,12 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
 
 
         return null;
+    }
+
+    @Override
+    public Result<List<SysUser>> findUsersByRole(SysRole role) {
+        List<SysUser> userList= roleMapper.findUsersByRole(role);
+        return Result.success(userList);
     }
 
     private List<SysApiResponseInfo> apiTreeTOList(List<SysApiResponseInfo> tree){

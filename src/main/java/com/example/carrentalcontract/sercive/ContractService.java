@@ -7,6 +7,7 @@ import com.example.carrentalcontract.entity.model.Contract;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 合同表(Contract)表服务接口
@@ -23,4 +24,6 @@ public interface ContractService extends DbService<Contract> {
     Result insert(Contract contract);
 
     Result createContract(Contract contract , Long userId);
+
+    Map<String, Object> setVariables(Long id);
 }

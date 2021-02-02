@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
 import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
@@ -45,7 +46,6 @@ public interface RoleService extends DbService<SysRole> {
      */
     Result update(SysRole role);
 
-
     Result<List<SysRoleResponseInfo>> findSecurityByRoles(List<SysRole> roles);
 
     Result<SysRoleResponseInfo> findAllSecurity();
@@ -55,4 +55,6 @@ public interface RoleService extends DbService<SysRole> {
     Result<List<SysApiResponseInfo>> findApiTree();
 
     Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo);
+
+    Result<List<SysUser>> findUsersByRole(SysRole role);
 }

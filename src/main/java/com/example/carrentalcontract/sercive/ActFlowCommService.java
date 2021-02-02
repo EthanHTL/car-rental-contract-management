@@ -20,7 +20,7 @@ public interface ActFlowCommService {
      * @param id
      * @return
      */
-    ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id);
+    ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id, Map<String, Object> variables);
 
     /**
      * 我的任务列表
@@ -44,5 +44,5 @@ public interface ActFlowCommService {
      * @param taskId 任务id
      * @param variables 变量
      */
-    void setLocalVariables(String taskId, Map<String, Object> variables);
+    Result setLocalVariables(String taskId, Map<String, Object> variables);
 }

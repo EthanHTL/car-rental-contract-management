@@ -9,6 +9,16 @@
         <result property="remark" column="remark"/>
         <result property="sort" column="sort"/>
     </resultMap>
+    <resultMap id="SysUserMap" type="com.example.carrentalcontract.entity.model.SysUser">
+        <id property="id" column="id"/>
+        <result property="idCard" column="id_card"/>
+        <result property="reputationScore" column="reputation_score"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updatorId" column="updator_id"/>
+        <result property="flag" column="flag"/>
+    </resultMap>
     <insert id="insertUserAndRole" >
         insert into sys_user_role(user_id, role_id) values
             <foreach collection="list" item="item" index="index" separator=",">
@@ -22,5 +32,8 @@
                  left join sys_user_role sur on sr.id = sur.role_id
                  left outer join sys_users su on sur.user_id = su.id
         where su.username = #{username}
+    </select>
+    <select id="findUsersByRole" resultMap="SysUserMap">
+
     </select>
 </mapper>

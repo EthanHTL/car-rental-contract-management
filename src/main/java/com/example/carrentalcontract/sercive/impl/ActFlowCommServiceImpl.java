@@ -3,9 +3,7 @@ package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.sercive.ActFlowCommService;
-import com.example.carrentalcontract.sercive.ContractFlowService;
 import com.example.carrentalcontract.sercive.UsersService;
-import com.example.carrentalcontract.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import org.activiti.engine.RuntimeService;
@@ -32,8 +30,6 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     private TaskService taskService;
     @Autowired
     private UsersService usersService;
-    @Autowired
-    private ContractFlowService flowService;
 
     @Override
     public Result saveNewDeploy() {
@@ -41,11 +37,9 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id) {
+    public ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id,Map<String, Object> variables) {
         // 修改业务状态
-        Result result = flowService.startRunTask(id, formKey);
 
-        Map<String, Object> variables = flowService.setVariables(id);
         variables.put("businessKey", businessKey);
         // 启动流程
         log.info("【启动流程】，formKey : {},businessKey : {}", formKey, businessKey);
@@ -68,8 +62,18 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
           根据负责人id 查询任务
          */
         TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(userId);
+
         List<Task> taskList = taskQuery.orderByTaskCreateTime().desc().list();
+        TaskQuery taskGroupQuery = taskService.createTaskQuery().taskCandidateUser(userId);
+
+        List<Task> groupTaskList = taskGroupQuery.orderByTaskCreateTime().desc().list();
         List<Map<String, Object>> listMap = new ArrayList<>();
+        translateTaskList(taskList, listMap);
+        translateTaskList(groupTaskList, listMap);
+        return listMap;
+    }
+
+    private void translateTaskList(List<Task> taskList, List<Map<String, Object>> listMap) {
         for (Task task : taskList) {
             Map<String, Object> map = new HashMap<>();
             map.put("taskId",task.getId());
@@ -91,10 +95,7 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
             SysUser sysUser = usersService.selectOne(user).getData();
             map.put("assigneeUser",sysUser.getUsername());
             listMap.add(map);
-
         }
-
-        return listMap;
     }
 
     @Override
@@ -128,7 +129,17 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
      * @param variables 变量
      */
     @Override
-    public void setLocalVariables(String taskId, Map<String, Object> variables) {
+    public Result setLocalVariables(String taskId, Map<String, Object> variables) {
+        Task task = taskService.createTaskQuery()
+                .taskId(taskId)
+                .singleResult();
+        if (task == null) {
+            log.error("setLocalVariables - task is null");
+            return new Result(901,"任务不存在");
+        }
         taskService.setVariablesLocal(taskId,variables);
+        return Result.success();
     }
+
+
 }
