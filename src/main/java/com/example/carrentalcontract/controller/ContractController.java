@@ -12,8 +12,6 @@ import com.example.carrentalcontract.util.SessionUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,9 +69,9 @@ public class ContractController {
     }
     @PostMapping("/flow/tasks")
     public Result findMyTaskList(){
-        Long uid = SessionUtil.getCurrentUser().getId();
+        String uid = SessionUtil.getCurrentUser().getUsername();
         // 1101110410767877
-        List<Map<String, Object>> maps = actFlowCommService.myTaskList(uid.toString());
+        List<Map<String, Object>> maps = actFlowCommService.myTaskList(uid);
         // {
         //   "processInstanceId": "ce895fe2-6476-11eb-8357-00e04c031e96",
         //   "processDefinitionId": "contract:1:5003",
@@ -90,7 +88,7 @@ public class ContractController {
 
     @PostMapping("/flow/tasks/group")
     public Result findMyGTaskList(){
-        String username = SessionUtil.getCurrentUser().getUsername();
+        String username = SessionUtil.getCurrentUser().getId().toString();
 
         List<Map<String, Object>> maps = actFlowCommService.myGTaskList(username);
 
@@ -100,9 +98,7 @@ public class ContractController {
     @PostMapping("/flow/task/complete")
     public Result complete(@RequestBody TaskInfo taskInfo){
         Long uid = SessionUtil.getCurrentUser().getId();
-        if (uid == null){
-            return new Result(901,"请登录");
-        }
+
         Map<String, Object> variables = new HashMap<>();
         variables.put("contract",taskInfo);
         actFlowCommService.setLocalVariables(taskInfo.getTaskId(),variables);

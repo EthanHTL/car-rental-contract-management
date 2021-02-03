@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .defaultSuccessUrl("/success")
                 .failureHandler(failureHandler)
                 .and().authorizeRequests()
-                .antMatchers("/","/user/login","/api/v1/car/users/register").permitAll() // 设置哪些路径不需要认证，可以直接访问
+                .antMatchers("/","/user/login","/api/v1/car/users/register","/api/v1/**").permitAll() // 设置哪些路径不需要认证，可以直接访问
                 // .antMatchers("/api/v1/**").access("@rbacService.hasPermission(request,authentication)")
                 .anyRequest().permitAll()
                 // 记住我

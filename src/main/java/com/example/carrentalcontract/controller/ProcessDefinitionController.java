@@ -45,5 +45,9 @@ public class ProcessDefinitionController {
     public Result getDeployments() {
         return definitionService.getDeployments();
     }
+    @PostMapping(value = "/getInstances")
+    public Result getInstances() {
+        return definitionService.getDeployments();
+    }
 
 }

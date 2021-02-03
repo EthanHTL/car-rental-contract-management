@@ -26,7 +26,7 @@ public interface ActFlowCommService {
      * 我的任务列表
      *
      */
-    List<Map<String, Object>> myTaskList(String userId);
+    List<Map<String, Object>> myTaskList(String username);
 
     List<Map<String, Object>> myGTaskList(String username);
 

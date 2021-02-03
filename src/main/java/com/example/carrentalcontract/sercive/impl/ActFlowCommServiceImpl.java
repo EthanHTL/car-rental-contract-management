@@ -58,11 +58,11 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public List<Map<String, Object>> myTaskList(String userId) {
+    public List<Map<String, Object>> myTaskList(String username) {
         /*
           根据负责人id 查询任务
          */
-        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(userId);
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(username);
 
         List<Task> taskList = taskQuery.orderByTaskCreateTime().desc().list();
         // TaskQuery taskGroupQuery = taskService.createTaskQuery().taskCandidateUser(userId);
@@ -76,8 +76,10 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
     @Override
     public List<Map<String, Object>> myGTaskList(String username) {
+
         List<Task> list = taskService.createTaskQuery()
-                .taskCandidateOrAssigned(username)
+                // .processDefinitionKey("contract")
+                .taskCandidateGroup(username)
                 .list();
         List<Map<String, Object>> listMap = new ArrayList<>();
 

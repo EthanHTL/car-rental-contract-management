@@ -38,7 +38,7 @@ public class ActivitiSpringTest {
      */
     @Test
     public void findProcess() {
-        securityUtil.logInAs("jack");
+        securityUtil.logInAs("manager1");
 
         Page<ProcessDefinition> definitionPage = processRuntime.processDefinitions(Pageable.of(0, 10));
         log.info("可用的流程定义总数：{}", definitionPage.getTotalItems());

@@ -45,7 +45,7 @@ public class GroupTaskListenerImpl implements TaskListener {
 
         log.info("分配代理人，id:{}：users：{}",id,users);
         users.forEach(item ->{
-            delegateTask.addCandidateUser(item.getUsername());
+            delegateTask.addCandidateUser(item.getId().toString());
         });
     }
 }

@@ -58,9 +58,9 @@ public class TestCandidate {
     @Test
     public void findCandidateUserTaskList() {
         // 流程定义的key
-        String key = "testCandidate";
+        String key = "contract";
         //    任务后选人
-        String candidateUser = "lisi";
+        String candidateUser = "manager1";
         //    获取引擎
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         // TaskService
