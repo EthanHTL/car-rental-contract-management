@@ -43,9 +43,9 @@ public class GroupTaskListenerImpl implements TaskListener {
         }
         users = roleService.findUsersByRole(role).getData();
 
-        log.info("分配代理人，id:{}：users：{}",id,users);
         users.forEach(item ->{
-            delegateTask.addCandidateUser(item.getId().toString());
+            log.info("分配代理人，id:{}：userId：{}：username:{}",id,item.getId(),item.getUsername());
+            delegateTask.addCandidateUser(item.getUsername());
         });
     }
 }

@@ -57,6 +57,10 @@ public class TestCandidate {
      */
     @Test
     public void findCandidateUserTaskList() {
+       /* select distinct RES.* from ACT_RU_TASK RES
+        inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES.ID_
+        WHERE RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate' and ( I.GROUP_ID_ IN ( 'manager1' ) )
+        */
         // 流程定义的key
         String key = "contract";
         //    任务后选人

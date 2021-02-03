@@ -7,9 +7,12 @@ import com.example.carrentalcontract.util.SessionUtil;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
+
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/car/processInstance")
 public class ProcessInstanceController {
+
+    private static ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
     @Autowired
     private ProcessRuntime processRuntime;
@@ -50,7 +55,7 @@ public class ProcessInstanceController {
             processInstances=processRuntime.processInstances(pageable);
             System.out.println("流程实例数量： " + processInstances.getTotalItems());
             List<ProcessInstance> list = processInstances.getContent();
-            //list.sort((y,x)->x.getProcessDefinitionVersion()-y.getProcessDefinitionVersion());
+            // list.sort((y,x)->x.getProcessDefinitionVersion()-y.getProcessDefinitionVersion());
             list.sort((y,x)->x.getStartDate().toString().compareTo(y.getStartDate().toString()));
 
             List<HashMap<String, Object>> listMap = new ArrayList<HashMap<String, Object>>();

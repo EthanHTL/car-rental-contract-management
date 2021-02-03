@@ -159,5 +159,19 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         Result.success();
     }
 
+    @Override
+    public Result claimTask(String taskId, String userName) {
+        Task task = taskService.createTaskQuery()
+                .taskId(taskId)
+                .taskCandidateUser(userName)
+                .singleResult();
+        //    拾取任务
+        if (task != null){
+            taskService.claim(taskId,userName);
+            System.out.println("taskId-"+taskId+"-用户"+userName+"-拾取任务");
+        }
+        return Result.success(task);
+    }
+
 
 }

@@ -42,4 +42,6 @@ public interface ActFlowCommService {
      * @param variables 变量
      */
     void setLocalVariables(String taskId, Map<String, Object> variables);
+
+    Result claimTask(String taskId, String userName);
 }

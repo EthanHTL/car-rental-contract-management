@@ -88,7 +88,7 @@ public class ContractController {
 
     @PostMapping("/flow/tasks/group")
     public Result findMyGTaskList(){
-        String username = SessionUtil.getCurrentUser().getId().toString();
+        String username = SessionUtil.getCurrentUserName();
 
         List<Map<String, Object>> maps = actFlowCommService.myGTaskList(username);
 
@@ -97,13 +97,21 @@ public class ContractController {
 
     @PostMapping("/flow/task/complete")
     public Result complete(@RequestBody TaskInfo taskInfo){
-        Long uid = SessionUtil.getCurrentUser().getId();
+        String userName = SessionUtil.getCurrentUserName();
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("contract",taskInfo);
         actFlowCommService.setLocalVariables(taskInfo.getTaskId(),variables);
-        return actFlowCommService.completeProcess(taskInfo.getRemark(),taskInfo.getTaskId(),uid.toString());
+        return actFlowCommService.completeProcess(taskInfo.getRemark(),taskInfo.getTaskId(),userName);
     }
+
+    @PostMapping("/flow/task/claim")
+    public Result claimTask(@RequestBody TaskInfo taskInfo){
+        String userName = SessionUtil.getCurrentUserName();
+;
+        return actFlowCommService.claimTask(taskInfo.getTaskId(),userName);
+    }
+
 
 
 
