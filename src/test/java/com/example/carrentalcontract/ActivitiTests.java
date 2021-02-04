@@ -11,10 +11,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.util.List;
@@ -268,6 +265,8 @@ public class ActivitiTests {
      * <p>
      * `ACT_RU_EVENT_SUBSCR`
      * `ACT_RU_IDENTITYLINK`
+     *
+     * `ACT_HI_*`
      * 当前的流程如果并没有完成，想要删除的话需要使用特殊方式，原理就是级联删除
      */
     @Test

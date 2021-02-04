@@ -43,5 +43,17 @@ public interface ActFlowCommService {
      */
     void setLocalVariables(String taskId, Map<String, Object> variables);
 
-    Result claimTask(String taskId, String userName);
+    Result claimTask(String taskId, String username);
+
+    Result assigneeToGroupTask(String taskId, String username);
+
+    Result deployment(String name ,String path,String imgPath);
+
+    /**
+     * 删除部署信息
+     * @param deploymentId 部署id
+     * @param cascade 是否级联删除
+     * @return Result
+     */
+    Result deleteDeployment(String deploymentId,Boolean cascade);
 }

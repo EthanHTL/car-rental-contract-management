@@ -111,6 +111,20 @@ public class ContractController {
 ;
         return actFlowCommService.claimTask(taskInfo.getTaskId(),userName);
     }
+    @PostMapping("/flow/task/return")
+    public Result assigneeToGroupTask(@RequestBody TaskInfo taskInfo){
+        String userName = SessionUtil.getCurrentUserName();
+        return actFlowCommService.assigneeToGroupTask(taskInfo.getTaskId(),userName);
+    }
+    @PostMapping("/flow/deployment/delete")
+    public Result deleteDeployment(String deploymentId){
+        String userName = SessionUtil.getCurrentUserName();
+        return actFlowCommService.deleteDeployment(deploymentId,true);
+    }
+    @PostMapping("/flow/deployment")
+    public Result deployment(String name, String path, String imgPath){
+        return actFlowCommService.deployment(name,path,imgPath);
+    }
 
 
 

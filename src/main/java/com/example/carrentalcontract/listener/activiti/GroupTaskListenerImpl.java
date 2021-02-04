@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @description:
@@ -42,10 +43,11 @@ public class GroupTaskListenerImpl implements TaskListener {
             role.setRoleName("loader");
         }
         users = roleService.findUsersByRole(role).getData();
-
-        users.forEach(item ->{
-            log.info("分配代理人，id:{}：userId：{}：username:{}",id,item.getId(),item.getUsername());
-            delegateTask.addCandidateUser(item.getUsername());
-        });
+        if (users.size() == 0){
+            log.warn("角色：{}，任务代理人为空！",role.getRoleName());
+        }
+        List<String> userList = users.stream().map(SysUser::getUsername).collect(Collectors.toList());
+        log.info("分配代理人，users:{}",userList);
+        delegateTask.addCandidateUsers(userList);
     }
 }

@@ -6,9 +6,11 @@ import com.example.carrentalcontract.sercive.ActFlowCommService;
 import com.example.carrentalcontract.sercive.UsersService;
 import lombok.extern.slf4j.Slf4j;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.identity.Authentication;
+import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -26,6 +28,8 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
     @Autowired
     private RuntimeService runtimeService;
+    @Autowired
+    private RepositoryService repositoryService;
     @Autowired
     private TaskService taskService;
     @Autowired
@@ -79,7 +83,7 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
         List<Task> list = taskService.createTaskQuery()
                 // .processDefinitionKey("contract")
-                .taskCandidateGroup(username)
+                .taskCandidateUser(username)
                 .list();
         List<Map<String, Object>> listMap = new ArrayList<>();
 
@@ -104,11 +108,11 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
             map.put("dueDate", task.getDueDate());
             map.put("category", task.getCategory());
 
-            SysUser user = new SysUser();
-            user.setUsername(task.getAssignee());
-            List<SysUser> sysUser = usersService.select(user).getData();
-            if (sysUser != null && sysUser.size() >0) {
-                map.put("assigneeUser", sysUser.get(0).getUsername());
+            if (task.getAssignee() != null) {
+                SysUser user = new SysUser();
+                user.setUsername(task.getAssignee());
+                SysUser sysUser = usersService.selectOne(user).getData();
+                map.put("assigneeUser", sysUser.getUsername());
             }
             listMap.add(map);
         }
@@ -135,7 +139,7 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         log.info("任务责任人：{}", task.getAssignee());
         log.info("任务名称：{}", task.getName());
         taskService.complete(task.getId());
-        log.info("------完成任务操作  接受 ------");
+        log.info("------完成任务操作  结束 ------");
         return Result.success();
     }
 
@@ -160,17 +164,55 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public Result claimTask(String taskId, String userName) {
+    public Result claimTask(String taskId, String username) {
         Task task = taskService.createTaskQuery()
                 .taskId(taskId)
-                .taskCandidateUser(userName)
+                .taskCandidateUser(username)
                 .singleResult();
         //    拾取任务
-        if (task != null){
-            taskService.claim(taskId,userName);
-            System.out.println("taskId-"+taskId+"-用户"+userName+"-拾取任务");
+        if (task != null) {
+            taskService.claim(taskId, username);
+            log.info("用户，username：{}，拾取任务：taskId-{}" ,username,taskId);
         }
-        return Result.success(task);
+        return Result.success();
+    }
+
+    @Override
+    public Result assigneeToGroupTask(String taskId, String username) {
+        Task task = taskService.createTaskQuery()
+                .taskId(taskId)
+                .taskAssignee(username)
+                .singleResult();
+        if (task != null){
+            //    任务归还
+            taskService.setAssignee(taskId,null);
+            log.info("用户，username：{}，归还任务：taskId-{}" ,username,taskId);
+        }
+        return Result.success();
+    }
+
+    @Override
+    public Result deployment(String name, String path,String imgPath) {
+        log.info("-------- 流程部署 开始---------");
+        Deployment deploy = repositoryService.createDeployment()
+                .name(name)
+                .addClasspathResource(path)
+                .addClasspathResource(imgPath)
+                .deploy();
+        //    4、输出部署信息
+        log.info("流程部署ID={}", deploy.getId());
+        log.info("流程部署名字={}", deploy.getName());
+        log.info("-------- 流程部署 结束---------");
+
+        return Result.success();
+    }
+
+    @Override
+    public Result deleteDeployment(String deploymentId, Boolean cascade) {
+        log.info("-------- 删除流程部署信息 开始---------");
+        repositoryService.deleteDeployment(deploymentId,cascade);
+        log.info("-------- 删除流程部署信息 结束---------");
+        return Result.success();
     }
 
 
