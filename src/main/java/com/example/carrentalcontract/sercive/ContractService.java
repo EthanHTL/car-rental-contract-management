@@ -5,6 +5,8 @@ import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.TaskInfo;
+import com.example.carrentalcontract.entity.view.FlowContractView;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -27,4 +29,6 @@ public interface ContractService extends DbService<Contract> {
     Result createContract(Contract contract , SysUser user);
 
     Map<String, Object> setVariables(Long id);
+
+    Result<List<FlowContractView>> findMyTask(List<TaskInfo> infos);
 }

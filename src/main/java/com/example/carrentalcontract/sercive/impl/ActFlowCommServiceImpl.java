@@ -2,6 +2,7 @@ package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.TaskInfo;
 import com.example.carrentalcontract.sercive.ActFlowCommService;
 import com.example.carrentalcontract.sercive.UsersService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,59 +62,57 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     }
 
     @Override
-    public List<Map<String, Object>> myTaskList(String username) {
+    public List<TaskInfo> myTaskList(String username) {
         /*
           根据负责人id 查询任务
          */
         TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(username);
 
         List<Task> taskList = taskQuery.orderByTaskCreateTime().desc().list();
-        // TaskQuery taskGroupQuery = taskService.createTaskQuery().taskCandidateUser(userId);
 
-        // List<Task> groupTaskList = taskGroupQuery.orderByTaskCreateTime().desc().list();
-        List<Map<String, Object>> listMap = new ArrayList<>();
-        translateTaskList(taskList, listMap);
-        // translateTaskList(groupTaskList, listMap);
-        return listMap;
+        List<TaskInfo> infos = new ArrayList<>();
+        translateTaskList(taskList, infos);
+        return infos;
     }
 
     @Override
-    public List<Map<String, Object>> myGTaskList(String username) {
+    public List<TaskInfo> myGTaskList(String username) {
 
         List<Task> list = taskService.createTaskQuery()
                 // .processDefinitionKey("contract")
                 .taskCandidateUser(username)
                 .list();
-        List<Map<String, Object>> listMap = new ArrayList<>();
-
-        translateTaskList(list, listMap);
-        return listMap;
+        List<TaskInfo> infos = new ArrayList<>();
+        translateTaskList(list, infos);
+        log.info("我的组任务：{}",infos);
+        return infos;
     }
 
-    private void translateTaskList(List<Task> taskList, List<Map<String, Object>> listMap) {
+    private void translateTaskList(List<Task> taskList, List<TaskInfo> infos) {
         for (Task task : taskList) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("taskId", task.getId());
-            map.put("taskName", task.getName());
-            map.put("description", task.getDescription());
-            map.put("priority", task.getPriority());
-            map.put("owner", task.getOwner());
-            map.put("assignee", task.getAssignee());
-            map.put("delegationState", task.getDelegationState());
-            map.put("processInstanceId", task.getProcessInstanceId());
-            map.put("executionId", task.getExecutionId());
-            map.put("processDefinitionId", task.getProcessDefinitionId());
-            map.put("createTime", task.getCreateTime());
-            map.put("dueDate", task.getDueDate());
-            map.put("category", task.getCategory());
+            TaskInfo info = new TaskInfo();
+            info.setTaskId(task.getId());
+            info.setTaskName(task.getName());
+            info.setDescription(task.getDescription());
+            info.setPriority(task.getPriority());
+            info.setOwner(task.getOwner());
+            info.setAssigneeUsername(task.getAssignee());
+            info.setDelegationState(task.getDelegationState());
+            info.setProcessInstanceId(task.getProcessInstanceId());
+            info.setExecutionId(task.getExecutionId());
+            info.setProcessDefinitionId(task.getProcessDefinitionId());
+            info.setCreateTime(task.getCreateTime());
+            info.setDueDate(task.getDueDate());
+            info.setCategory(task.getCategory());
+            info.setBusinessKey(task.getBusinessKey());
 
             if (task.getAssignee() != null) {
                 SysUser user = new SysUser();
                 user.setUsername(task.getAssignee());
                 SysUser sysUser = usersService.selectOne(user).getData();
-                map.put("assigneeUser", sysUser.getUsername());
+                info.setAssignee(sysUser.getUsername());
             }
-            listMap.add(map);
+            infos.add(info);
         }
     }
 

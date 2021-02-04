@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.request.TaskInfo;
 import org.activiti.engine.runtime.ProcessInstance;
 
 import java.util.List;
@@ -25,10 +26,11 @@ public interface ActFlowCommService {
     /**
      * 我的任务列表
      *
+     * @return
      */
-    List<Map<String, Object>> myTaskList(String username);
+    List<TaskInfo> myTaskList(String username);
 
-    List<Map<String, Object>> myGTaskList(String username);
+    List<TaskInfo> myGTaskList(String username);
 
     /**
      * 完成任务

@@ -2,10 +2,13 @@ package com.example.carrentalcontract.sercive.impl;
 
 import com.example.carrentalcontract.common.DbServiceImpl;
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.common.translate.ObjectMapper;
 import com.example.carrentalcontract.entity.en.CheckEnum;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.entity.model.SysDictDetail;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.TaskInfo;
+import com.example.carrentalcontract.entity.view.FlowContractView;
 import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.*;
 import com.example.carrentalcontract.util.SessionUtil;
@@ -24,6 +27,7 @@ import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +61,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         return super.selectAll();
     }
 
-    @PreAuthorize("hasAnyRole('common')")
+    // @PreAuthorize("hasAnyRole('common')")
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {
         PageInfo info = new PageInfo();
@@ -65,6 +69,9 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {
             criteria.andLike("contractName", "%" + contract.getContractName() + "%");
+        }
+        if (contract.getState()!=null){
+            criteria.andEqualTo("state",contract.getState());
         }
 
         return super.selectPage(weekend, contract.getPageNum(), contract.getPageSize());
@@ -101,16 +108,19 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             super.update(c);
             // 流程实例id
             String processDefinitionId = processInstance.getProcessDefinitionId();
+            String businessKey1 = processInstance.getBusinessKey();
             log.info("processDefinitionId is {}", processDefinitionId);
             // processDefinitionId is contract:1:5003
-            List<Map<String, Object>> taskList = actFlowCommService.myTaskList(user.getUsername());
-            if (!CollectionUtils.isEmpty(taskList)){
-                for (Map<String, Object> map : taskList) {
-                    if (map.get("assignee").toString().equals(user.getUsername())
-                    && map.get("processDefinitionId").toString().equals(processDefinitionId)){
-                        log.info("processDefinitionId is {}", map.get("processDefinitionId"));
-                        log.info("taskId is {}", map.get("taskId").toString());
-                        actFlowCommService.completeProcess("同意", map.get("taskId").toString(), user.getUsername());
+            List<TaskInfo> taskInfos = actFlowCommService.myTaskList(user.getUsername());
+            if (!CollectionUtils.isEmpty(taskInfos)){
+                for (TaskInfo info : taskInfos) {
+                    if (info.getAssignee().equals(user.getUsername())
+                            && info.getProcessDefinitionId().equals(processDefinitionId)
+                            && info.getBusinessKey().equals(businessKey1)
+                    ){
+                        log.info("processDefinitionId is {}", info.getProcessDefinitionId());
+                        log.info("taskId is {}", info.getTaskId());
+                        actFlowCommService.completeProcess("同意",info.getTaskId(), user.getUsername());
                     }
                 }
             }
@@ -134,6 +144,21 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         // variables.put("assignee3", 1101021813661465L); // 总经理1
 
         return variables;
+    }
+
+    @Override
+    public Result<List<FlowContractView>> findMyTask(List<TaskInfo> infos) {
+        List<FlowContractView> myTaskList = new ArrayList<>();
+        infos.forEach(item ->{
+            String id = item.getBusinessKey().split(":")[1];
+            Contract contract = super.selectByPrimaryKey(Long.parseLong(id)).getData();
+            FlowContractView flowContractView = new FlowContractView();
+            ObjectMapper.clone(contract,flowContractView);
+            flowContractView.setTaskInfo(item);
+            myTaskList.add(flowContractView);
+        });
+
+        return Result.success(myTaskList);
     }
 
 

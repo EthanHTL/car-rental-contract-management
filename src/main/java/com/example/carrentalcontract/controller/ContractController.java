@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.request.TaskInfo;
+import com.example.carrentalcontract.entity.view.FlowContractView;
 import com.example.carrentalcontract.sercive.ActFlowCommService;
 import com.example.carrentalcontract.sercive.ContractService;
 import com.example.carrentalcontract.sercive.SysResourceService;
@@ -67,32 +68,25 @@ public class ContractController {
         SysUser currentUser = SessionUtil.getCurrentUser();
         return contractService.createContract(contract,currentUser);
     }
+
     @PostMapping("/flow/tasks")
-    public Result findMyTaskList(){
-        String uid = SessionUtil.getCurrentUser().getUsername();
-        // 1101110410767877
-        List<Map<String, Object>> maps = actFlowCommService.myTaskList(uid);
-        // {
-        //   "processInstanceId": "ce895fe2-6476-11eb-8357-00e04c031e96",
-        //   "processDefinitionId": "contract:1:5003",
-        //   "assigneeUser": "user1",
-        //   "priority": 50,
-        //   "executionId": "ce8a4a4d-6476-11eb-8357-00e04c031e96",
-        //   "createTime": 1612174699932,
-        //   "taskName": "创建合同",
-        //   "assignee": "1101121603322469",
-        //   "taskId": "ce921280-6476-11eb-8357-00e04c031e96"
-        // }
-        return Result.success(maps);
+    public Result<List<FlowContractView>> findMyTaskList(){
+        String username = SessionUtil.getCurrentUser().getUsername();
+        List<TaskInfo> infos = actFlowCommService.myTaskList(username);
+        List<TaskInfo> Ginfos = actFlowCommService.myGTaskList(username);
+        Ginfos.forEach(item ->{
+            actFlowCommService.claimTask(item.getTaskId(),username);
+        });
+        infos.addAll(Ginfos);
+        return contractService.findMyTask(infos);
     }
 
     @PostMapping("/flow/tasks/group")
     public Result findMyGTaskList(){
         String username = SessionUtil.getCurrentUserName();
+        List<TaskInfo> infos = actFlowCommService.myGTaskList(username);
 
-        List<Map<String, Object>> maps = actFlowCommService.myGTaskList(username);
-
-        return Result.success(maps);
+        return Result.success(infos);
     }
 
     @PostMapping("/flow/task/complete")
