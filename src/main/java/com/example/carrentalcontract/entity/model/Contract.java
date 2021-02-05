@@ -22,36 +22,36 @@ import java.io.Serializable;
 public class Contract extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = -71828205063435859L;
     /**
-    * 编号
-    */
+     * 编号
+     */
     @Id
     private Long id;
     /**
-    * 合同编号
-    */
+     * 合同编号
+     */
     @Column(name = "contract_numbers")
     private String contractNumbers;
     /**
-    * 合同名称
-    */
+     * 合同名称
+     */
     @Column(name = "contract_name")
     private String contractName;
     /**
-    * 签订单位
-    */
+     * 签订单位
+     */
     @Column(name = "sign_unit")
     private String signUnit;
     /**
-    * 支付方式
-    */
+     * 支付方式
+     */
     private String payment;
     /**
-    * 合同负责人
-    */
+     * 合同负责人
+     */
     private Long principal;
     /**
-    * 客户联系人
-    */
+     * 客户联系人
+     */
     @Column(name = "contact_user_id")
     private Long contactUserId;
     /**
@@ -69,37 +69,37 @@ public class Contract extends DbPageParameter implements Serializable {
     @Column(name = "act_bus_id")
     private String actBusId;
     /**
-    * 备注
-    */
+     * 备注
+     */
     private String remark;
     /**
-    * 合同金额
-    */
+     * 合同金额
+     */
     @Column(name = "contract_amount")
     private String contractAmount;
     /**
-    * 已付金额
-    */
+     * 已付金额
+     */
     @Column(name = "paid_amount")
     private String paidAmount;
     /**
-    * 合同签订时间
-    */
+     * 合同签订时间
+     */
     @Column(name = "sign_time")
     private Date signTime;
     /**
-    * 合同有效期
-    */
+     * 合同有效期
+     */
     @Column(name = "end_time")
     private Date endTime;
     /**
-    * 合同到期时间
-    */
-    @Column(name = "contract_life")
-    private Date contractLife;
+     * 合同开始时间
+     */
+    @Column(name = "start_time")
+    private Date startTime;
     /**
-    * 合同路径
-    */
+     * 合同路径
+     */
     @Column(name = "contract_url")
     private String contractUrl;
     /**
@@ -116,6 +116,11 @@ public class Contract extends DbPageParameter implements Serializable {
 
     @Column(name = "create_time")
     private Date createTime;
+
+
+
+
+
 
     @Column(name = "update_time")
     private Date updateTime;

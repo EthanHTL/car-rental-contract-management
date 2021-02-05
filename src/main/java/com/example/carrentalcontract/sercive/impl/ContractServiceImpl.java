@@ -85,6 +85,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Transactional
     @Override
     public Result createContract(Contract contract, SysUser user) {
+        contract.setPrincipal(user.getId()); // 合同负责人
 
         // 创建合同
         Result<Contract> data = super.insert(contract);

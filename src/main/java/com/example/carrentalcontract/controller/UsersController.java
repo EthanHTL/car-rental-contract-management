@@ -5,6 +5,7 @@ import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.sercive.UsersService;
+import com.example.carrentalcontract.util.SessionUtil;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,19 @@ public class UsersController {
      */
     @Resource
     private UsersService usersService;
+
+    /**
+     * 注册
+     *
+     * @param user user
+     */
+    @NotNull(field = "username", name = "账号", statusCode = 701)
+    @NotNull(field = "password", name = "密码", statusCode = 702)
+    @PostMapping("/loginuser")
+    public Result loginuser(@RequestBody SysUser user) {
+        SysUser sysUser = SessionUtil.getCurrentUser();
+        return Result.success(sysUser);
+    }
 
     /**
      * 注册
