@@ -57,4 +57,6 @@ public interface RoleService extends DbService<SysRole> {
     Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo);
 
     Result<List<SysUser>> findUsersByRole(SysRole role);
+
+    Result<List<SysRole>> findRolesByUser(SysUser user);
 }

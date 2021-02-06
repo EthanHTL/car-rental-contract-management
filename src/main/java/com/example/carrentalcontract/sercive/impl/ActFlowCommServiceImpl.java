@@ -69,9 +69,9 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee(username);
 
         List<Task> taskList = taskQuery.orderByTaskCreateTime().desc().list();
-
         List<TaskInfo> infos = new ArrayList<>();
         translateTaskList(taskList, infos);
+        logTaskInfo(infos,"我的任务");
         return infos;
     }
 
@@ -84,9 +84,25 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
                 .list();
         List<TaskInfo> infos = new ArrayList<>();
         translateTaskList(list, infos);
-        log.info("我的组任务：{}",infos);
+        logTaskInfo(infos,"我的组任务");
         return infos;
     }
+
+    private void logTaskInfo(List<TaskInfo> taskInfos,String mes){
+        for (TaskInfo task : taskInfos) {
+            log.info(mes+"：TaskId>{} ,TaskName>{} ,Assignee>{} ,BusinessKey>{} " +
+                            ",ProcessDefinitionId>{} ,Remark>{} ,Description>{}",
+                    task.getTaskId(),
+                    task.getTaskName(),
+                    task.getAssignee(),
+                    task.getBusinessKey(),
+                    task.getProcessDefinitionId(),
+                    task.getRemark(),
+                    task.getDescription()
+            );
+        }
+    }
+
 
     private void translateTaskList(List<Task> taskList, List<TaskInfo> infos) {
         for (Task task : taskList) {
@@ -212,6 +228,8 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
         log.info("-------- 删除流程部署信息 结束---------");
         return Result.success();
     }
+
+
 
 
 }

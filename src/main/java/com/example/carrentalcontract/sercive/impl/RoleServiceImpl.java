@@ -108,6 +108,12 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         return Result.success(userList);
     }
 
+    @Override
+    public Result<List<SysRole>> findRolesByUser(SysUser user) {
+        List<SysRole> roleList= roleMapper.findRolesByUser(user);
+        return Result.success(roleList);
+    }
+
     private List<SysApiResponseInfo> apiTreeTOList(List<SysApiResponseInfo> tree){
         List<SysApiResponseInfo> list = new ArrayList<>();
         tree.forEach(item ->{

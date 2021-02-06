@@ -26,4 +26,6 @@ public interface RoleMapper extends DbMapper<SysRole> {
     int insertUserAndRole(List<SysRole> list, @Param("id") Long id);
 
     List<SysUser> findUsersByRole(@Param("role") SysRole role);
+
+    List<SysRole> findRolesByUser(@Param("user") SysUser user);
 }

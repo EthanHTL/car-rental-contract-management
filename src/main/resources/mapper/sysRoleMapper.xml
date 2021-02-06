@@ -19,11 +19,11 @@
         <result property="updatorId" column="updator_id"/>
         <result property="flag" column="flag"/>
     </resultMap>
-    <insert id="insertUserAndRole" >
+    <insert id="insertUserAndRole">
         insert into sys_user_role(user_id, role_id) values
-            <foreach collection="list" item="item" index="index" separator=",">
-                (#{id},#{item.id})
-            </foreach>
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{id},#{item.id})
+        </foreach>
     </insert>
 
     <select id="findRoleByUserName" resultMap="SysRoleMap">
@@ -33,10 +33,19 @@
                  left outer join sys_users su on sur.user_id = su.id
         where su.username = #{username}
     </select>
-    <select id="findUsersByRole" resultMap="SysUserMap" parameterType="com.example.carrentalcontract.entity.model.SysRole">
-        select su.*
-from sys_users su left join sys_user_role sur on su.id = sur.user_id
-        left join sys_role sr on sr.id = sur.role_id
-where sr.role_name = #{role.roleName}
+    <select id="findUsersByRole" resultMap="SysUserMap"
+            parameterType="com.example.carrentalcontract.entity.model.SysRole">
+        select distinct su.*
+        from sys_users su
+                 left join sys_user_role sur on su.id = sur.user_id
+                 left join sys_role sr on sr.id = sur.role_id
+        where sr.role_name = #{role.roleName}
+    </select>
+    <select id="findRolesByUser" resultMap="SysRoleMap">
+        select distinct sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sr.id = sur.role_id
+                 left join sys_users su on sur.user_id = su.id
+        where su.id = #{user.id}
     </select>
 </mapper>

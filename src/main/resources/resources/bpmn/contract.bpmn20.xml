@@ -3,7 +3,11 @@
   <process id="contract" name="contract" isExecutable="true">
     <startEvent id="_1"/>
     <userTask id="_2" name="创建合同" activiti:assignee="${assignee0}"/>
-    <userTask id="_3" name="销售人员审核" activiti:assignee="${assignee1}"/>
+    <userTask id="_3" name="销售人员审核">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.example.carrentalcontract.listener.activiti.GroupTaskListenerImpl"/>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="sid-96964f94-f0b2-43c9-ba2b-0d7c7cbb798b" sourceRef="_1" targetRef="_2"/>
     <sequenceFlow id="sid-0e40358e-e5c1-42d9-aa92-cd456b73d0fe" sourceRef="_2" targetRef="_3"/>
     <userTask id="_4" name="经理审批" >

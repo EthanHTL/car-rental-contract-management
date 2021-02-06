@@ -105,7 +105,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             // 开启合同审核流程
             c.setState(CheckEnum.PENDING.getStatus());
             c.setActBusId(businessKey);
-            c.setActEcuId(processInstance.getSuperExecutionId());
+            c.setActEcuId(processInstance.getId());
             super.update(c);
             // 流程实例id
             String processDefinitionId = processInstance.getProcessDefinitionId();
@@ -134,16 +134,13 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Override
     public Map<String, Object> setVariables(Long id) {
         // 设置流程变量
-        // SysUser user = usersService.selectByPrimaryKey(id).getData();
         Map<String, Object> variables = new HashMap<>();
         // 创建合同和业务员审核 都是业务员操作
-        variables.put("assignee0", SessionUtil.getCurrentUser().getUsername());// 用户1 张三
-        variables.put("assignee1", SessionUtil.getCurrentUser().getUsername()); // 业务1
+        variables.put("assignee0", SessionUtil.getCurrentUser().getUsername());// 创建合同 执行者，当前登录的业务员
+        // variables.put("assignee1", SessionUtil.getCurrentUser().getUsername()); // 业务1
         // 经理和总经理
-
         // variables.put("assignee2", 1101121505827021L); // 经理1
         // variables.put("assignee3", 1101021813661465L); // 总经理1
-
         return variables;
     }
 
