@@ -72,6 +72,9 @@ public class ContractController {
     @PostMapping("/flow/tasks")
     public Result<List<FlowContractView>> findMyTaskList(){
         String username = SessionUtil.getCurrentUser().getUsername();
+        if (username == null){
+            return new Result(901,"未登陆");
+        }
         List<TaskInfo> infos = actFlowCommService.myTaskList(username);
         List<TaskInfo> Ginfos = actFlowCommService.myGTaskList(username);
         Ginfos.forEach(item ->{

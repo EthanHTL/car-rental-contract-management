@@ -3,6 +3,7 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.util.SecurityUtil;
+import com.example.carrentalcontract.util.SessionUtil;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.*;
 import org.activiti.engine.HistoryService;
@@ -12,15 +13,12 @@ import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/activitiHistory")
+@RequestMapping("/api/v1/car/contract/activitiHistory")
 public class ActivitiHistoryController {
 
     @Autowired
@@ -33,13 +31,14 @@ public class ActivitiHistoryController {
     private HistoryService historyService;
 
     //用户历史
-    @GetMapping(value = "/getInstancesByUserName")
+    @PostMapping(value = "/getInstancesByUserName")
     public Result InstancesByUser() {
+        String userName = SessionUtil.getCurrentUserName();
         try {
 
             List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery()
                     .orderByHistoricTaskInstanceEndTime().asc()
-                    .taskAssignee("bajie")
+                    .taskAssignee(userName)
                     .list();
             return Result.success(historicTaskInstances);
         } catch (Exception e) {
@@ -49,7 +48,7 @@ public class ActivitiHistoryController {
     }
 
     //任务实例历史
-    @GetMapping(value = "/getInstancesByPiID")
+    @PostMapping(value = "/getInstancesByPiID")
     public Result getInstancesByPiID(@RequestParam("piID") String piID) {
         try {
 
@@ -68,7 +67,7 @@ public class ActivitiHistoryController {
 
 
     //流程图高亮
-    @GetMapping("/gethighLine")
+    @PostMapping("/gethighLine")
     public Result gethighLine(@RequestParam("instanceId") String instanceId) {
         try {
             HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery()
