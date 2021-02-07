@@ -2,11 +2,17 @@ package com.example.carrentalcontract.controller;
 
 
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.common.translate.ObjectMapper;
+import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.request.TaskInfo;
+import com.example.carrentalcontract.entity.view.FlowContractView;
+import com.example.carrentalcontract.sercive.ContractService;
 import com.example.carrentalcontract.util.SecurityUtil;
 import com.example.carrentalcontract.util.SessionUtil;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.*;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -25,10 +31,16 @@ public class ActivitiHistoryController {
     private SecurityUtil securityUtil;
 
     @Autowired
+    private ContractService contractService;
+
+    @Autowired
     private RepositoryService repositoryService;
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private ProcessEngine processEngine;
 
     //用户历史
     @PostMapping(value = "/getInstancesByUserName")
@@ -39,8 +51,66 @@ public class ActivitiHistoryController {
             List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery()
                     .orderByHistoricTaskInstanceEndTime().asc()
                     .taskAssignee(userName)
+                    .finished()
                     .list();
+            for(HistoricTaskInstance hti:historicTaskInstances){
+                System.out.println("任务ID:"+hti.getId());
+                System.out.println("流程实例ID:"+hti.getProcessInstanceId());
+                System.out.println("任务名称："+hti.getName());
+                System.out.println("办理人："+hti.getAssignee());
+                System.out.println("开始时间："+hti.getStartTime());
+                System.out.println("结束时间："+hti.getEndTime());
+                System.out.println("=================================");
+            }
+
             return Result.success(historicTaskInstances);
+        } catch (Exception e) {
+            return new Result(901,"获取历史任务失败");
+        }
+
+    }
+
+    /**
+     * 查询历史流程实例
+     */
+    @PostMapping(value = "/getProcinstsByUserName")
+    public Result procinstsByUser() {
+        String userName = SessionUtil.getCurrentUserName();
+        try {
+            List<HistoricProcessInstance> historicProcessInstances = historyService.createHistoricProcessInstanceQuery()
+                    .involvedUser(userName)
+                    .orderByProcessInstanceStartTime().asc()
+                    .list();
+            List<FlowContractView> flowContractViewList = new ArrayList<>();
+            for (HistoricProcessInstance instance : historicProcessInstances) {
+                String id = instance.getBusinessKey().split(":")[1];
+                Contract contract = contractService.selectByPrimaryKey(Long.parseLong(id)).getData();
+                TaskInfo taskInfo = new TaskInfo();
+                ObjectMapper.clone(instance,taskInfo);
+                FlowContractView contractView = new FlowContractView();
+                ObjectMapper.clone(contract,contractView);
+                contractView.setTaskInfo(taskInfo);
+                flowContractViewList.add(contractView);
+            }
+
+
+            return Result.success(flowContractViewList);
+        } catch (Exception e) {
+            return new Result(901,"获取历史任务失败");
+        }
+
+    }
+
+
+    //用户历史
+    @PostMapping(value = "/getMyHistory")
+    public Result getMyHistory() {
+        String username = SessionUtil.getCurrentUserName();
+        try {
+            List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
+                    .startedBy(username)
+                    .list();
+            return Result.success(list);
         } catch (Exception e) {
             return new Result(901,"获取历史任务失败");
         }
@@ -64,6 +134,8 @@ public class ActivitiHistoryController {
         }
 
     }
+
+
 
 
     //流程图高亮

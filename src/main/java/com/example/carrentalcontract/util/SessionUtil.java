@@ -31,8 +31,8 @@ public class SessionUtil {
                 MyUserDetails currentuser = (MyUserDetails) principal;
                 return currentuser.getCurrentUserInfo();
             }
-            return null;
+            return new SysUser();
         }
-        return null;
+        return new SysUser();
     }
 }
