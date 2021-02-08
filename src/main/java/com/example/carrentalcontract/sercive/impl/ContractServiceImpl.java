@@ -6,6 +6,7 @@ import com.example.carrentalcontract.common.translate.ObjectMapper;
 import com.example.carrentalcontract.entity.en.CheckEnum;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.entity.model.SysDictDetail;
+import com.example.carrentalcontract.entity.model.SysFlow;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.request.TaskInfo;
 import com.example.carrentalcontract.entity.view.FlowContractView;
@@ -18,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +26,6 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +49,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     private SysDictDetailService sysDictDetailService;
     @Autowired
     private ProcessInstanceService instanceService;
+    @Autowired
+    private SysFlowService flowService;
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
@@ -101,26 +102,37 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
 
             // 设置流程变量
             Map<String, Object> variables = setVariables(id);
-            ProcessInstance processInstance = actFlowCommService.startProcess(formKey, beanName, businessKey, c.getId(),variables);
+            ProcessInstance processInstance = actFlowCommService.startProcess(formKey, beanName,
+                    businessKey, c.getId(),variables);
+            String processDefinitionId = processInstance.getProcessDefinitionId();
+            String processBusinessKey = processInstance.getBusinessKey();
+            log.info("processDefinitionId is {}" , processDefinitionId);
             // 开启合同审核流程
             c.setState(CheckEnum.PENDING.getStatus());
             c.setActBusId(businessKey);
             c.setActEcuId(processInstance.getId());
             super.update(c);
-            // 流程实例id
-            String processDefinitionId = processInstance.getProcessDefinitionId();
-            String businessKey1 = processInstance.getBusinessKey();
-            log.info("processDefinitionId is {}", processDefinitionId);
-            // processDefinitionId is contract:1:5003
+            SysFlow flow = new SysFlow();
+            flow.setFlowName(contract.getContactUsername()+"汽车租赁合同审核");
+            flow.setUserId(user.getId());
+            flow.setUsername(user.getUsername());
+            flow.setContractId(id);
+            flow.setState(CheckEnum.PENDING.getStatus());
+            flow.setBusinessKey(businessKey);
+            flow.setExecutionId(processInstance.getId());
+            flow.setProcessInstanceId(processInstance.getProcessInstanceId());
+            flow.setProcessDefinitionId(processDefinitionId);
+            log.info("创建合同：ExecutionId：{}" , processInstance.getId());
+            flowService.insert(flow);
             List<TaskInfo> taskInfos = actFlowCommService.myTaskList(user.getUsername());
             if (!CollectionUtils.isEmpty(taskInfos)){
                 for (TaskInfo info : taskInfos) {
                     if (info.getAssignee().equals(user.getUsername())
                             && info.getProcessDefinitionId().equals(processDefinitionId)
-                            && info.getBusinessKey().equals(businessKey1)
+                            && info.getBusinessKey().equals(processBusinessKey)
                     ){
-                        log.info("processDefinitionId is {}", info.getProcessDefinitionId());
-                        log.info("taskId is {}", info.getTaskId());
+                        log.info("complete task , processDefinitionId is {}", info.getProcessDefinitionId());
+                        log.info("complete task , taskId is {}", info.getTaskId());
                         actFlowCommService.completeProcess("同意",info.getTaskId(), user.getUsername());
                     }
                 }

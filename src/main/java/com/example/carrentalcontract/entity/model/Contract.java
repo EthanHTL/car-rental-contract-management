@@ -54,6 +54,9 @@ public class Contract extends DbPageParameter implements Serializable {
      */
     @Column(name = "contact_user_id")
     private Long contactUserId;
+
+    @Column(name = "contact_username")
+    private String contactUsername;
     /**
      * 审核状态 1：待审核，2：不通过，3：通过
      */

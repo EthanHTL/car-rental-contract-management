@@ -102,13 +102,18 @@ public class ActivitiHistoryController {
     }
 
 
-    //用户历史
-    @PostMapping(value = "/getMyHistory")
-    public Result getMyHistory() {
+    /**
+     * 查询已处理任务列表。
+     *
+     * @return 已处理任务列表
+     */
+    @PostMapping(value = "/queryDoneTasks")
+    public Result queryDoneTasks() {
         String username = SessionUtil.getCurrentUserName();
         try {
-            List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
-                    .startedBy(username)
+            List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery()
+                    .taskAssignee(username)
+                    .finished()
                     .list();
             return Result.success(list);
         } catch (Exception e) {
