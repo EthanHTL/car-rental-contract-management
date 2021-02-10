@@ -63,12 +63,14 @@ public class ContractController {
         return sysResourceService.uploadFiles(files);
     }
 
+    // 创建合同
     @PostMapping("/create")
     public Result createContract(@RequestBody Contract contract){
         SysUser currentUser = SessionUtil.getCurrentUser();
         return contractService.createContract(contract,currentUser);
     }
 
+    // 我的任务（个人+组 任务）
     @PostMapping("/flow/tasks")
     public Result<List<FlowContractView>> findMyTaskList(){
         String username = SessionUtil.getCurrentUser().getUsername();
@@ -78,6 +80,7 @@ public class ContractController {
         List<TaskInfo> infos = actFlowCommService.myTaskList(username);
         List<TaskInfo> Ginfos = actFlowCommService.myGTaskList(username);
         Ginfos.forEach(item ->{
+            // 拾取任务
             actFlowCommService.claimTask(item.getTaskId(),username);
         });
         infos.addAll(Ginfos);
@@ -92,6 +95,7 @@ public class ContractController {
         return Result.success(infos);
     }
 
+    // 完成任务
     @PostMapping("/flow/task/complete")
     public Result complete(@RequestBody TaskInfo taskInfo){
         String userName = SessionUtil.getCurrentUserName();
@@ -102,30 +106,31 @@ public class ContractController {
         return actFlowCommService.completeProcess(taskInfo.getRemark(),taskInfo.getTaskId(),userName);
     }
 
+    // 任务拾取
     @PostMapping("/flow/task/claim")
     public Result claimTask(@RequestBody TaskInfo taskInfo){
         String userName = SessionUtil.getCurrentUserName();
 ;
         return actFlowCommService.claimTask(taskInfo.getTaskId(),userName);
     }
+    // 任务归还
     @PostMapping("/flow/task/return")
     public Result assigneeToGroupTask(@RequestBody TaskInfo taskInfo){
         String userName = SessionUtil.getCurrentUserName();
         return actFlowCommService.assigneeToGroupTask(taskInfo.getTaskId(),userName);
     }
+
+    // 删除
     @PostMapping("/flow/deployment/delete")
     public Result deleteDeployment(String deploymentId){
         String userName = SessionUtil.getCurrentUserName();
         return actFlowCommService.deleteDeployment(deploymentId,true);
     }
+    // 任务部署
     @PostMapping("/flow/deployment")
     public Result deployment(String name, String path, String imgPath){
         return actFlowCommService.deployment(name,path,imgPath);
     }
-
-
-
-
 
 
 }

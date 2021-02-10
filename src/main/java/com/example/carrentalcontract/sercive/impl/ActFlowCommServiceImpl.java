@@ -42,9 +42,9 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
 
     @Override
     public ProcessInstance startProcess(String formKey, String beanName, String businessKey,
-                                        Long id, Map<String, Object> variables) {
+                                        Long id, Map<String, Object> variables, String username) {
         // 修改业务状态
-
+        Authentication.setAuthenticatedUserId(username);
         variables.put("businessKey", businessKey);
         // 启动流程
         log.info("【启动流程】，formKey : {},businessKey : {}", formKey, businessKey);
@@ -224,6 +224,7 @@ public class ActFlowCommServiceImpl implements ActFlowCommService {
     @Override
     public Result deleteDeployment(String deploymentId, Boolean cascade) {
         log.info("-------- 删除流程部署信息 开始---------");
+        log.info("deploymentId：{}",deploymentId);
         repositoryService.deleteDeployment(deploymentId,cascade);
         log.info("-------- 删除流程部署信息 结束---------");
         return Result.success();

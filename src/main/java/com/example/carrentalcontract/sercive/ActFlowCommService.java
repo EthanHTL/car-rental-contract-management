@@ -19,9 +19,10 @@ public interface ActFlowCommService {
      * @param beanName
      * @param businessKey
      * @param id
+     * @param username
      * @return
      */
-    ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id, Map<String, Object> variables);
+    ProcessInstance startProcess(String formKey, String beanName, String businessKey, Long id, Map<String, Object> variables, String username);
 
     /**
      * 我的任务列表

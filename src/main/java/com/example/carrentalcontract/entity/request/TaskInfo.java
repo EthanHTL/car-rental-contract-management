@@ -7,8 +7,10 @@ import java.util.Date;
 
 @Data
 public class TaskInfo {
+    private String deploymentId;
     private String processInstanceId;
     private String processDefinitionId;
+    private String processDefinitionName;
     private String assigneeUser;
     private Integer priority;
     private String owner;

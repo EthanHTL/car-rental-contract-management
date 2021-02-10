@@ -7,11 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * @description:
- * @author: 黄天亮
- * @create: 2021-01-04 13:42
- **/
 public class SessionUtil {
     //得到当前登录的用户名
     public static String getCurrentUserName(){

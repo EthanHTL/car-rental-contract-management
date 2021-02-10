@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,14 +104,12 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             // 设置流程变量
             Map<String, Object> variables = setVariables(id);
             ProcessInstance processInstance = actFlowCommService.startProcess(formKey, beanName,
-                    businessKey, c.getId(),variables);
+                    businessKey, c.getId(),variables,user.getUsername());
             String processDefinitionId = processInstance.getProcessDefinitionId();
             String processBusinessKey = processInstance.getBusinessKey();
             log.info("processDefinitionId is {}" , processDefinitionId);
             // 开启合同审核流程
             c.setState(CheckEnum.PENDING.getStatus());
-            c.setActBusId(businessKey);
-            c.setActEcuId(processInstance.getId());
             super.update(c);
             SysFlow flow = new SysFlow();
             flow.setFlowName(contract.getContactUsername()+"汽车租赁合同审核");
@@ -119,7 +118,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             flow.setContractId(id);
             flow.setState(CheckEnum.PENDING.getStatus());
             flow.setBusinessKey(businessKey);
-            flow.setExecutionId(processInstance.getId());
+            String executionId = ((ExecutionEntityImpl) processInstance).getExecutions().get(0).getTasks().get(0).getExecutionId();
+            flow.setExecutionId(executionId);
             flow.setProcessInstanceId(processInstance.getProcessInstanceId());
             flow.setProcessDefinitionId(processDefinitionId);
             log.info("创建合同：ExecutionId：{}" , processInstance.getId());
