@@ -22,6 +22,7 @@ spring:
     history-level: full
     check-process-definitions: true
     async-executor-activate: false
+
 #    process-definition-location-prefix: classpath:/processes/
 #    process-definition-location-suffixes:
 #      - **.bpmn

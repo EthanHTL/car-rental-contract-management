@@ -10,7 +10,7 @@
     </userTask>
     <sequenceFlow id="sid-96964f94-f0b2-43c9-ba2b-0d7c7cbb798b" sourceRef="_1" targetRef="_2"/>
     <sequenceFlow id="sid-0e40358e-e5c1-42d9-aa92-cd456b73d0fe" sourceRef="_2" targetRef="_3"/>
-    <userTask id="_4" name="经理审批" >
+    <userTask id="_4" name="经理审批">
       <extensionElements>
         <activiti:taskListener event="create" class="com.example.carrentalcontract.listener.activiti.GroupTaskListenerImpl"/>
       </extensionElements>
@@ -24,6 +24,7 @@
     <endEvent id="_7" name="noPassEnd"/>
     <sequenceFlow id="sid-b6f35abf-47bc-49db-b73e-b58927cdbf18" sourceRef="_6" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43" name="审核不通过">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
+      <documentation>审核不通过</documentation>
     </sequenceFlow>
     <sequenceFlow id="sid-e9459c47-85c5-4e77-a7f0-17594fdf109d" sourceRef="_6" targetRef="_4" name="审核通过">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>
@@ -32,6 +33,7 @@
     <exclusiveGateway id="_8"/>
     <sequenceFlow id="sid-09869994-6fa4-4c96-8a97-f0897b5cc6bf" name="审核不通过" sourceRef="_8" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
+      <documentation>审核不通过</documentation>
     </sequenceFlow>
     <sequenceFlow id="sid-e632f96c-1d46-4f0f-8b64-1379bb953e29" name="审核通过" sourceRef="_8" targetRef="_5">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>
@@ -40,6 +42,7 @@
     <exclusiveGateway id="_10"/>
     <sequenceFlow id="sid-52e06baa-6329-470a-8e02-18c421245186" name="审核不通过" sourceRef="_10" targetRef="sid-9b4267b4-6136-47da-ac9e-3596e55f1a43">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 0}</conditionExpression>
+      <documentation>审核不通过</documentation>
     </sequenceFlow>
     <sequenceFlow id="sid-4aa5b6e7-c583-4a59-b685-66fc9b98c39a" name="审核通过" sourceRef="_10" targetRef="sid-5e4dfe49-2804-4508-a1ad-1a8fd0965322">
       <conditionExpression xsi:type="tFormalExpression">${contract.state == 1}</conditionExpression>

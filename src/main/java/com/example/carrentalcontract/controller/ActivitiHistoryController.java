@@ -4,71 +4,121 @@ package com.example.carrentalcontract.controller;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.common.translate.ObjectMapper;
 import com.example.carrentalcontract.entity.model.Contract;
+import com.example.carrentalcontract.entity.model.SysFlow;
 import com.example.carrentalcontract.entity.request.TaskInfo;
 import com.example.carrentalcontract.entity.view.FlowContractView;
 import com.example.carrentalcontract.sercive.ContractService;
+import com.example.carrentalcontract.sercive.SysFlowService;
 import com.example.carrentalcontract.util.SecurityUtil;
 import com.example.carrentalcontract.util.SessionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.*;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.RepositoryService;
+import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
+import org.activiti.spring.ProcessEngineFactoryBean;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/car/contract/activitiHistory")
 public class ActivitiHistoryController {
-
     @Autowired
     private SecurityUtil securityUtil;
-
     @Autowired
     private ContractService contractService;
-
     @Autowired
     private RepositoryService repositoryService;
-
     @Autowired
     private HistoryService historyService;
-
     @Autowired
-    private ProcessEngine processEngine;
+    private SysFlowService flowService;
+    @Autowired
+    ProcessEngineConfiguration processEngineConfiguration;
+    @Autowired
+    ProcessEngineFactoryBean processEngine;
+    @Autowired
+    RuntimeService runtimeService;
+    @Autowired
+    ManagementService managementService;
 
-    //用户历史
-    @PostMapping(value = "/getInstancesByUserName")
-    public Result InstancesByUser() {
-        String userName = SessionUtil.getCurrentUserName();
-        try {
+    @GetMapping("/queryProPlan")
+    public void getProcessDiagram(HttpServletRequest request, HttpServletResponse response, String processInstanceId,Boolean f) throws IOException {
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(processInstanceId).singleResult();
 
-            List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery()
-                    .orderByHistoricTaskInstanceEndTime().asc()
-                    .taskAssignee(userName)
-                    .finished()
-                    .list();
-            for(HistoricTaskInstance hti:historicTaskInstances){
-                System.out.println("任务ID:"+hti.getId());
-                System.out.println("流程实例ID:"+hti.getProcessInstanceId());
-                System.out.println("任务名称："+hti.getName());
-                System.out.println("办理人："+hti.getAssignee());
-                System.out.println("开始时间："+hti.getStartTime());
-                System.out.println("结束时间："+hti.getEndTime());
-                System.out.println("=================================");
+        // null check
+        if (processInstance != null) {
+            // get process model
+            BpmnModel model = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
+            List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstance.getId());
+            if (model != null && model.getLocationMap().size() > 0) {
+                ProcessDiagramGenerator generator = new DefaultProcessDiagramGenerator();
+                InputStream inputStream = null;
+                // 生成流程图 已启动的task 高亮
+                if (f){
+                    inputStream = generator.generateDiagram(model,"png",activeActivityIds,
+                            runtimeService.getActiveActivityIds(processInstanceId),"宋体","宋体",ClassLoader.getSystemClassLoader(),1L);
+                }else {
+                    // inputStream = generator.generateDiagram(model, "png", Collections.<String>emptyList());
+                    inputStream = generator.generateDiagram(model,"png",Collections.<String>emptyList(),
+                            Collections.<String>emptyList(),"宋体","宋体",ClassLoader.getSystemClassLoader(),1L);
+                }
+
+                // 生成流程图 都不高亮
+                // InputStream inputStream = generator.generateDiagram(model, "png", Collections.<String>emptyList());
+                String imageName = "image" + Instant.now().getEpochSecond()+".png";
+                FileUtils.copyInputStreamToFile(inputStream, new File("src/main/resources/resources/bpmn/"+imageName));
+                //使用字节流读取本地图片
+                ServletOutputStream out=null;
+                BufferedInputStream buf=null;
+                //创建一个文件对象，对应的文件就是python把词云图片生成后的路径以及对应的文件名
+                File file = new File("src/main/resources/resources/bpmn/"+imageName);
+                try {
+                    //使用输入读取缓冲流读取一个文件输入流
+                    buf=new BufferedInputStream(new FileInputStream(file));
+                    // buf=new BufferedInputStream(inputStream);
+                    //利用response获取一个字节流输出对象
+                    out=response.getOutputStream();
+                    //定义个数组，由于读取缓冲流中的内容
+                    byte[] buffer=new byte[1024];
+                    //while循环一直读取缓冲流中的内容到输出的对象中
+                    while(buf.read(buffer)!=-1) {
+                        out.write(buffer);
+                    }
+                    //写出到请求的地方
+                    out.flush();
+                }catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }finally {
+                    if(buf!=null) buf.close();
+                    if(out!=null) out.close();
+                }
+                //传输结束后，删除文件，可以不删除，在生成的图片中回对此进行覆盖
+                File file1 = new File("src/main/resources/resources/bpmn/"+imageName);
+                file1.delete();
+                System.out.println("文件删除！");
             }
-
-            return Result.success(historicTaskInstances);
-        } catch (Exception e) {
-            return new Result(901,"获取历史任务失败");
         }
-
     }
+
+
 
     /**
      * 查询历史流程实例
@@ -81,19 +131,24 @@ public class ActivitiHistoryController {
                     .involvedUser(userName)
                     .orderByProcessInstanceStartTime().asc()
                     .list();
-            List<FlowContractView> flowContractViewList = new ArrayList<>();
+            // 查询合同
+
+            List<Long> ids = historicProcessInstances.stream().map(n -> Long.parseLong(n.getBusinessKey().split(":")[1]) )
+                    .collect(Collectors.toList());
+            List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
+            List<FlowContractView> flowContractViewList = ObjectMapper.clone(contracts, FlowContractView.class);
+            ObjectMapper.clone(historicProcessInstances,flowContractViewList);
             for (HistoricProcessInstance instance : historicProcessInstances) {
-                String id = instance.getBusinessKey().split(":")[1];
-                Contract contract = contractService.selectByPrimaryKey(Long.parseLong(id)).getData();
-                TaskInfo taskInfo = new TaskInfo();
-                ObjectMapper.clone(instance,taskInfo);
-                FlowContractView contractView = new FlowContractView();
-                ObjectMapper.clone(contract,contractView);
-                contractView.setTaskInfo(taskInfo);
-                flowContractViewList.add(contractView);
+                // 获取 TaskInfo
+                for (FlowContractView view : flowContractViewList) {
+                    if (instance.getBusinessKey().indexOf(view.getId().toString())>0){
+                        TaskInfo info = new TaskInfo();
+                        ObjectMapper.clone(instance,info);
+                        view.setTaskInfo(info);
+                        break;
+                    }
+                }
             }
-
-
             return Result.success(flowContractViewList);
         } catch (Exception e) {
             return new Result(901,"获取历史任务失败");
@@ -109,13 +164,67 @@ public class ActivitiHistoryController {
      */
     @PostMapping(value = "/queryDoneTasks")
     public Result queryDoneTasks() {
-        String username = SessionUtil.getCurrentUserName();
         try {
+            String username = SessionUtil.getCurrentUserName();
             List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery()
                     .taskAssignee(username)
                     .finished()
                     .list();
-            return Result.success(list);
+            List<String> flowIds = list.stream()
+                    .filter(item -> !item.getTaskDefinitionKey().equals("_2"))
+                    .map(HistoricTaskInstance::getExecutionId)
+                    .distinct()
+                    .collect(Collectors.toList());
+            log.info("查询已处理的任务集 ExecutionIds：{}",flowIds);
+            List<SysFlow> flows = flowService.selectInPropertyIds(flowIds,"executionId").getData();
+            List<Long> ids = flows.stream().map(n -> Long.parseLong(n.getBusinessKey().split(":")[1]))
+                    .collect(Collectors.toList());
+            List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
+            List<FlowContractView> flowContractViewList = ObjectMapper.clone(contracts, FlowContractView.class);
+            for (SysFlow flow : flows) {
+                // 获取 TaskInfo
+                for (FlowContractView view : flowContractViewList) {
+                    if (flow.getBusinessKey().indexOf(view.getId().toString())>0){
+                        TaskInfo info = new TaskInfo();
+                        ObjectMapper.clone(flow,info);
+                        view.setTaskInfo(info);
+                        break;
+                    }
+                }
+            }
+
+            return Result.success(flowContractViewList);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new Result(901,"获取历史任务失败");
+        }
+
+    }
+
+    @PostMapping(value = "/queryMyStartTasks")
+    public Result queryMyStartTasks() {
+        try {
+            String username = SessionUtil.getCurrentUserName();
+            List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
+                    .startedBy(username)
+                    .list();
+            List<Long> ids = list.stream().map(n -> Long.parseLong(n.getBusinessKey().split(":")[1]) )
+                    .collect(Collectors.toList());
+            List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
+            List<FlowContractView> flowContractViewList = ObjectMapper.clone(contracts, FlowContractView.class);
+            for (HistoricProcessInstance instance : list) {
+                // 获取 TaskInfo
+                for (FlowContractView view : flowContractViewList) {
+                    if (instance.getBusinessKey().indexOf(view.getId().toString())>0){
+                        TaskInfo info = new TaskInfo();
+                        ObjectMapper.clone(instance,info);
+                        view.setTaskInfo(info);
+                        break;
+                    }
+                }
+            }
+            return Result.success(flowContractViewList);
+
         } catch (Exception e) {
             return new Result(901,"获取历史任务失败");
         }
@@ -123,6 +232,7 @@ public class ActivitiHistoryController {
     }
 
     //任务实例历史
+
     @PostMapping(value = "/getInstancesByPiID")
     public Result getInstancesByPiID(@RequestParam("piID") String piID) {
         try {
@@ -132,7 +242,6 @@ public class ActivitiHistoryController {
                     .orderByHistoricTaskInstanceEndTime().asc()
                     .processInstanceId(piID)
                     .list();
-
             return Result.success(historicTaskInstances);
         } catch (Exception e) {
             return new Result(901,"获取历史任务失败");
@@ -142,8 +251,8 @@ public class ActivitiHistoryController {
 
 
 
-
     //流程图高亮
+
     @PostMapping("/gethighLine")
     public Result gethighLine(@RequestParam("instanceId") String instanceId) {
         try {
@@ -260,6 +369,36 @@ public class ActivitiHistoryController {
         } catch (Exception e) {
             return new Result(901,"渲染历史流程失败");
         }
+    }
+
+
+
+    //用户历史(报错)
+    @PostMapping(value = "/getInstancesByUserName")
+    public Result InstancesByUser() {
+        String userName = SessionUtil.getCurrentUserName();
+        try {
+
+            List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery()
+                    .orderByHistoricTaskInstanceEndTime().asc()
+                    .taskAssignee(userName)
+                    .finished()
+                    .list();
+            for(HistoricTaskInstance hti:historicTaskInstances){
+                System.out.println("任务ID:"+hti.getId());
+                System.out.println("流程实例ID:"+hti.getProcessInstanceId());
+                System.out.println("任务名称："+hti.getName());
+                System.out.println("办理人："+hti.getAssignee());
+                System.out.println("开始时间："+hti.getStartTime());
+                System.out.println("结束时间："+hti.getEndTime());
+                System.out.println("=================================");
+            }
+
+            return Result.success(historicTaskInstances);
+        } catch (Exception e) {
+            return new Result(901,"获取历史任务失败");
+        }
+
     }
 
 
