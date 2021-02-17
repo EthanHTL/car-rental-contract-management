@@ -39,8 +39,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/car/contract/activitiHistory")
 public class ActivitiHistoryController {
     @Autowired
-    private SecurityUtil securityUtil;
-    @Autowired
     private ContractService contractService;
     @Autowired
     private RepositoryService repositoryService;
@@ -57,17 +55,21 @@ public class ActivitiHistoryController {
     @Autowired
     ManagementService managementService;
 
+    /**
+     *
+     * @param processInstanceId
+     * @param f
+     * @throws IOException
+     */
     @GetMapping("/queryProPlan")
     public void getProcessDiagram(HttpServletRequest request, HttpServletResponse response, String processInstanceId,Boolean f) throws IOException {
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
                 .processInstanceId(processInstanceId).singleResult();
-
-        // null check
         if (processInstance != null) {
             // get process model
             BpmnModel model = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
             List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstance.getId());
-            if (model != null && model.getLocationMap().size() > 0) {
+            if (model !=  null && model.getLocationMap().size() > 0) {
                 ProcessDiagramGenerator generator = new DefaultProcessDiagramGenerator();
                 InputStream inputStream = null;
                 // 生成流程图 已启动的task 高亮
@@ -117,7 +119,6 @@ public class ActivitiHistoryController {
             }
         }
     }
-
 
 
     /**
@@ -232,7 +233,6 @@ public class ActivitiHistoryController {
     }
 
     //任务实例历史
-
     @PostMapping(value = "/getInstancesByPiID")
     public Result getInstancesByPiID(@RequestParam("piID") String piID) {
         try {
@@ -249,10 +249,7 @@ public class ActivitiHistoryController {
 
     }
 
-
-
     //流程图高亮
-
     @PostMapping("/gethighLine")
     public Result gethighLine(@RequestParam("instanceId") String instanceId) {
         try {
@@ -371,35 +368,6 @@ public class ActivitiHistoryController {
         }
     }
 
-
-
-    //用户历史(报错)
-    @PostMapping(value = "/getInstancesByUserName")
-    public Result InstancesByUser() {
-        String userName = SessionUtil.getCurrentUserName();
-        try {
-
-            List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery()
-                    .orderByHistoricTaskInstanceEndTime().asc()
-                    .taskAssignee(userName)
-                    .finished()
-                    .list();
-            for(HistoricTaskInstance hti:historicTaskInstances){
-                System.out.println("任务ID:"+hti.getId());
-                System.out.println("流程实例ID:"+hti.getProcessInstanceId());
-                System.out.println("任务名称："+hti.getName());
-                System.out.println("办理人："+hti.getAssignee());
-                System.out.println("开始时间："+hti.getStartTime());
-                System.out.println("结束时间："+hti.getEndTime());
-                System.out.println("=================================");
-            }
-
-            return Result.success(historicTaskInstances);
-        } catch (Exception e) {
-            return new Result(901,"获取历史任务失败");
-        }
-
-    }
 
 
 }

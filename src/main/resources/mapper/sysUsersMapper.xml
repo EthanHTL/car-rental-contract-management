@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="findEmployeeAll" resultMap="SysUserMap">
-        select su.*
+        select distinct su.*
         from sys_users su
                  left join sys_user_role sur on su.id = sur.user_id
                  left join sys_role sr on sur.role_id = sr.id
