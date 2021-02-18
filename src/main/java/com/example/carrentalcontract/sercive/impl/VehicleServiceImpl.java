@@ -19,58 +19,5 @@ import java.util.List;
  */
 @Service("vehicleService")
 public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements VehicleService {
-    @Resource
-    private VehicleMapper vehicleDao;
 
-    /**
-     * 主键查询
-     */
-    @Override
-    public Result<Vehicle> selectByPrimaryKey(Long id) {
-        return super.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public Result<PageInfo<Vehicle>> findPage(Vehicle vehicle) {
-        return super.selectPage(vehicle,vehicle.getPageNum(),vehicle.getPageSize());
-    }
-
-
-    /**
-     * 新增数据
-     *
-     * @param vehicle 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Result insert(Vehicle vehicle) {
-        return null;
-    }
-
-    /**
-     * 修改数据
-     *
-     * @param vehicle 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Result update(Vehicle vehicle) {
-        return null;
-    }
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(Long id) {
-        return false;
-    }
-
-    @Override
-    public Result<List<Vehicle>> findAll() {
-        return null;
-    }
 }

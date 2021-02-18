@@ -34,9 +34,9 @@ public class VehicleController {
      *
      * @return 单条数据
      */
-    @PostMapping("/get")
+    @PostMapping("/find/page")
     public Result<PageInfo<VehicleType>> findPage(@RequestBody VehicleType vehicle) {
-        return VehicleTypeService.findPage(vehicle);
+        return typeService.findTypePage(vehicle);
     }
 
 

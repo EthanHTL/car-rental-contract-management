@@ -1,5 +1,6 @@
 package com.example.carrentalcontract.entity.model;
 
+import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * @since 2020-12-27 22:11:57
  */
 @Data
-public class VehicleType implements Serializable {
+public class VehicleType extends DbPageParameter implements Serializable {
     private static final long serialVersionUID = 337656210142209014L;
     /**
     * 编号

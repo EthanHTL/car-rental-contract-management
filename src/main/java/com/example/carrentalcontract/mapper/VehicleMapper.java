@@ -4,6 +4,8 @@ package com.example.carrentalcontract.mapper;
 import com.example.carrentalcontract.common.DbMapper;
 import com.example.carrentalcontract.entity.model.Vehicle;
 
+import java.util.List;
+
 /**
  * 车辆信息表(Vehicle)表数据库访问层
  *
@@ -13,4 +15,5 @@ import com.example.carrentalcontract.entity.model.Vehicle;
 public interface VehicleMapper extends DbMapper<Vehicle> {
 
 
+    List<Vehicle> findCarPageByType(Integer pageNum, Integer pageSize, Vehicle vehicle);
 }

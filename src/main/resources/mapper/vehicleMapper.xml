@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.VehicleMapper">
+
+    <resultMap id="vehicleMap" type="com.example.carrentalcontract.entity.model.Vehicle">
+        <id column="id" property="id" />
+        <result property="vehicleNumber" column="vehicle_number"/>
+        <result property="vehicleName" column="vehicle_name"/>
+        <result property="vehicleType" column="vehicle_type"/>
+        <result property="isAccident" column="is_accident"/>
+        <result property="isRentOut" column="is_rent_out"/>
+    </resultMap>
+
+    <select id="findCarPageByType" resultMap="vehicleMap">
+
+    </select>
+</mapper>
