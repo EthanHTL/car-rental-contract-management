@@ -31,4 +31,6 @@ public interface ContractService extends DbService<Contract> {
     Map<String, Object> setVariables(Long id);
 
     Result<List<FlowContractView>> findMyTask(List<TaskInfo> infos);
+
+    Result<PageInfo<Contract>> selectInIds(Contract contract, List<Long> ids);
 }

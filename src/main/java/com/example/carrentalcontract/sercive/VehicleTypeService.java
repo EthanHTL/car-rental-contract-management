@@ -1,7 +1,10 @@
 package com.example.carrentalcontract.sercive;
 
 
+import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -13,45 +16,15 @@ import java.util.List;
  */
 public interface VehicleTypeService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    VehicleType queryById(Long id);
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<VehicleType> queryAllByLimit(int offset, int limit);
+    Result create(VehicleType type);
 
-    /**
-     * 新增数据
-     *
-     * @param vehicleType 实例对象
-     * @return 实例对象
-     */
-    VehicleType insert(VehicleType vehicleType);
+    Result delete(VehicleType type);
 
-    /**
-     * 修改数据
-     *
-     * @param vehicleType 实例对象
-     * @return 实例对象
-     */
-    VehicleType update(VehicleType vehicleType);
+    Result update(VehicleType type);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Long id);
+    Result<PageInfo<VehicleType>> findTypePage(VehicleType type);
+
+    Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle);
 
 }

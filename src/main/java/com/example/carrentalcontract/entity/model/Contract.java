@@ -52,11 +52,11 @@ public class Contract extends DbPageParameter implements Serializable {
     /**
      * 客户联系人
      */
-    @Column(name = "contact_user_id")
-    private Long contactUserId;
+    @Column(name = "contract_user_id")
+    private Long contractUserId;
 
-    @Column(name = "contact_username")
-    private String contactUsername;
+    @Column(name = "contract_username")
+    private String contractUsername;
     /**
      * 审核状态 1：待审核，2：不通过，3：通过
      */

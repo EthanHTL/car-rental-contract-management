@@ -1,8 +1,13 @@
 package com.example.carrentalcontract.sercive.impl;
 
+import com.example.carrentalcontract.common.DbServiceImpl;
+import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.mapper.VehicleTypeMapper;
 import com.example.carrentalcontract.sercive.VehicleTypeService;
+import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,63 +20,30 @@ import java.util.List;
  * @since 2020-12-27 22:11:57
  */
 @Service("vehicleTypeService")
-public class VehicleTypeServiceImpl implements VehicleTypeService {
-    @Resource
-    private VehicleTypeMapper vehicleTypeDao;
+public class VehicleTypeServiceImpl extends DbServiceImpl<VehicleType> implements VehicleTypeService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
     @Override
-    public VehicleType queryById(Long id) {
+    public Result create(VehicleType type) {
         return null;
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
     @Override
-    public List<VehicleType> queryAllByLimit(int offset, int limit) {
+    public Result update(@NonNull VehicleType type) {
+        return super.update(type);
+    }
+
+    @Override
+    public Result delete(@NonNull VehicleType type) {
+        return super.delete(type);
+    }
+
+    @Override
+    public Result<PageInfo<VehicleType>> findTypePage(VehicleType type) {
         return null;
     }
 
-    /**
-     * 新增数据
-     *
-     * @param vehicleType 实例对象
-     * @return 实例对象
-     */
     @Override
-    public VehicleType insert(VehicleType vehicleType) {
+    public Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle) {
         return null;
-    }
-
-    /**
-     * 修改数据
-     *
-     * @param vehicleType 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public VehicleType update(VehicleType vehicleType) {
-        return null;
-    }
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(Long id) {
-        return false;
     }
 }

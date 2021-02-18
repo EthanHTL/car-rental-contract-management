@@ -64,7 +64,6 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     // @PreAuthorize("hasAnyRole('common')")
     @Override
     public Result<PageInfo<Contract>> findPage(Contract contract) {
-        PageInfo info = new PageInfo();
         Weekend<Contract> weekend = new Weekend<>(Contract.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {
@@ -110,7 +109,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             c.setState(CheckEnum.PENDING.getStatus());
             super.update(c);
             SysFlow flow = new SysFlow();
-            flow.setFlowName(contract.getContactUsername()+"汽车租赁合同审核");
+            flow.setFlowName(contract.getContractUsername()+"汽车租赁合同审核");
             flow.setUserId(user.getId());
             flow.setUsername(user.getUsername());
             flow.setContractId(id);
@@ -167,6 +166,22 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         });
 
         return Result.success(myTaskList);
+    }
+
+    @Override
+    public Result<PageInfo<Contract>> selectInIds(Contract contract, List<Long> ids) {
+        PageInfo info = new PageInfo();
+        Weekend<Contract> weekend = new Weekend<>(Contract.class);
+        Example.Criteria criteria = weekend.createCriteria();
+        if (StringUtils.isNotBlank(contract.getContractName())) {
+            criteria.andLike("contractName", "%" + contract.getContractName() + "%");
+        }
+        if (contract.getState()!=null){
+            criteria.andEqualTo("state",contract.getState());
+        }
+        criteria.andIn("id",ids);
+
+        return super.selectPage(weekend, contract.getPageNum(), contract.getPageSize());
     }
 
 

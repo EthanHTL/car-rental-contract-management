@@ -3,7 +3,9 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
+import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.sercive.VehicleService;
+import com.example.carrentalcontract.sercive.VehicleTypeService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,36 +26,20 @@ public class VehicleController {
      */
     @Resource
     private VehicleService vehicleService;
+    @Resource
+    private VehicleTypeService typeService;
 
     /**
-     * 通过主键查询单条数据
+     * 分页
      *
      * @return 单条数据
      */
     @PostMapping("/get")
-    public Result<Vehicle> get(@RequestBody Vehicle vehicle) {
-        return vehicleService.selectByPrimaryKey(vehicle.getId());
+    public Result<PageInfo<VehicleType>> findPage(@RequestBody VehicleType vehicle) {
+        return VehicleTypeService.findPage(vehicle);
     }
 
-    @PostMapping("/find/all")
-    public Result<List<Vehicle>> findAll() {
-        return vehicleService.findAll();
-    }
 
-    @PostMapping("/find/page")
-    public Result<PageInfo<Vehicle>> findPage(@RequestBody Vehicle vehicle) {
-        return vehicleService.findPage(vehicle);
-    }
-
-    @PostMapping("/create")
-    public Result create(@RequestBody Vehicle vehicle) {
-        return vehicleService.insert(vehicle);
-    }
-
-    @PostMapping("/update")
-    public Result update(@RequestBody Vehicle vehicle) {
-        return vehicleService.update(vehicle);
-    }
 
 
 }
