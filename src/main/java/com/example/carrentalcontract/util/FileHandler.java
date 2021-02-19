@@ -75,7 +75,8 @@ public class  FileHandler {
         String dateFormat = new SimpleDateFormat("yyy-MM-dd").format(new Date());
 
         // 上传文件的路径
-        String dataDirPath = realPath + dateFormat;
+        // String dataDirPath = realPath + dateFormat;
+        String dataDirPath = realPath ;
 
         File dateDir = new File(dataDirPath);
         if (!dateDir.exists()) {
@@ -83,7 +84,7 @@ public class  FileHandler {
         }
         // 处理文件上传
         file.transferTo(new File(dateDir, newFileName));
-        return dataDirPath;
+        return "/static/files/"+newFileName;
     }
 
 }
