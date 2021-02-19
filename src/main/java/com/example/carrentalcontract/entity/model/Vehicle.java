@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 车辆信息表(Vehicle)实体类
@@ -34,12 +36,13 @@ public class Vehicle extends DbPageParameter implements Serializable {
     /**
      * 车辆类型
      */
-    @Column(name = "vehicle_type")
-    private String vehicleType;
+    @Column(name = "vehicle_type_id")
+    private String vehicleTypeId;
     /**
      * 车辆照片
      */
-    private String pic;
+    @Column(name = "pic_path")
+    private String picPath;
     /**
      * 是否出过事故
      */
@@ -51,5 +54,16 @@ public class Vehicle extends DbPageParameter implements Serializable {
     @Column(name = "is_rent_out")
     private Integer isRentOut;
 
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Column(name = "updator_id")
+    private String updatorId;
+
+    @Column(name = "creator_id")
+    private String creatorId;
 
 }

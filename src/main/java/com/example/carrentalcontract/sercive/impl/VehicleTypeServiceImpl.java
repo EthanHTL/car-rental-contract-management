@@ -59,13 +59,5 @@ public class VehicleTypeServiceImpl extends DbServiceImpl<VehicleType> implement
         return Result.success(pageInfo);
     }
 
-    @Override
-    public Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle) {
-        Integer pageNum = (vehicle.getPageNum()-1)* vehicle.getPageSize();
-        Integer pageSize = vehicle.getPageSize();
 
-        List<Vehicle> vehicleList = vehicleMapper.findCarPageByType(pageNum, pageSize,vehicle);
-        PageInfo info = new PageInfo(vehicleList);
-        return null;
-    }
 }

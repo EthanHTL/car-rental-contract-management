@@ -3,7 +3,10 @@ package com.example.carrentalcontract.entity.model;
 import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 车辆类型表(VehicleType)实体类
@@ -39,6 +42,16 @@ public class VehicleType extends DbPageParameter implements Serializable {
     */
     private String remark;
 
+    @Column(name = "create_time")
+    private Date createTime;
 
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Column(name = "updator_id")
+    private String updatorId;
+
+    @Column(name = "creator_id")
+    private String creatorId;
 
 }

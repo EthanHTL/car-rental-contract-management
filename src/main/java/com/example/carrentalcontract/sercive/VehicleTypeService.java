@@ -25,6 +25,5 @@ public interface VehicleTypeService {
 
     Result<PageInfo<VehicleType>> findTypePage(VehicleType type);
 
-    Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle);
 
 }

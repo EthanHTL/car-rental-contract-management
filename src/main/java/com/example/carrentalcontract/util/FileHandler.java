@@ -66,4 +66,24 @@ public class  FileHandler {
         return resources;
     }
 
+    public static String singleFileUpload(MultipartFile file) throws IOException {
+        String extension = "." + FilenameUtils.getExtension(file.getOriginalFilename());
+        String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) +
+                UUID.randomUUID().toString().replace("-", "").substring(6) + extension;
+        String realPath = null;
+        realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+        String dateFormat = new SimpleDateFormat("yyy-MM-dd").format(new Date());
+
+        // 上传文件的路径
+        String dataDirPath = realPath + dateFormat;
+
+        File dateDir = new File(dataDirPath);
+        if (!dateDir.exists()) {
+            dateDir.mkdirs();
+        }
+        // 处理文件上传
+        file.transferTo(new File(dateDir, newFileName));
+        return dataDirPath;
+    }
+
 }

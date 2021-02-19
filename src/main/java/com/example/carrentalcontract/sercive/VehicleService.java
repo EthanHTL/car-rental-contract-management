@@ -1,8 +1,10 @@
 package com.example.carrentalcontract.sercive;
 
 
+import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
+import com.example.carrentalcontract.entity.model.VehicleType;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -13,7 +15,15 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
-public interface VehicleService {
+public interface VehicleService extends DbService<Vehicle> {
+
+    Result<PageInfo<Vehicle>> findCarPageByType(VehicleType vehicle);
+
+    Result create(Vehicle type);
+
+    Result update(Vehicle type);
+
+    Result delete(Vehicle type);
 
 
 }

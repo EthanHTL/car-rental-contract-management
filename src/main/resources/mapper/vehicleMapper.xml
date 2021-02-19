@@ -3,7 +3,7 @@
 <mapper namespace="com.example.carrentalcontract.mapper.VehicleMapper">
 
     <resultMap id="vehicleMap" type="com.example.carrentalcontract.entity.model.Vehicle">
-        <id column="id" property="id" />
+        <id column="id" property="id"/>
         <result property="vehicleNumber" column="vehicle_number"/>
         <result property="vehicleName" column="vehicle_name"/>
         <result property="vehicleType" column="vehicle_type"/>
@@ -12,6 +12,9 @@
     </resultMap>
 
     <select id="findCarPageByType" resultMap="vehicleMap">
-
+        select *
+        from vehicle v
+                 left join vehicle_type vt on v.vehicle_type_id = vt.id
+where vt.id = #{car.id}
     </select>
 </mapper>
