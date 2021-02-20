@@ -7,6 +7,7 @@ import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.mapper.VehicleMapper;
 import com.example.carrentalcontract.mapper.VehicleTypeMapper;
+import com.example.carrentalcontract.sercive.VehicleService;
 import com.example.carrentalcontract.sercive.VehicleTypeService;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
@@ -17,6 +18,7 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.annotation.Resource;
+import javax.persistence.Transient;
 import java.util.List;
 
 /**
@@ -28,6 +30,9 @@ import java.util.List;
 @Service("vehicleTypeService")
 public class VehicleTypeServiceImpl extends DbServiceImpl<VehicleType> implements VehicleTypeService {
 
+
+    @Autowired
+    private VehicleService vehicleService;
     @Resource
     private VehicleMapper vehicleMapper;
     @Resource
@@ -39,24 +44,25 @@ public class VehicleTypeServiceImpl extends DbServiceImpl<VehicleType> implement
     }
 
     @Override
-    public Result update(@NonNull VehicleType type) {
+    public Result update(VehicleType type) {
         return super.update(type);
     }
 
     @Override
-    public Result delete(@NonNull VehicleType type) {
-        return super.delete(type);
+    @Transient
+    public Result delete(VehicleType type) {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleTypeId(type.getId());
+        vehicleService.deleteByType(vehicle);
+        return super.destroy(type);
     }
 
     @Override
     public Result<PageInfo<VehicleType>> findTypePage(VehicleType type) {
-        PageInfo<VehicleType> pageInfo = new PageInfo<>();
+        List<VehicleType> vehicleList = vehicleTypeMapper.findPage(type.getPageNum(),type.getPageSize(),type);
+        PageInfo<VehicleType> info = new PageInfo<>(vehicleList);
+        return Result.success(info);
 
-        Weekend<VehicleType> weekend = new Weekend<>(VehicleType.class);
-        Example.Criteria criteria = weekend.createCriteria();
-
-        pageInfo = super.selectPage(weekend, type.getPageNum(), type.getPageSize()).getData();
-        return Result.success(pageInfo);
     }
 
 

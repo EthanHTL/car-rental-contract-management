@@ -84,7 +84,7 @@ public class  FileHandler {
         }
         // 处理文件上传
         file.transferTo(new File(dateDir, newFileName));
-        return "/static/files/"+newFileName;
+        return "/files/"+newFileName;
     }
 
 }

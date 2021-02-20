@@ -2,6 +2,7 @@ package com.example.carrentalcontract.mapper;
 
 
 import com.example.carrentalcontract.common.DbMapper;
+import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public interface VehicleMapper extends DbMapper<Vehicle> {
 
-    List<Vehicle> findCarPageByType(Integer pageNum, Integer pageSize,@Param("car") VehicleType vehicle);
+    List<Vehicle> findCarPageByType(Integer pageNum, Integer pageSize,@Param("car") Vehicle vehicle);
 
+    int deleteByType(@Param("vehicle") Vehicle vehicle);
 }

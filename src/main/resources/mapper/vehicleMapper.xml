@@ -6,15 +6,38 @@
         <id column="id" property="id"/>
         <result property="vehicleNumber" column="vehicle_number"/>
         <result property="vehicleName" column="vehicle_name"/>
-        <result property="vehicleType" column="vehicle_type"/>
+        <result property="picPath" column="pic_path"/>
+        <result property="vehicleTypeId" column="vehicle_type_id"/>
         <result property="isAccident" column="is_accident"/>
         <result property="isRentOut" column="is_rent_out"/>
+        <result property="createTime" column="create_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updatorId" column="updator_id"/>
     </resultMap>
-
     <select id="findCarPageByType" resultMap="vehicleMap">
         select *
         from vehicle v
-                 left join vehicle_type vt on v.vehicle_type_id = vt.id
-where vt.id = #{car.id}
+        left join vehicle_type vt on v.vehicle_type_id = vt.id
+        where vt.id = #{car.vehicleTypeId}
+        <if test="car.vehicleNumber !=null and car.vehicleNumber != ''">
+            and vehicle_number like '%${car.vehicleNumber}%'
+        </if>
+        <if test="car.vehicleName !=null and car.vehicleName != ''">
+            and vehicle_name like '%${car.vehicleName}%'
+        </if>
+        <if test="car.isAccident !=null and car.isAccident != ''">
+            and is_accident = #{car.isAccident}
+        </if><if test="car.isRentOut !=null and car.isRentOut != ''">
+        and is_rent_out = ${car.isRentOut}
+    </if>
+
+
     </select>
+
+    <delete id="deleteByType">
+        delete
+        from vehicle
+        where vehicle_type_id = #{vehicle.vehicleTypeId}
+    </delete>
 </mapper>

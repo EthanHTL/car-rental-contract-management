@@ -4,6 +4,7 @@ import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,11 +21,12 @@ public class VehicleType extends DbPageParameter implements Serializable {
     /**
     * 编号
     */
+    @Id
     private Long id;
     /**
     * 车辆类型编号
     */
-    private Long vehicleNo;
+    private String vehicleNo;
     /**
     * 类型名称
     */
@@ -53,5 +55,7 @@ public class VehicleType extends DbPageParameter implements Serializable {
 
     @Column(name = "creator_id")
     private String creatorId;
+
+    private Integer flag;
 
 }

@@ -26,7 +26,7 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
     private VehicleMapper vehicleMapper;
 
     @Override
-    public Result<PageInfo<Vehicle>> findCarPageByType(VehicleType vehicle) {
+    public Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle) {
         Integer pageNum = (vehicle.getPageNum()-1)* vehicle.getPageSize();
         Integer pageSize = vehicle.getPageSize();
 
@@ -47,6 +47,11 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
 
     @Override
     public Result delete( Vehicle vehicle) {
-        return super.delete(vehicle);
+        return super.destroy(vehicle);
+    }
+
+    @Override
+    public Result deleteByType(Vehicle type) {
+        return Result.success(vehicleMapper.deleteByType(type));
     }
 }

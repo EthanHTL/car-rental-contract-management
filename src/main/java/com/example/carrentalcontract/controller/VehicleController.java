@@ -52,7 +52,7 @@ public class VehicleController {
      */
     @PostMapping("/type/update")
     public Result typeUpdate(@RequestBody VehicleType type) {
-        return typeService.findTypePage(type);
+        return typeService.update(type);
     }
 
     /**
@@ -69,7 +69,7 @@ public class VehicleController {
      * 分页
      */
     @PostMapping("/find/page")
-    public Result<PageInfo<Vehicle>> findPage(@RequestBody VehicleType type) {
+    public Result<PageInfo<Vehicle>> findPage(@RequestBody Vehicle type) {
 
         return vehicleService.findCarPageByType(type);
     }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.VehicleTypeMapper">
+
+    <resultMap id="vehicleMap" type="com.example.carrentalcontract.entity.model.Vehicle">
+        <id column="id" property="id"/>
+        <result property="vehicleNumber" column="vehicle_number"/>
+        <result property="vehicleName" column="vehicle_name"/>
+        <result property="picPath" column="pic_path"/>
+        <result property="vehicleTypeId" column="vehicle_type_id"/>
+        <result property="isAccident" column="is_accident"/>
+        <result property="isRentOut" column="is_rent_out"/>
+        <result property="createTime" column="create_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updatorId" column="updator_id"/>
+    </resultMap>
+
+    <resultMap id="typeMap" type="com.example.carrentalcontract.entity.model.VehicleType">
+        <id column="id" property="id"/>
+        <result property="vehicleNo" column="vehicle_no"/>
+        <result property="vehicleTypeName" column="vehicle_type_name"/>
+        <result property="rentOutNumber" column="rent_out_number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updatorId" column="updator_id"/>
+    </resultMap>
+
+
+    <select id="findPage" resultMap="typeMap"  parameterType="com.example.carrentalcontract.entity.model.VehicleType">
+        select *
+        from vehicle_type
+        <where>
+            <if test="type.vehicleTypeName !=null and type.vehicleTypeName != ''">
+                vehicle_type_name like '%${type.vehicleTypeName}%'
+            </if>
+        </where>
+
+    </select>
+</mapper>

@@ -17,13 +17,15 @@ import java.util.List;
  */
 public interface VehicleService extends DbService<Vehicle> {
 
-    Result<PageInfo<Vehicle>> findCarPageByType(VehicleType vehicle);
+    Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle);
 
     Result create(Vehicle type);
 
     Result update(Vehicle type);
 
     Result delete(Vehicle type);
+
+    Result deleteByType(Vehicle type);
 
 
 }
