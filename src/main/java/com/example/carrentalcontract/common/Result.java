@@ -143,12 +143,12 @@ public class Result<T> {
         this.errorStackTrace = errorStackTrace;
     }
 
-    public static Result success() {
-        return success((Object)null);
+    public static <T> Result<T> success() {
+        return success(null);
     }
 
     public static <T> Result<T> success(T data) {
-        return new Result(StatusCode.SUCCESS, "操作成功！", data);
+        return new Result<T>(StatusCode.SUCCESS, "操作成功！", data);
     }
 
     public static <T> Result<T> error(ResponseCode data) {

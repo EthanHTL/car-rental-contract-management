@@ -43,7 +43,6 @@ public class SysDict extends DbPageParameter implements Serializable {
     /**
      * 标识
      */
-    @Transient
     private Integer flag;
 
     @Column(name = "create_time")

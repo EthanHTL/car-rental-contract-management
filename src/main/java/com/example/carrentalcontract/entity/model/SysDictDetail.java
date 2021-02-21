@@ -42,4 +42,5 @@ public class SysDictDetail {
 
     @Transient
     private String creatorId;
+    private Integer flag;
 }

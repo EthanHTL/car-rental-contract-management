@@ -7,9 +7,12 @@ import com.example.carrentalcontract.entity.model.SysDictDetail;
 import com.example.carrentalcontract.mapper.SysDictDetailMapper;
 import com.example.carrentalcontract.sercive.SysDictDetailService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service("sysDictDetailService")
 public class SysDictDetailServiceImpl extends DbServiceImpl<SysDictDetail>  implements SysDictDetailService {
@@ -30,6 +33,7 @@ public class SysDictDetailServiceImpl extends DbServiceImpl<SysDictDetail>  impl
 
     @Override
     public Result<List<SysDictDetail>> findDetailByCode(SysDict dict) {
-        return Result.success(sysDictDetailMapper.findDetailByCode(dict.getCode()));
+        List<SysDictDetail> detailByCode = sysDictDetailMapper.findDetailByCode(dict.getCode());
+        return Result.success(detailByCode);
     }
 }

@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.DbPageParameter;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class SysApi extends DbPageParameter implements Serializable {
     /**
     * 接口权限主键
     */
+    @Id
     private Long id;
     /**
     * 父节点

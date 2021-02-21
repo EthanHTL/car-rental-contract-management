@@ -94,7 +94,20 @@ public class RoleController {
 
     @PostMapping("/api/find/page")
     public Result<PageInfo<SysApi>> findApiAll(@RequestBody SysApi sysApi) {
-        return this.sysApiService.findPage(sysApi);
+        return sysApiService.findPage(sysApi);
+    }
+
+    @PostMapping("/api/create")
+    public Result createApi(@RequestBody SysApi sysApi) {
+        return sysApiService.insert(sysApi);
+    }
+    @PostMapping("/api/update")
+    public Result updateApi(@RequestBody SysApi sysApi) {
+        return sysApiService.update(sysApi);
+    }
+    @PostMapping("/api/delete")
+    public Result deleteApi(@RequestBody SysApi sysApi) {
+        return sysApiService.destroy(sysApi);
     }
 
 

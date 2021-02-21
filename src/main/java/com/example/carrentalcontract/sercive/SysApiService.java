@@ -5,6 +5,7 @@ import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysApi;
 import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -18,4 +19,10 @@ public interface SysApiService extends DbService<SysApi> {
 
 
     Result<PageInfo<SysApi>> findPage(SysApi sysApi);
+
+    Result<SysApi> insert(@NonNull SysApi sysApi);
+
+    Result delete(SysApi sysApi);
+
+    Result update(SysApi sysApi);
 }

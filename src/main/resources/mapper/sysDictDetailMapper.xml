@@ -17,10 +17,7 @@
     </select>
 
     <select id="findDetailByCode" resultMap="DictDetailMap">
-        select sdd.dict_code,sdd.code,sdd.name
-        from sys_dict sd
-                 left join sys_dict_detail sdd on sd.id = sdd.dict_code
-        where sd.code = #{dicType}
+        select sdd.* from sys_dict sd right join sys_dict_detail sdd on sd.code = sdd.dict_code where sd.code = #{dicType}
 
     </select>
     <select id="getDictDataByTypeAndId" resultMap="DictDetailMap">

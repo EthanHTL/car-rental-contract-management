@@ -48,13 +48,14 @@ public class SysDictServiceImpl extends DbServiceImpl<SysDict> implements SysDic
 
     @Override
     public Result<PageInfo<SysDict>> findPage(SysDict dict) {
-        PageInfo info = new PageInfo();
         Weekend<SysDict> weekend = new Weekend<>(SysDict.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(dict.getName())) {
-            criteria.andLike("typeName", "%" + dict.getName() + "%");
+            criteria.andLike("name", "%" + dict.getName() + "%");
         }
-
+        if (StringUtils.isNotBlank(dict.getCode())) {
+            criteria.andLike("code", "%" + dict.getCode() + "%");
+        }
         return super.selectPage(weekend,dict.getPageNum(),dict.getPageSize());
 
     }
