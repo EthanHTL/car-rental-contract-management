@@ -42,9 +42,14 @@ public class RoleController {
         return this.roleService.findAll();
     }
 
-    @PostMapping("/role/find/security")
-    public Result<SysRoleResponseInfo> findSecurity() {
+    @PostMapping("/role/security/find/all")
+    public Result<SysRoleResponseInfo> findAllSecurity() {
         return this.roleService.findAllSecurity();
+    }
+
+    @PostMapping("/role/security/find")
+    public Result<SysRoleResponseInfo> findSecurity(@RequestBody List<SysRole> roles) {
+        return this.roleService.findSecurityByRoles(roles);
     }
 
     @PostMapping("/role/insert")
@@ -78,6 +83,19 @@ public class RoleController {
     @PostMapping("/menu/find/all")
     public Result<List<SysMenu>> findMenuAll() {
         return this.sysMenuService.selectAll();
+    }
+
+    @PostMapping("/menu/create")
+    public Result createMenu(@RequestBody SysMenu menu) {
+        return sysMenuService.insert(menu);
+    }
+    @PostMapping("/menu/update")
+    public Result updateMenu(@RequestBody SysMenu menu) {
+        return sysMenuService.update(menu);
+    }
+    @PostMapping("/menu/delete")
+    public Result deleteMenu(@RequestBody SysMenu menu) {
+        return sysMenuService.destroy(menu);
     }
 
     // --------api

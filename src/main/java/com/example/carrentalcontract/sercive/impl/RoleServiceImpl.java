@@ -17,14 +17,12 @@ import com.example.carrentalcontract.sercive.RoleService;
 import com.example.carrentalcontract.sercive.SysApiService;
 import com.example.carrentalcontract.sercive.SysMenuService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 角色表(SysRole)表服务实现类
@@ -40,13 +38,14 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     @Resource
     private SysMenuMapper sysMenuMapper;
     @Resource
-    private SysApiService sysApiService;
+    private SysApiService apiService;
+    @Resource
+    private SysMenuService menuService;
     @Resource
     private SysApiMapper sysApiMapper;
 
     @Override
     public Result<List<SysRole>> findAll() {
-
         // return Result.success(roleMapper.findRoleByUserName("111"));
         return super.selectAll();
     }
@@ -64,7 +63,6 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     @Override
     public Result<SysRoleResponseInfo> findAllSecurity() {
         SysRoleResponseInfo roleResponseInfo = new SysRoleResponseInfo();
-
         List<SysMenu> sysMenus = sysMenuMapper.selectAll();
         List<SysMenuResponseInfo> menuResponseInfos = ObjectMapper.clone(sysMenus,SysMenuResponseInfo.class);
         List<SysApi> sysApis = sysApiMapper.selectAll();
@@ -92,14 +90,15 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
      * @return
      */
     @Override
+    @Transactional
     public Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo) {
-        List<SysApiResponseInfo> sysApiResponseInfos = apiTreeTOList(roleResponseInfo.getApiResponseInfos());
+        List<SysApiResponseInfo> sysApiResponseInfos = apiTreeToList(roleResponseInfo.getApiResponseInfos());
         List<SysMenuResponseInfo> menuResponseInfos = menuTreeToList(roleResponseInfo.getMenuResponseInfos());
         List<SysMenu> sysMenus   = ObjectMapper.clone(menuResponseInfos,SysMenu.class);
         List<SysApi> sysApis  = ObjectMapper.clone(sysApiResponseInfos,SysApi.class);
-
-
-        return null;
+        apiService.insertBatch(sysApis);
+        menuService.insertBatch(sysMenus);
+        return Result.success();
     }
 
     @Override
@@ -114,12 +113,12 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         return Result.success(roleList);
     }
 
-    private List<SysApiResponseInfo> apiTreeTOList(List<SysApiResponseInfo> tree){
+    private List<SysApiResponseInfo> apiTreeToList(List<SysApiResponseInfo> tree){
         List<SysApiResponseInfo> list = new ArrayList<>();
         tree.forEach(item ->{
             list.add(item);
             if (item.getChildren().size() > 0 ){
-                apiTreeTOList(item.getChildren());
+                apiTreeToList(item.getChildren());
             }
         });
         return list;
@@ -146,13 +145,14 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
 
     private List<SysMenuResponseInfo> getMenuChildren(Long parentId, List<SysMenuResponseInfo> menuResponseInfos) {
         List<SysMenuResponseInfo> children = menuResponseInfos.stream().filter(item -> {
-            if (item.getMenuPid() == parentId) {
+
+            if (item.getMenuPid().equals(parentId)) {
                 item.setChildren(getMenuChildren(item.getId(),menuResponseInfos));
                 return true;
             };
             return false;
         }).collect(Collectors.toList());;
-        Collections.sort(children, Comparator.comparing(SysMenuResponseInfo::getSort));
+        // Collections.sort(children, Comparator.comparing(SysMenuResponseInfo::getSort));
 
         return children;
     }
@@ -165,23 +165,24 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
             };
             return false;
         }).collect(Collectors.toList());;
-        Collections.sort(children, Comparator.comparing(SysApiResponseInfo::getSort));
+        // Collections.sort(children, Comparator.comparing(SysApiResponseInfo::getSort));
         return children;
     }
 
     @Override
-    public Result<List<SysRoleResponseInfo>> findSecurityByRoles(List<SysRole> roles) {
+    public Result<SysRoleResponseInfo> findSecurityByRoles(List<SysRole> roles) {
         SysRoleResponseInfo roleResponseInfo = new SysRoleResponseInfo();
         List<SysMenuResponseInfo> menuResponseInfos = new ArrayList<>();
         List<SysApiResponseInfo> apiResponseInfos = new ArrayList<>();
 
         List<SysApi> sysApis = sysApiMapper.findSysApisByRolesIds(roles);
         List<SysMenu> sysMenus = sysMenuMapper.findSysMenuByRoleIds(roles);
+        menuResponseInfos = ObjectMapper.clone(sysMenus,SysMenuResponseInfo.class);
+        apiResponseInfos = ObjectMapper.clone(sysApis,SysApiResponseInfo.class);
+        roleResponseInfo.setMenuResponseInfos(menuResponseInfos);
+        roleResponseInfo.setApiResponseInfos(apiResponseInfos);
 
-
-
-
-        return null;
+        return Result.success(roleResponseInfo);
     }
 
     @Override

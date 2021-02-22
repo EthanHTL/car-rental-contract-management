@@ -11,6 +11,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  **/
 @Service("sysMenuService")
 public class SysMenuServiceImpl extends DbServiceImpl<SysMenu> implements SysMenuService {
-    @Autowired
+    @Resource
     private SysMenuMapper sysMenuMapper;
 
     @Override
@@ -31,6 +32,11 @@ public class SysMenuServiceImpl extends DbServiceImpl<SysMenu> implements SysMen
     @Override
     public Result update(SysMenu sysMenu) {
         return super.update(sysMenu);
+    }
+
+    @Override
+    public Result delete(SysMenu menu) {
+        return super.destroy(menu);
     }
 
     @Override
