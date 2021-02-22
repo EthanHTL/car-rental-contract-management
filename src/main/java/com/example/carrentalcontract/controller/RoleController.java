@@ -53,17 +53,17 @@ public class RoleController {
     }
 
     @PostMapping("/role/insert")
-    public Result<SysRoleResponseInfo> roleInsert() {
-        return this.roleService.findAllSecurity();
+    public Result roleInsert(@RequestBody SysRole role) {
+        return this.roleService.insert(role);
     }
 
     @PostMapping("/role/update")
-    public Result<SysRoleResponseInfo> roleUpdate() {
-        return this.roleService.findAllSecurity();
+    public Result roleUpdate(@RequestBody SysRole role) {
+        return this.roleService.update(role);
     }
     @PostMapping("/role/destroy")
-    public Result<SysRoleResponseInfo> roleDestroy  () {
-        return this.roleService.findAllSecurity();
+    public Result roleDestroy(@RequestBody SysRole role) {
+        return this.roleService.destroy(role);
     }
 
     // 给角色分配权限
