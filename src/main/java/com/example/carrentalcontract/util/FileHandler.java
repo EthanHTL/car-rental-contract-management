@@ -6,10 +6,9 @@ import com.example.carrentalcontract.entity.model.SysResource;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,5 +85,7 @@ public class  FileHandler {
         file.transferTo(new File(dateDir, newFileName));
         return "/files/"+newFileName;
     }
+
+
 
 }

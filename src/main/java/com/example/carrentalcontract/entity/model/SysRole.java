@@ -26,7 +26,7 @@ public class SysRole extends DbPageParameter implements Serializable {
     * 角色id
     */
     @Id
-    private String id;
+    private Long id;
     /**
     * 角色名
     */

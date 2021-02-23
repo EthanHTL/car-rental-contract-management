@@ -52,7 +52,7 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
 
     @Override
     public Result insert(SysRole role) {
-        return super.insertOne(role);
+        return super.insert(role);
     }
 
     @Override
@@ -92,12 +92,16 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     @Override
     @Transactional
     public Result<SysRoleResponseInfo> assignPermission(SysRoleResponseInfo roleResponseInfo) {
-        List<SysApiResponseInfo> sysApiResponseInfos = apiTreeToList(roleResponseInfo.getApiResponseInfos());
-        List<SysMenuResponseInfo> menuResponseInfos = menuTreeToList(roleResponseInfo.getMenuResponseInfos());
-        List<SysMenu> sysMenus   = ObjectMapper.clone(menuResponseInfos,SysMenu.class);
-        List<SysApi> sysApis  = ObjectMapper.clone(sysApiResponseInfos,SysApi.class);
-        apiService.insertBatch(sysApis);
-        menuService.insertBatch(sysMenus);
+        List<Long> apiIds = roleResponseInfo.getApiIds();
+        List<Long> menuIds = roleResponseInfo.getMenuIds();
+        roleMapper.deleteApiIds(roleResponseInfo);
+        roleMapper.deleteMenuIds(roleResponseInfo);
+        if (roleResponseInfo.getMenuIds().size() > 0){
+            roleMapper.insertBatchMenuPermission(roleResponseInfo);
+        }
+        if (roleResponseInfo.getApiIds().size() > 0){
+            roleMapper.insertBatchApiPermission(roleResponseInfo);
+        }
         return Result.success();
     }
 

@@ -25,6 +25,24 @@
             (#{id},#{item.id})
         </foreach>
     </insert>
+    <insert id="insertBatchMenuPermission">
+        insert into sys_role_menu(role_id ,menu_id) values
+        <foreach collection="menuIds" item="item" index="index" separator="," open="(" close=")">
+            #{id},#{item}
+        </foreach>
+    </insert>
+    <insert id="insertBatchApiPermission">
+        insert into sys_role_api(role_id ,api_id) values
+        <foreach collection="apiIds" item="item" index="index" separator="," open="(" close=")">
+            #{id},#{item}
+        </foreach>
+    </insert>
+    <delete id="deleteMenuIds">
+        delete from sys_role_menu sm where sm.role_id = #{id}
+    </delete>
+    <delete id="deleteApiIds">
+        delete from sys_role_api sa where sa.role_id = #{id}
+    </delete>
 
     <select id="findRoleByUserName" resultMap="SysRoleMap">
         select sr.*

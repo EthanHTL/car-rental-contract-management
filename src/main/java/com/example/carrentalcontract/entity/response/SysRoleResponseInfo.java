@@ -18,4 +18,8 @@ public class SysRoleResponseInfo extends SysRole {
 
     private List<SysApiResponseInfo> apiResponseInfos;
 
+    private List<Long> apiIds;
+
+    private List<Long> menuIds;
+
 }

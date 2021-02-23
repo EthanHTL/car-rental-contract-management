@@ -54,7 +54,7 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
         // 设置用户角色
         SysUserRequest userRequest = new SysUserRequest();
         SysRole role = new SysRole();
-        role.setId("1");
+        role.setId(1L);
         List<SysRole> roles = new ArrayList<>();
         roles.add(role);
         userRequest.setRoleList(roles).setId(userResult.getData().getId());

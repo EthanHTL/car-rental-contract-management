@@ -6,6 +6,7 @@ import com.example.carrentalcontract.entity.model.SysResource;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.mapper.SysResourceMapper;
 import com.example.carrentalcontract.sercive.SysResourceService;
+import com.example.carrentalcontract.util.BASE64DecodedMultipartFile;
 import com.example.carrentalcontract.util.FileHandler;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
@@ -84,6 +85,16 @@ public class SysResourceServiceImpl extends DbServiceImpl<SysResource> implement
 
     @Override
     public Result createContract(SysResource sysResource) {
-        return super.insertOne(sysResource);
+        String path = sysResource.getPath();
+        String uploadPath = "";
+        MultipartFile file = BASE64DecodedMultipartFile.base64ToMultipart(path);
+        try {
+            uploadPath = FileHandler.singleFileUpload(file);
+            sysResource.setPath(uploadPath);
+            sysResource.setDictType(7);
+        } catch (IOException e) {
+            return new Result(901,"图片错误");
+        }
+        return super.insert(sysResource);
     }
 }
