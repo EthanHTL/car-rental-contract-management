@@ -13,7 +13,7 @@
         <result property="updatorId" column="updator_id"/>
     </resultMap>
 
-    <select id="findContractPage" resultMap="SysResourceMap">
+    <select id="findContractTemplatePage" resultMap="SysResourceMap">
         select *
         from sys_resource sr
                  left join sys_dict_detail sd on sr.dict_type = sd.id
@@ -21,5 +21,12 @@
         where s.code = 'file'
           and sd.code in (1, 2)
 
+    </select>
+    <select id="findContractPage" resultMap="SysResourceMap">
+        SELECT * FROM sys_resource sr LEFT JOIN sys_dict_detail sd ON sr.dict_type = sd.id LEFT JOIN sys_dict s ON
+        sd.dict_code = s.code WHERE s.code = 'file' AND sd.code = 1
+        <if test="res.oldFilename != '' and res.oldFilename != null">
+            and old_filename LIKE '%${res.oldFilename}%'
+        </if>
     </select>
 </mapper>

@@ -16,6 +16,8 @@ public interface SysResourceService extends DbService<SysResource> {
 
     Result<PageInfo<SysResource>> findContractTemplatePage(SysResource sysResource);
 
+    Result<PageInfo<SysResource>> findContractWholeTemplatePage(SysResource sysResource);
+
     Result createContract(SysResource sysResource);
 
     Result updateContractTemplate(SysResource sysResource);

@@ -23,8 +23,15 @@ public class SysResourceController {
      * 查找合同模板分页
      */
     @PostMapping("/contract/template/find/page")
-    public Result<PageInfo<SysResource>> findContractPage(@RequestBody SysResourceRequest sysResource){
+    public Result<PageInfo<SysResource>> findContractTemplatePage(@RequestBody SysResourceRequest sysResource){
         return sysResourceService.findContractTemplatePage(sysResource);
+    }
+    /**
+     * 完整合同分页
+     */
+    @PostMapping("/contract/template/whole/find/page")
+    public Result<PageInfo<SysResource>> findContractPage(@RequestBody SysResourceRequest sysResource){
+        return sysResourceService.findContractWholeTemplatePage(sysResource);
     }
 
     /**

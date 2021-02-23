@@ -39,6 +39,11 @@ public class VehicleController {
     public Result<PageInfo<VehicleType>> findTypePage(@RequestBody VehicleType type) {
         return typeService.findTypePage(type);
     }
+
+    @PostMapping("/get")
+    public Result<Vehicle> get(@RequestBody Vehicle vehicle) {
+        return vehicleService.selectOne(vehicle);
+    }
     /**
      * 类别创建
      */

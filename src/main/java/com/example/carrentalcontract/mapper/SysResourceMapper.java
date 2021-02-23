@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SysResourceMapper extends DbMapper<SysResource> {
 
-    List<SysResource> findContractPage(SysResource sysResource);
+    List<SysResource> findContractTemplatePage(SysResource sysResource);
+
+    List<SysResource> findContractPage(@Param("res") SysResource sysResource,Integer pageNum, Integer pageSize);
 
 }

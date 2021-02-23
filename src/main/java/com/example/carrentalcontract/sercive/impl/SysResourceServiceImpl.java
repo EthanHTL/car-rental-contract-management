@@ -48,14 +48,17 @@ public class SysResourceServiceImpl extends DbServiceImpl<SysResource> implement
 
     @Override
     public Result<PageInfo<SysResource>> findContractTemplatePage(SysResource sysResource) {
-
-        Integer pageNum = sysResource.getPageNum();
-        Integer pageSize = sysResource.getPageSize();
-
-        List<SysResource> contractPage = sysResourceMapper.findContractPage(sysResource);
+        List<SysResource> contractPage = sysResourceMapper.findContractTemplatePage(sysResource);
         PageInfo info = new PageInfo(contractPage);
         return new Result<>(info);
 
+    }
+
+    @Override
+    public Result<PageInfo<SysResource>> findContractWholeTemplatePage(SysResource resource) {
+        List<SysResource> contractPage = sysResourceMapper.findContractPage(resource,resource.getPageNum(),resource.getPageSize());
+        PageInfo info = new PageInfo(contractPage);
+        return new Result<>(info);
     }
 
     @Override
@@ -91,7 +94,7 @@ public class SysResourceServiceImpl extends DbServiceImpl<SysResource> implement
         try {
             uploadPath = FileHandler.singleFileUpload(file);
             sysResource.setPath(uploadPath);
-            sysResource.setDictType(7);
+            // sysResource.setDictType(7);
         } catch (IOException e) {
             return new Result(901,"图片错误");
         }

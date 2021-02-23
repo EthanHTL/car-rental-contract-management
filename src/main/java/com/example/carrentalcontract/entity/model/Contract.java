@@ -71,6 +71,11 @@ public class Contract extends DbPageParameter implements Serializable {
     @Column(name = "contract_amount")
     private String contractAmount;
     /**
+     * 车辆id
+     */
+    @Column(name = "vehicle_id")
+    private Long vehicleId;
+    /**
      * 已付金额
      */
     @Column(name = "paid_amount")
