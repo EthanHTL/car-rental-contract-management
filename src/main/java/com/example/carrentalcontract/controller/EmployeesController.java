@@ -36,4 +36,9 @@ public class EmployeesController {
         return usersService.findEmployeePage(employee);
     }
 
+    @PostMapping("/find/customer/page")
+    public Result<PageInfo<SysUser>> findCustomerPage(@RequestBody SysUser user){
+        return usersService.findCustomerPage(user);
+    }
+
 }

@@ -18,4 +18,5 @@ public interface UsersMapper extends DbMapper<SysUser> {
 
     List<SysUser> findEmployeeAll(SysUser employee);
 
+    List<SysUser> findCustomerAll(SysUser user);
 }

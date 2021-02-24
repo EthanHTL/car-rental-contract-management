@@ -81,6 +81,13 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
     }
 
     @Override
+    public Result<PageInfo<SysUser>> findCustomerPage(SysUser user) {
+        List<SysUser> employeePage = userMapper.findCustomerAll(user);
+        PageInfo info = new PageInfo(employeePage);
+        return Result.success(info);
+    }
+
+    @Override
     public Result<PageInfo<SysUser>> findEmployeePage(SysUser employee) {
         Integer pageNum =  employee.getPageNum();
         Integer pageSize = employee.getPageSize();
