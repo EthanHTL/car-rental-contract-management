@@ -70,6 +70,13 @@ public class ContractController {
         return contractService.createContract(contract,currentUser);
     }
 
+    // 创建合同
+    @PostMapping("/renew")
+    public Result renewContract(@RequestBody Contract contract){
+        SysUser currentUser = SessionUtil.getCurrentUser();
+        return contractService.renewContract(contract,currentUser);
+    }
+
     // 我的任务（个人+组 任务）
     @PostMapping("/flow/tasks")
     public Result<List<FlowContractView>> findMyTaskList(){
