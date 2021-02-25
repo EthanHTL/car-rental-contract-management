@@ -180,14 +180,13 @@ public class ActivitiHistoryController {
                     .distinct()
                     .collect(Collectors.toList());
             log.info("查询已处理的任务集 ExecutionIds：{}",flowIds);
-
+            if (flowIds.isEmpty()){
+                return Result.success();
+            }
             List<SysFlow> flows = flowService.selectInPropertyIds(flowIds,"executionId").getData();
             List<Long> ids = flows.stream().map(n -> Long.parseLong(n.getBusinessKey().split(":")[1]))
                     .collect(Collectors.toList());
-            if (ids.isEmpty()){
-                ObjectMapper.clone(contract, contractViewPageInfo);
-                return Result.success(contractViewPageInfo);
-            }
+
             PageInfo<Contract> data = contractService.selectInIds(contract, ids).getData();
             // List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
             List<FlowContractView> flowContractViewList = ObjectMapper.clone(data.getList(), FlowContractView.class);

@@ -143,10 +143,15 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
             menu.setPath(item.getUrl());
             menu.setTitle(item.getMenuName());
             menu.setSort(item.getSort());
-            menu.setChildren(translateMenu(item.getId(), menuList));
+            List<MenuResponseInfo> infoList = translateMenu(item.getId(), menuList);
+            if (infoList.size()>0){
+                menu.setChildren(infoList);
+            }
             children.add(menu);
         });
-        children.sort(Comparator.comparing(MenuResponseInfo::getSort));
+        if (children.size()>0){
+            children.sort(Comparator.comparing(MenuResponseInfo::getSort));
+        }
         return children;
     }
 
