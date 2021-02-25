@@ -58,4 +58,8 @@ public interface RoleService extends DbService<SysRole> {
     Result<List<SysUser>> findUsersByRole(SysRole role);
 
     Result<List<SysRole>> findRolesByUser(SysUser user);
+
+    Result deleteRole(SysRole role);
+
+    Result findUserMenu(SysUser user);
 }

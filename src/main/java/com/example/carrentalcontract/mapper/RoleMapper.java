@@ -37,4 +37,12 @@ public interface RoleMapper extends DbMapper<SysRole> {
     void deleteApiIds(SysRoleResponseInfo info);
 
     void deleteMenuIds(SysRoleResponseInfo info);
+
+    void deleteRoleByUser(SysUserRequest user);
+
+    void deleteApiByRole(SysRole role);
+
+    void deleteMenuByRole(SysRole role);
+
+    void deleteRoleUser(SysRole role);
 }

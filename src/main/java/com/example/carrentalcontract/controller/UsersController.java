@@ -3,9 +3,13 @@ package com.example.carrentalcontract.controller;
 
 import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.common.Result;
+import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.sercive.RoleService;
+import com.example.carrentalcontract.sercive.SysMenuService;
 import com.example.carrentalcontract.sercive.UsersService;
 import com.example.carrentalcontract.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,8 @@ public class UsersController {
      */
     @Resource
     private UsersService usersService;
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 注册
@@ -85,6 +91,14 @@ public class UsersController {
     public Result<Boolean> getOldPassword() {
         return usersService.selectByUsername(getUserInfo().getUsername());
     }
+
+    @PostMapping("/find/menu")
+    public Result findUserMenu() {
+        SysUser user = SessionUtil.getCurrentUser();
+        return roleService.findUserMenu(user);
+    }
+
+
 
     public UserDetails getUserInfo() {
         return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

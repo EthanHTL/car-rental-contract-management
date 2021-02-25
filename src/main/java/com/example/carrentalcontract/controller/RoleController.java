@@ -5,6 +5,8 @@ import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
+import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.request.SysUserRequest;
 import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
 import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
@@ -42,6 +44,16 @@ public class RoleController {
         return this.roleService.findAll();
     }
 
+    @PostMapping("/role/assign")
+    public Result assignRoleForUser(@RequestBody SysUserRequest userRequest){
+        return this.roleService.insertUserRole(userRequest);
+    }
+
+    @PostMapping("/role/user/get")
+    public Result<List<SysRole>> findUserRoles(@RequestBody SysUser user){
+        return this.roleService.findRolesByUser(user);
+    }
+
     @PostMapping("/role/security/find/all")
     public Result<SysRoleResponseInfo> findAllSecurity() {
         return this.roleService.findAllSecurity();
@@ -63,11 +75,11 @@ public class RoleController {
     }
     @PostMapping("/role/destroy")
     public Result roleDestroy(@RequestBody SysRole role) {
-        return this.roleService.destroy(role);
+        return this.roleService.deleteRole(role);
     }
 
     // 给角色分配权限
-    @PostMapping("/role/assign/permissions")
+    @PostMapping("/role/permissions/assign")
     public Result<SysRoleResponseInfo> assign(@RequestBody SysRoleResponseInfo roleResponseInfo) {
         return this.roleService.assignPermission(roleResponseInfo);
     }

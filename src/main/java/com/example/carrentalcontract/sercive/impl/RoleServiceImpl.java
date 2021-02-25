@@ -6,6 +6,7 @@ import com.example.carrentalcontract.entity.model.SysApi;
 import com.example.carrentalcontract.entity.model.SysMenu;
 import com.example.carrentalcontract.entity.model.SysRole;
 import com.example.carrentalcontract.entity.model.SysUser;
+import com.example.carrentalcontract.entity.response.MenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysApiResponseInfo;
 import com.example.carrentalcontract.entity.response.SysMenuResponseInfo;
 import com.example.carrentalcontract.entity.response.SysRoleResponseInfo;
@@ -21,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +46,8 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     private SysMenuService menuService;
     @Resource
     private SysApiMapper sysApiMapper;
+    @Resource
+    protected SysMenuMapper menuMapper;
 
     @Override
     public Result<List<SysRole>> findAll() {
@@ -56,7 +61,9 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     }
 
     @Override
+    @Transactional
     public Result insertUserRole(SysUserRequest user) {
+        roleMapper.deleteRoleByUser(user);
         return Result.success(roleMapper.insertUserAndRole(user.getRoleList(),user.getId()));
     }
 
@@ -117,6 +124,41 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
         return Result.success(roleList);
     }
 
+    @Override
+    public Result<List<MenuResponseInfo>> findUserMenu(SysUser user) {
+        List<MenuResponseInfo> menuResponseInfos = new ArrayList<>();
+        List<SysRole> roles = roleMapper.findRoleByUserName(user.getUsername());
+        List<SysMenu> menus = menuMapper.findSysMenuByRoleIds(roles);
+        List<MenuResponseInfo> infos = translateMenu(0L, menus);
+        return Result.success(infos);
+    }
+
+    private List<MenuResponseInfo> translateMenu(Long parentId, List<SysMenu> menuList) {
+        List<MenuResponseInfo> children = new ArrayList<>();
+        menuList.stream().filter(item -> {
+            return item.getMenuPid().equals(parentId);
+        }).forEach(item ->{
+            MenuResponseInfo menu = new MenuResponseInfo();
+            menu.setIcon(item.getIcon());
+            menu.setPath(item.getUrl());
+            menu.setTitle(item.getMenuName());
+            menu.setSort(item.getSort());
+            menu.setChildren(translateMenu(item.getId(), menuList));
+            children.add(menu);
+        });
+        children.sort(Comparator.comparing(MenuResponseInfo::getSort));
+        return children;
+    }
+
+    @Override
+    @Transactional
+    public Result deleteRole(SysRole role) {
+        roleMapper.deleteApiByRole(role);
+        roleMapper.deleteMenuByRole(role);
+        roleMapper.deleteRoleUser(role);
+        return super.destroy(role);
+    }
+
     private List<SysApiResponseInfo> apiTreeToList(List<SysApiResponseInfo> tree){
         List<SysApiResponseInfo> list = new ArrayList<>();
         tree.forEach(item ->{
@@ -148,17 +190,14 @@ public class RoleServiceImpl extends DbServiceImpl<SysRole> implements RoleServi
     }
 
     private List<SysMenuResponseInfo> getMenuChildren(Long parentId, List<SysMenuResponseInfo> menuResponseInfos) {
-        List<SysMenuResponseInfo> children = menuResponseInfos.stream().filter(item -> {
-
+        // Collections.sort(children, Comparator.comparing(SysMenuResponseInfo::getSort));
+        return menuResponseInfos.stream().filter(item -> {
             if (item.getMenuPid().equals(parentId)) {
                 item.setChildren(getMenuChildren(item.getId(),menuResponseInfos));
                 return true;
             };
             return false;
-        }).collect(Collectors.toList());;
-        // Collections.sort(children, Comparator.comparing(SysMenuResponseInfo::getSort));
-
-        return children;
+        }).collect(Collectors.toList());
     }
 
     private List<SysApiResponseInfo> getApiChildren(Long parentId, List<SysApiResponseInfo> apiResponseInfos) {
