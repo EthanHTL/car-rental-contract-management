@@ -12,9 +12,13 @@ import com.example.carrentalcontract.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 用户表(SysUser)表控制层
@@ -32,19 +36,6 @@ public class UsersController {
     private UsersService usersService;
     @Autowired
     private RoleService roleService;
-
-    /**
-     * 注册
-     *
-     * @param user user
-     */
-    @NotNull(field = "username", name = "账号", statusCode = 701)
-    @NotNull(field = "password", name = "密码", statusCode = 702)
-    @PostMapping("/loginuser")
-    public Result loginuser(@RequestBody SysUser user) {
-        SysUser sysUser = SessionUtil.getCurrentUser();
-        return Result.success(sysUser);
-    }
 
     /**
      * 注册

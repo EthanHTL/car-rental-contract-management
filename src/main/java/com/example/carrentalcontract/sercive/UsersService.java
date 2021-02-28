@@ -29,4 +29,6 @@ public interface UsersService extends DbService<SysUser> {
     Result<PageInfo<SysUser>> findEmployeePage(SysUser employee);
 
     Result<PageInfo<SysUser>> findCustomerPage(SysUser user);
+
+    Result<SysUser> login(SysUser user);
 }

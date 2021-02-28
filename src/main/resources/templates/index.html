@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cmart - Car Dealer HTML Template</title>
+    <title>爱酷车行-首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -27,9 +27,10 @@
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
     <link rel="stylesheet" type="text/css" id="style_sheet" th:href="@{css/skins/midnight-blue.css}">
+    <script th:src="@{js/jquery-2.2.0.min.js}"></script>
 
     <!-- Favicon icon -->
-    
+
 
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700%7CUbuntu:300,400,700" rel="stylesheet">
@@ -46,44 +47,17 @@
     <script  th:src="@{js/html5shiv.min.js}"></script>
     <script  th:src="@{js/respond.min.js}"></script>
     <![endif]-->
+    <script th:inline="javascript">
+        var user = [[${param.loginuser}]];
+        var user1 = [[${loginuser}]];
+        console.log(user)
+        console.log(user1)
+    </script>
 </head>
 <body>
-<div class="page_loader"></div>
-
-<!-- Top header start -->
-<header class="top-header" id="top-header-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-9 col-sm-7">
-                <div class="list-inline">
-                    <a href=""><i class="fa fa-phone"></i>(657)346-821</a>
-                    <a href=""><i class="fa fa-envelope"></i>info@themevessel.com</a>
-                    <a href=""><i class="flaticon-pin"></i>Mon - Sun: 8:00am - 6:00pm</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-3 col-sm-5">
-                <ul class="top-social-media pull-right">
-                    <li>
-                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                    </li>
-                    <li>
-                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i> </a>
-                    </li>
-                    <li>
-                        <a href="#" class="rss"><i class="fa fa-instagram"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- Top header end -->
+<div class="page_loader">
+    <input th:value="${loginuser!=null ? loginuser.username:''}" style="border: none; outline: none"/><br><br><br><br>
+</div>
 
 <!-- Main header start -->
 <header class="main-header fixed-header-2">
@@ -190,7 +164,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link link-color"><i class="flaticon-plus"></i>Sell Your Car</a>
+                        <a href="#" class="nav-link link-color" th:text="${loginuser!=null ?loginuser.username:'游客'}"><i class="flaticon-plus"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -202,17 +177,18 @@
 <!-- Banner start -->
 <div class="banner banner_video_bg" id="banner">
     <div class="pattern-overlay">
-        <a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=5e0LxrLSzok',containment:'.banner_video_bg', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+        <a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=5e0LxrLSzok',containment:'.banner_video_bg', quality:'large', autoPlay:true, mute:true, opacity:1}"></a>
     </div>
     <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item banner-max-height active">
+                <img class="d-block w-100 h-100" th:src="@{img/car-2.jpg}" alt="banner">
                 <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
                     <div class="carousel-content container banner-info">
                         <div class="text-center">
-                            <h3 class="text-uppercase">Welcome to Car Cmart</h3>
+                            <h3 class="text-uppercase">欢迎来到爱酷车行</h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                这里只有你想不到，没有你得不到
                             </p>
                             <div class="inline-search-area isa-2 ml-auto mr-auto none-768">
                                 <div class="row row-3">
@@ -818,194 +794,6 @@
 </div>
 <!-- Latest offers end -->
 
-<!-- Our team start -->
-<div class="our-team content-area">
-    <div class="container">
-        <!-- Main title -->
-        <div class="main-title">
-            <h1>Our Agent</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
-        <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                <div class="team-1">
-                    <div class="team-photo">
-                        <a href="#">
-                            <img th:src="@{/img/avatar/avatar-5.jpg}" alt="agent" class="img-fluid">
-                        </a>
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="team-details">
-                        <h5><a href="agent-detail.html">Michelle Nelson</a></h5>
-                        <h6>Support Manager</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                <div class="team-1">
-                    <div class="team-photo">
-                        <a href="#">
-                            <img th:src="@{/img/avatar/avatar-7.jpg}" alt="agent" class="img-fluid">
-                        </a>
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="team-details">
-                        <h5><a href="agent-detail.html">Martin Smith</a></h5>
-                        <h6>Web Developer</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                <div class="team-1">
-                    <div class="team-photo">
-                        <a href="#">
-                            <img th:src="@{/img/avatar/avatar-6.jpg}" alt="agent" class="img-fluid">
-                        </a>
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="team-details">
-                        <h5><a href="agent-detail.html">Carolyn Stone</a></h5>
-                        <h6>Creative Director</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                <div class="team-1">
-                    <div class="team-photo">
-                        <a href="#">
-                            <img th:src="@{/img/avatar/avatar-8.jpg}" alt="agent" class="img-fluid">
-                        </a>
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="team-details">
-                        <h5><a href="agent-detail.html">Brandon Miller</a></h5>
-                        <h6>Manager</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Our team end -->
-
-<!-- Testimonial start -->
-<div class="testimonial bg-grea-3 content-area-5">
-    <div class="container">
-        <!-- Main title -->
-        <div class="main-title">
-            <h1>Our Testimonial</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
-        <!-- Slick slider area start -->
-        <div class="slick-slider-area">
-            <div class="row slick-carousel" data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
-                <div class="slick-slide-item">
-                    <div class="testimonial-inner">
-                        <div class="text-box">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span>( 4 Reviews )</span>
-                            </div>
-                        </div>
-                        <div class="user">
-                            <div class="photo">
-                                <img class="media-object" th:src="@{/img/avatar/avatar-1.jpg}" alt="user">
-                            </div>
-                            <div class="detail">
-                                <h5>Maikel Alisa</h5>
-                                <p>Web Designer, New York</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slick-slide-item">
-                    <div class="testimonial-inner">
-                        <div class="text-box">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span>( 4 Reviews )</span>
-                            </div>
-                        </div>
-
-                        <div class="user">
-                            <div class="photo">
-                                <img class="media-object" th:src="@{/img/avatar/avatar-1.jpg}" alt="user">
-                            </div>
-                            <div class="detail">
-                                <h5>Maikel Alisa</h5>
-                                <p>Creative Director, New York</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slick-slide-item">
-                    <div class="testimonial-inner">
-                        <div class="text-box">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span>( 4 Reviews )</span>
-                            </div>
-                        </div>
-
-                        <div class="user">
-                            <div class="photo">
-                                <img class="media-object" th:src="@{/img/avatar/avatar-2.jpg}" alt="user">
-                            </div>
-                            <div class="detail">
-                                <h5>Auro Navanth</h5>
-                                <p>Office Manager, New York</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="slick-prev slick-arrow-buton">
-                <i class="fa fa-angle-left"></i>
-            </div>
-            <div class="slick-next slick-arrow-buton">
-                <i class="fa fa-angle-right"></i>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial end -->
-
 <!-- Blog start -->
 <div class="blog content-area">
     <div class="container">
@@ -1112,23 +900,6 @@
     </div>
 </div>
 <!-- Blog end -->
-
-<!-- Intro section start -->
-<div class="intro-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-12">
-                <div class="intro-text">
-                    <h3>Do You Have Questions ?</h3>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-12">
-                <a href="contact.html" class="btn btn-md">Get in Touch</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Intro section end -->
 
 <!-- Footer start -->
 <footer class="footer">
@@ -1268,7 +1039,7 @@
     </form>
 </div>
 
-<script th:src="@{js/jquery-2.2.0.min.js}"></script>
+
 <script th:src="@{js/popper.min.js}"></script>
 <script th:src="@{js/bootstrap.min.js}"></script>
 <script th:src="@{js/bootstrap-submenu.js}"></script>

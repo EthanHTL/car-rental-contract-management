@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>爱酷车行</title>
+    <title>爱酷车行 - 注册</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -17,9 +17,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/fonts/flaticon/font/flaticon.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/fonts/linearicons/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mCustomScrollbar.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/dropzone.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/slick.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/jquery.mCustomScrollbar.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/dropzone.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/slick.css}">
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
@@ -34,12 +34,15 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/ie10-viewport-bug-workaround.css}">
 
-    <script  th:src="@{/js/ie8-responsive-file-warning.js}"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script  th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
     <script  th:src="@{/js/ie-emulation-modes-warning.js}"></script>
-    <script  th:src="@{/js/jquery-2.2.0.min.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
     <script  th:src="@{/js/html5shiv.min.js}"></script>
     <script  th:src="@{/js/respond.min.js}"></script>
-
+    <![endif]-->
 </head>
 <body class="bg-grea-3">
 <div class="page_loader"></div>
@@ -53,47 +56,41 @@
                 <div class="form-content-box">
                     <!-- details -->
                     <div class="details">
-                        <!-- Logo -->
+                        <!-- Logo-->
                         <a href="index.html">
                             <img th:src="@{/img/black-logo.png}" class="cm-logo" alt="black-logo">
                         </a>
                         <!-- Name -->
-                        <h3>登陆</h3>
-                        <!-- Form start
-                        th:action="@{/api/v1/car/users/loginuser}" method="post"
-                        -->
-                        <form action="/api/v1/car/users/loginuser" method="post" >
+                        <h3>Create an account</h3>
+                        <!-- Form start-->
+                        <form action="index.html" method="GET">
                             <div class="form-group">
-                                <input type="text" name="username" class="input-text" placeholder="请输入你的账户">
+                                <input type="text" name="fullname" class="input-text" placeholder="Full Name">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="input-text" placeholder="请输入你的密码">
+                                <input type="email" name="email" class="input-text" placeholder="Email Address">
                             </div>
-                            <div class="checkbox">
-                                <div class="ez-checkbox pull-left">
-                                    <label>
-                                        <input type="checkbox" class="ez-hide">
-                                        记住我
-                                    </label>
-                                </div>
-                                <a href="#" class="link-not-important pull-right">Forgot Password</a>
-                                <div class="clearfix"></div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="input-text" placeholder="Password">
                             </div>
-                            <div class="form-group mb-0" id="loginBtn">
-                                <button type="submit"  class="btn-md button-theme btn-block">login</button>
+                            <div class="form-group">
+                                <input type="password" name="confirm_Password" class="input-text" placeholder="Confirm Password">
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn-md button-theme btn-block">Signup</button>
                             </div>
                         </form>
                         <!-- Social List -->
                         <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
                             <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
                     </div>
                     <!-- Footer -->
                     <div class="footer">
-                        <span>Don't have an account? <a th:href="@{/user/signup}">Register here</a></span>
+                        <span>Already a member? <a th:href="@{/user/login}">Login here</a></span>
                     </div>
                 </div>
                 <!-- Form content box end -->
@@ -102,48 +99,7 @@
     </div>
 </div>
 <!-- Contact section end -->
-<!--<script th:inline="javascript">
-    $(function () {
-        $("#loginBtn").click(function () {
-            console.log("contactus_click_notice-&#45;&#45;");
-            var name = $('input[name="username"]').val();
-            var pass= $('input[name="password"]').val();
-            var s=$.ajax({
-                //给叫getUser的请求发送请求
-                // url: 'http://localhost:9090/api/v1/car/users/loginuser',
-                url: '/api/v1/car/users/loginuser',
-                dataType: "json",
-                contentType: "application/json",
-                //不加也可以，默认是get
-                type: "post",
-                data: JSON.stringify({
-                    //带一个参数，结果会返回userId为1的用户
-                    "username": name,
-                    "password": pass
-                }),
-                //设成同步请求，不加默认是异步，这里加这个是为了同步适用下面的那条语句，
-                //不然异步的话，$("#niHao")会用不了
-                success:function (res) {
-                    console.log(res)
-                    //这个等下再用
-                    if(res != null){
-                        // var a = JSON.parse(res) //必要的
-                        if (res.statusCode === 200){
-                            console.log(res.data)
-                            window.location.href ="/index";
-                        }else {
-                            alert("账户密码错误");
-                        }
-                        // $("#sss").html(a.id);
-                    }
 
-                }
-            })
-            //因为我们这个请求现在还是返回的页面，将页面嵌入id叫niHao的元素中
-            // $("#niHao").html(s.responseText)
-        });
-    })
-</script>-->
 <!-- Full Page Search -->
 <div id="full-page-search">
     <button type="button" class="close">×</button>
@@ -152,18 +108,19 @@
         <button type="submit" class="btn btn-sm button-theme">Search</button>
     </form>
 </div>
+
+<script th:src="@{/js/jquery-2.2.0.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script  th:src="@{/js/bootstrap-submenu.js}"></script>
-
 <script  th:src="@{/js/rangeslider.js}"></script>
+<!--<script  th:src="@{/js/jquery.mb.YTPlayer.js"></script>-->
 <script  th:src="@{/js/bootstrap-select.min.js}"></script>
 <script  th:src="@{/js/jquery.easing.1.3.js}"></script>
 <script  th:src="@{/js/jquery.scrollUp.js}"></script>
 <script  th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 <script  th:src="@{/js/leaflet.js}"></script>
 <script  th:src="@{/js/leaflet-providers.js}"></script>
-<!--<script  src="js/jquery.mb.YTPlayer.js"></script>-->
 <script  th:src="@{/js/leaflet.markercluster.js}"></script>
 <script  th:src="@{/js/dropzone.js}"></script>
 <script  th:src="@{/js/slick.min.js}"></script>

@@ -88,10 +88,24 @@ public class UsersServiceImpl extends DbServiceImpl<SysUser> implements UsersSer
     }
 
     @Override
-    public Result<PageInfo<SysUser>> findEmployeePage(SysUser employee) {
-        Integer pageNum =  employee.getPageNum();
-        Integer pageSize = employee.getPageSize();
+    public Result<SysUser> login(SysUser user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Weekend<SysUser> weekend = new Weekend<>(SysUser.class);
+        Example.Criteria criteria = weekend.createCriteria();
+        criteria.andEqualTo("username",user.getUsername());
+        List<SysUser> data = super.select(weekend).getData();
+        if (data!=null&&data.size()>0){
+            SysUser user1 = data.get(0);
+            boolean matches = passwordEncoder.matches(user.getPassword(),user1.getPassword());
+            if (matches){
+                return Result.success(user1);
+            }
+        }
+        return new Result<>(901,"账户密码错误");
+    }
 
+    @Override
+    public Result<PageInfo<SysUser>> findEmployeePage(SysUser employee) {
         List<SysUser> employeePage = userMapper.findEmployeeAll(employee);
         PageInfo info = new PageInfo(employeePage);
         return Result.success(info);
