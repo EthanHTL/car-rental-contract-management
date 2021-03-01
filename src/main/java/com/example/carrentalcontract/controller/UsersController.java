@@ -86,6 +86,9 @@ public class UsersController {
     @PostMapping("/find/menu")
     public Result findUserMenu() {
         SysUser user = SessionUtil.getCurrentUser();
+        if (user==null){
+            return new Result(901,"未登陆");
+        }
         return roleService.findUserMenu(user);
     }
 
