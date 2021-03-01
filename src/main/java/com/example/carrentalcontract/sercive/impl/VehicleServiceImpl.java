@@ -7,7 +7,6 @@ import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.mapper.VehicleMapper;
 import com.example.carrentalcontract.sercive.VehicleService;
 import com.github.pagehelper.PageInfo;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,7 +26,8 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
 
     @Override
     public Result<PageInfo<Vehicle>> findCarPageByType(Vehicle vehicle) {
-        Integer pageNum = (vehicle.getPageNum()-1)* vehicle.getPageSize();
+        // Integer pageNum = (vehicle.getPageNum()-1)* vehicle.getPageSize();
+        Integer pageNum = vehicle.getPageNum();
         Integer pageSize = vehicle.getPageSize();
 
         List<Vehicle> vehicleList = vehicleMapper.findCarPageByType(pageNum, pageSize,vehicle);
@@ -53,5 +53,15 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
     @Override
     public Result deleteByType(Vehicle type) {
         return Result.success(vehicleMapper.deleteByType(type));
+    }
+
+    @Override
+    public Result<List<Vehicle>> findTopRentByLimit(Integer number) {
+        return Result.success(vehicleMapper.findTopRentByLimit(number));
+    }
+
+    @Override
+    public Result<List<Vehicle>> findVehicleByType(Vehicle type) {
+        return Result.success(vehicleMapper.findCarPageByType(0,0,type));
     }
 }

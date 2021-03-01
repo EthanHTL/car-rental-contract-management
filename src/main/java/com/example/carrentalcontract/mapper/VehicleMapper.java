@@ -20,4 +20,6 @@ public interface VehicleMapper extends DbMapper<Vehicle> {
     List<Vehicle> findCarPageByType(Integer pageNum, Integer pageSize,@Param("car") Vehicle vehicle);
 
     int deleteByType(@Param("vehicle") Vehicle vehicle);
+
+    List<Vehicle> findTopRentByLimit(Integer number);
 }

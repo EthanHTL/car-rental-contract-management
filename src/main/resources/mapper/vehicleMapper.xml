@@ -16,7 +16,7 @@
         <result property="updatorId" column="updator_id"/>
     </resultMap>
     <select id="findCarPageByType" resultMap="vehicleMap">
-        select *
+        select v.*
         from vehicle v
         left join vehicle_type vt on v.vehicle_type_id = vt.id
         where vt.id = #{car.vehicleTypeId}
@@ -28,11 +28,19 @@
         </if>
         <if test="car.isAccident !=null and car.isAccident != ''">
             and is_accident = #{car.isAccident}
-        </if><if test="car.isRentOut !=null and car.isRentOut != ''">
-        and is_rent_out = ${car.isRentOut}
-    </if>
+        </if>
+        <if test="car.isRentOut !=null and car.isRentOut != ''">
+            and is_rent_out = ${car.isRentOut}
+        </if>
 
 
+    </select>
+    <select id="findTopRentByLimit" resultMap="vehicleMap">
+        SELECT v.*
+        FROM vehicle_type vt
+                 RIGHT JOIN vehicle v on v.vehicle_type_id = vt.id
+        WHERE vt.rent_out_number = (SELECT MAX(rent_out_number) FROM vehicle_type)
+        limit #{number}
     </select>
 
     <delete id="deleteByType">

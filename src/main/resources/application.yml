@@ -52,7 +52,7 @@ pagehelper:
 logging:
   level:
     com.example.carrentalcontract: debug
-    org.activiti.engine.impl.persistence.entity: trace
+    org.activiti.engine.impl.persistence.entity: debug
 
 
 project:

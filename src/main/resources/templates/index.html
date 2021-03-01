@@ -9,11 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{css/animate.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-submenu.css}">
-
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-select.min.css}">
-
-
-
     <link rel="stylesheet" type="text/css" th:href="@{css/magnific-popup.css}">
     <link rel="stylesheet" th:href="@{css/leaflet.css}" type="text/css">
     <link rel="stylesheet" th:href="@{css/map.css}" type="text/css">
@@ -28,9 +24,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
     <link rel="stylesheet" type="text/css" id="style_sheet" th:href="@{css/skins/midnight-blue.css}">
     <script th:src="@{js/jquery-2.2.0.min.js}"></script>
-
-    <!-- Favicon icon -->
-
 
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700%7CUbuntu:300,400,700" rel="stylesheet">
@@ -48,16 +41,29 @@
     <script  th:src="@{js/respond.min.js}"></script>
     <![endif]-->
     <script th:inline="javascript">
-        var user = [[${param.loginuser}]];
-        var user1 = [[${loginuser}]];
-        console.log(user)
-        console.log(user1)
+        $(function() {
+            var s=$.ajax({
+                //给叫getUser的请求发送请求
+                url: 'http://localhost:9090/users/find/vehicle',
+                dataType: "json",
+                contentType: "application/json",
+                type: "get",
+                success:function (res) {
+                    console.log(res)
+                    $(".vihicleList").html(data);
+                }
+            })
+        });
+        var vehicleList = [[${session.vehicleList}]];
+        var message = [[${session.loginuser}]];
+        var data = sessionStorage.getItem('vehicleList');
+        console.log(vehicleList);
+        console.log(message);
+        console.log(data);
+
     </script>
 </head>
 <body>
-<div class="page_loader">
-    <input th:value="${loginuser!=null ? loginuser.username:''}" style="border: none; outline: none"/><br><br><br><br>
-</div>
 
 <!-- Main header start -->
 <header class="main-header fixed-header-2">
@@ -70,101 +76,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav header-ml">
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Home
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index.html">Home 01</a></li>
-                            <li><a class="dropdown-item" href="index-2.html">Home 02</a></li>
-                            <li><a class="dropdown-item" href="index.html">Home 03</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Car Listing
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">List Layout</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="car-list-rightside.html">List Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="car-list-leftsidebar.html">List Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="car-list-fullWidth.html">List FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Grid Layout</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="car-grid-rightside.html">Grid Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="car-grid-leftside.html">Grid Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="car-grid-fullWidth.html">Grid FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="car-details.html">Car Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown megamenu-li">
-                        <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                        <div class="dropdown-menu megamenu" aria-labelledby="dropdown01">
-                            <div class="megamenu-area">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-4 col-lg-4">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="about.html">About Us</a>
-                                            <a class="dropdown-item" href="services.html">Services</a>
-                                            <a class="dropdown-item" href="agent.html">Agent</a>
-                                            <a class="dropdown-item" href="car-comparison.html">Car Compare</a>
-                                            <a class="dropdown-item" href="car-reviews.html">Car Reviews</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-4">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="gallery.html">Gallery</a>
-                                            <a class="dropdown-item" href="typography.html">Typography</a>
-                                            <a class="dropdown-item" href="pricing-tables.html">Pricing Tables</a>
-                                            <a class="dropdown-item" href="elements.html">Elements</a>
-                                            <a class="dropdown-item" href="faq.html">Faq</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-4">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="icon.html">Icons</a>
-                                            <a class="dropdown-item" href="coming-soon.html">Coming Soon</a>
-                                            <a class="dropdown-item" href="404.html">Error Page</a>
-                                            <a class="dropdown-item" href="login.html">login</a>
-                                            <a class="dropdown-item" href="signup.html">Register</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Blog
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="blog-columns-2col.html">Blog Columns 2</a></li>
-                            <li><a class="dropdown-item" href="blog-columns-3col.html">Blog Columns 3</a></li>
-                            <li><a class="dropdown-item" href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                            <li><a class="dropdown-item" href="blog-details.html">Blog Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>
-                </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="login.html">
-                            <i class="flaticon-logout"></i>Sign In
+                        <a class="nav-link" th:href="@{/user/login}" th:text="${session.loginuser!=null ?'登出':'登入'}">
+                            <i class="flaticon-logout"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link link-color" th:text="${loginuser!=null ?loginuser.username:'游客'}"><i class="flaticon-plus"></i>
+                        <a href="#" class="nav-link link-color" th:text="${session.loginuser!=null ?session.loginuser.username:'游客'}"><i class="flaticon-plus"></i>
                         </a>
                     </li>
                 </ul>
@@ -175,7 +94,7 @@
 <!-- Main header end -->
 
 <!-- Banner start -->
-<div class="banner banner_video_bg" id="banner">
+<div class="banner banner_video_bg" id="banne">
     <div class="pattern-overlay">
         <a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=5e0LxrLSzok',containment:'.banner_video_bg', quality:'large', autoPlay:true, mute:true, opacity:1}"></a>
     </div>
@@ -190,51 +109,18 @@
                             <p>
                                 这里只有你想不到，没有你得不到
                             </p>
-                            <div class="inline-search-area isa-2 ml-auto mr-auto none-768">
-                                <div class="row row-3">
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <select class="selectpicker search-fields" name="select-brand">
-                                            <option>Select Brand</option>
-                                            <option>Audi</option>
-                                            <option>BMW</option>
-                                            <option>Honda</option>
-                                            <option>Nissan</option>
+                            <div class="inline-search-area isa-2 ml-auto mr-auto none-768" style="width: 400px;">
+                                <div class="row row-3" >
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 search-col">
+                                        <select class="selectpicker search-fields" id="selectType" name="select-type" placeholder="请选择类型">
+                                            <option th:each="item,iterStat : ${session.types}"
+                                                    th:text="${item.vehicleTypeName}"
+                                                    th:value="${item.id}"
+                                            ></option>
                                         </select>
                                     </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <select class="selectpicker search-fields" name="select-make">
-                                            <option>Select Make</option>
-                                            <option>BMW</option>
-                                            <option>Honda</option>
-                                            <option>Lamborghini</option>
-                                            <option>Sports Car</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <select class="selectpicker search-fields" name="select-location">
-                                            <option>Select Location</option>
-                                            <option>United States</option>
-                                            <option>United Kingdom</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <select class="selectpicker search-fields" name="select-year">
-                                            <option>Select Year</option>
-                                            <option>2016</option>
-                                            <option>2017</option>
-                                            <option>2018</option>
-                                            <option>2019</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <select class="selectpicker search-fields" name="select-type">
-                                            <option>Select Type Of Car</option>
-                                            <option>New Car</option>
-                                            <option>Used Car</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 search-col">
-                                        <button class="btn button-theme btn-search btn-block">
+                                    <div class="col-xl-3 col-lg-2 col-md-6 col-sm-6 col-6 search-col" >
+                                        <button class="btn button-theme btn-search btn-block" id="selectTypeBtn">
                                             <i class="fa fa-search"></i><strong>Find</strong>
                                         </button>
                                     </div>
@@ -249,6 +135,28 @@
 
 </div>
 <!-- Banner end -->
+<script >
+    $("#selectTypeBtn").click(function () {
+        var value = $('#selectType option:selected') .val();
+        console.log(value)
+        $.ajax({
+            //给叫getUser的请求发送请求
+            url: 'http://localhost:9090/users/find/vehicle/all',
+            dataType: "json",
+            contentType: "application/json",
+            data:JSON.stringify({
+                //带一个参数，结果会返回userId为1的用户
+                "vehicleTypeId": value,
+
+            }),
+            type: "post",
+            success:function (res) {
+                console.log(res)
+                $(".vehicleInfo").load(res);
+            }
+        })
+    })
+</script>
 
 <!-- Search area 3 start -->
 <div class="search-area-3 clearfix d-md-none d-lg-none d-xl-none">
@@ -389,227 +297,22 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Featured Cars</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+            <h1>汽车展厅</h1>
+            <p>选择您心意的汽车，把它带回家</p>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
+        <div class="row" th:fragment="vehicleInfo">
+            <div class="col-lg-4 col-md-6 vehicleInfo" th:each="item,iterStat : ${session.vehicleList}">
                 <div class="car-box">
                     <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
+                        <a th:href="@{/user/reviews(id=${item.id})}" class="car-img">
                             <div class="tag">Featured</div>
                             <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-1.jpg}" alt="car">
+                            <img class="d-block w-100" th:src="${item.picPath}" alt="car">
                         </a>
                     </div>
                     <div class="detail">
                         <h1 class="title">
-                            <a href="car-grid-rightside.html">Toyota Prius</a>
-                        </h1>
-                        <div class="location">
-                            <a href="car-details.html">
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                            </a>
-                        </div>
-                        <ul class="facilities-list clearfix">
-                            <li>
-                                <i class="flaticon-way"></i> 4,000 km
-                            </li>
-                            <li>
-                                <i class="flaticon-manual-transmission"></i> Manual
-                            </li>
-                            <li>
-                                <i class="flaticon-calendar-1"></i> 2019
-                            </li>
-                            <li>
-                                <i class="flaticon-fuel"></i> Petrol
-                            </li>
-                            <li>
-                                <i class="flaticon-car"></i> Sport
-                            </li>
-                            <li>
-                                <i class="flaticon-gear"></i> Blue
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="car-box">
-                    <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
-                            <div class="tag">Featured</div>
-                            <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-4.jpg}" alt="car">
-                        </a>
-                    </div>
-                    <div class="detail">
-                        <h1 class="title">
-                            <a href="car-grid-rightside.html">Toyota Prius specs</a>
-                        </h1>
-                        <div class="location">
-                            <a href="car-details.html">
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                            </a>
-                        </div>
-                        <ul class="facilities-list clearfix">
-                            <li>
-                                <i class="flaticon-way"></i> 4,000 km
-                            </li>
-                            <li>
-                                <i class="flaticon-manual-transmission"></i> Manual
-                            </li>
-                            <li>
-                                <i class="flaticon-calendar-1"></i> 2019
-                            </li>
-                            <li>
-                                <i class="flaticon-fuel"></i> Petrol
-                            </li>
-                            <li>
-                                <i class="flaticon-car"></i> Sport
-                            </li>
-                            <li>
-                                <i class="flaticon-gear"></i> Blue
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="car-box">
-                    <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
-                            <div class="tag">Featured</div>
-                            <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-3.jpg}" alt="car">
-                        </a>
-                    </div>
-                    <div class="detail">
-                        <h1 class="title">
-                            <a href="car-grid-rightside.html">Lexus GS F</a>
-                        </h1>
-                        <div class="location">
-                            <a href="car-details.html">
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                            </a>
-                        </div>
-                        <ul class="facilities-list clearfix">
-                            <li>
-                                <i class="flaticon-way"></i> 4,000 km
-                            </li>
-                            <li>
-                                <i class="flaticon-manual-transmission"></i> Manual
-                            </li>
-                            <li>
-                                <i class="flaticon-calendar-1"></i> 2019
-                            </li>
-                            <li>
-                                <i class="flaticon-fuel"></i> Petrol
-                            </li>
-                            <li>
-                                <i class="flaticon-car"></i> Sport
-                            </li>
-                            <li>
-                                <i class="flaticon-gear"></i> Blue
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="car-box">
-                    <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
-                            <div class="tag">Featured</div>
-                            <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-5.jpg}" alt="car">
-                        </a>
-                    </div>
-                    <div class="detail">
-                        <h1 class="title">
-                            <a href="car-grid-rightside.html">Hyundai Santa</a>
-                        </h1>
-                        <div class="location">
-                            <a href="car-details.html">
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                            </a>
-                        </div>
-                        <ul class="facilities-list clearfix">
-                            <li>
-                                <i class="flaticon-way"></i> 4,000 km
-                            </li>
-                            <li>
-                                <i class="flaticon-manual-transmission"></i> Manual
-                            </li>
-                            <li>
-                                <i class="flaticon-calendar-1"></i> 2019
-                            </li>
-                            <li>
-                                <i class="flaticon-fuel"></i> Petrol
-                            </li>
-                            <li>
-                                <i class="flaticon-car"></i> Sport
-                            </li>
-                            <li>
-                                <i class="flaticon-gear"></i> Blue
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="car-box">
-                    <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
-                            <div class="tag">Featured</div>
-                            <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-6.jpg}" alt="car">
-                        </a>
-                    </div>
-                    <div class="detail">
-                        <h1 class="title">
-                            <a href="car-grid-rightside.html">Audi Q7 2018</a>
-                        </h1>
-                        <div class="location">
-                            <a href="car-details.html">
-                                <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                            </a>
-                        </div>
-                        <ul class="facilities-list clearfix">
-                            <li>
-                                <i class="flaticon-way"></i> 4,000 km
-                            </li>
-                            <li>
-                                <i class="flaticon-manual-transmission"></i> Manual
-                            </li>
-                            <li>
-                                <i class="flaticon-calendar-1"></i> 2019
-                            </li>
-                            <li>
-                                <i class="flaticon-fuel"></i> Petrol
-                            </li>
-                            <li>
-                                <i class="flaticon-car"></i> Sport
-                            </li>
-                            <li>
-                                <i class="flaticon-gear"></i> Blue
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="car-box">
-                    <div class="car-thumbnail">
-                        <a href="car-details.html" class="car-img">
-                            <div class="tag">Featured</div>
-                            <div class="price-box">$850.00</div>
-                            <img class="d-block w-100" th:src="@{/img/car/car-2.jpg}" alt="car">
-                        </a>
-                    </div>
-                    <div class="detail">
-                        <h1 class="title">
-                            <a href="car-grid-rightside.html">2017 Ford Mustang</a>
+                            <a href="car-grid-rightside.html" th:text="${item.vehicleName}"></a>
                         </h1>
                         <div class="location">
                             <a href="car-details.html">
@@ -649,8 +352,8 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title-2 text-center">
-            <h1>Our Advantages</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+            <h1>我们的优势</h1>
+            <p>为您提供最优质的车源</p>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -659,8 +362,8 @@
                         <i class="flaticon-shield"></i>
                     </div>
                     <div class="detail">
-                        <h5>Highly  Secured</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.</p>
+                        <h5>高度安全</h5>
+                        <p>保证你一生的安全，安全驾驶，幸福一生</p>
                     </div>
                 </div>
             </div>
@@ -670,8 +373,8 @@
                         <i class="flaticon-deal"></i>
                     </div>
                     <div class="detail">
-                        <h5>Trusted Agents</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.</p>
+                        <h5>值得信赖</h5>
+                        <p>汽车可靠、安全，售后服务让您更放心</p>
                     </div>
                 </div>
             </div>
@@ -681,8 +384,8 @@
                         <i class="flaticon-money"></i>
                     </div>
                     <div class="detail">
-                        <h5>Get an Offer</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.</p>
+                        <h5>经济实惠</h5>
+                        <p>便宜又放心</p>
                     </div>
                 </div>
             </div>
@@ -692,8 +395,8 @@
                         <i class="flaticon-support-2"></i>
                     </div>
                     <div class="detail">
-                        <h5>Free Support</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.</p>
+                        <h5>免费支持</h5>
+                        <p>凡世的喧嚣和明亮，世俗的快乐和幸福，如同清亮的溪涧，在风里，在我眼前，汨汨而过，温暖如同泉水一样涌出来，我没有奢望，我只要你快乐，不要哀伤。</p>
                     </div>
                 </div>
             </div>
@@ -707,8 +410,8 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title text-center">
-            <h1>Latest Offers</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+            <h1>最新优惠</h1>
+            <p>一路惠,一路降,一路有你,就不怕。</p>
         </div>
         <div class="row row-2">
             <div class="col-lg-4 col-md-12">
@@ -799,7 +502,7 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Our Blog</h1>
+            <h1>我们的展区</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
         <!-- Slick slider area start -->
@@ -958,7 +661,7 @@
                             <a href="car-comparison.html">Car Compare</a>
                         </li>
                         <li>
-                            <a href="car-reviews.html">Car Reviews</a>
+                            <a href="reviews.html">Car Reviews</a>
                         </li>
                         <li>
                             <a href="elements.html">Elements</a>
@@ -1039,12 +742,10 @@
     </form>
 </div>
 
-
 <script th:src="@{js/popper.min.js}"></script>
 <script th:src="@{js/bootstrap.min.js}"></script>
 <script th:src="@{js/bootstrap-submenu.js}"></script>
 <script th:src="@{js/rangeslider.js}"></script>
-<!--<script  src="js/jquery.mb.YTPlayer.js"></script>-->
 <script  th:src="@{js/bootstrap-select.min.js}"></script>
 <script  th:src="@{js/jquery.easing.1.3.js}"></script>
 <script  th:src="@{js/jquery.scrollUp.js}"></script>

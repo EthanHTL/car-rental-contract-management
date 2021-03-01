@@ -1,6 +1,7 @@
 package com.example.carrentalcontract.sercive;
 
 
+import com.example.carrentalcontract.common.DbService;
 import com.example.carrentalcontract.common.Result;
 import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-12-27 22:11:57
  */
-public interface VehicleTypeService {
+public interface VehicleTypeService extends DbService<VehicleType> {
 
 
     Result create(VehicleType type);

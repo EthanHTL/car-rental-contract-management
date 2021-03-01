@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------
 [Main Stylesheet]
-¸ü¶à¾«Æ·Ä£°åÇë·ÃÎÊ£ºhttp://www.bootstrapmb.com
+ï¿½ï¿½ï¿½à¾«Æ·Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½http://www.bootstrapmb.com
 Project:    xDesk
 Version:    1.1.0
 -------------------------------------------------------------------*/
@@ -1763,10 +1763,26 @@ input[type=checkbox]:checked + label:before {
 }
 
 .car-thumbnail {
+    width: 350px;
+    height: 234px;
+    position: relative;
+}
+.car-thumbnail2 {
     position: relative;
 }
 
 .car-thumbnail:before {
+    content: "";
+    top: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 8;
+    background: linear-gradient(to top,rgba(47, 45, 45, 0.9) 0%,rgba(0, 0, 0, 0.45) 35%,rgba(2, 2, 2, 0) 60%,rgba(0,0,0,0) 100%);
+    border-radius: 4px 4px 0 0;
+    opacity: 1;
+}
+.car-thumbnail2:before {
     content: "";
     top: 0;
     position: absolute;
@@ -1934,7 +1950,8 @@ input[type=checkbox]:checked + label:before {
 }
 
 .car-box-2 .car-img img{
-    width: 100%;
+    width: 350px;
+    height: 234px;
 }
 
 .car-box-2 .detail .title a:hover {

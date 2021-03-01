@@ -27,5 +27,8 @@ public interface VehicleService extends DbService<Vehicle> {
 
     Result deleteByType(Vehicle type);
 
+    Result<List<Vehicle>> findTopRentByLimit(Integer number);
 
+
+    Result<List<Vehicle>> findVehicleByType(Vehicle type);
 }
