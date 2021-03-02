@@ -54,6 +54,15 @@ public class UsersController {
     public Result<Boolean> checkUsername(@RequestBody SysUser user) {
         return usersService.selectByUsername(user.getUsername());
     }
+
+    @NotNull(field = "username", name = "账号", statusCode = 701)
+    @PostMapping("/loginuser")
+    public Result<SysUser> getLoginUser() {
+        String userName = SessionUtil.getCurrentUserName();
+        SysUser user = new SysUser();
+        user.setUsername(userName);
+        return usersService.selectOne(user);
+    }
     /**
      * 查询所有用户
      *

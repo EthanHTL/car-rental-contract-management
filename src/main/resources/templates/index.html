@@ -42,24 +42,24 @@
     <![endif]-->
     <script th:inline="javascript">
         $(function() {
-            var s=$.ajax({
-                //给叫getUser的请求发送请求
-                url: 'http://localhost:9090/users/find/vehicle',
-                dataType: "json",
-                contentType: "application/json",
-                type: "get",
-                success:function (res) {
-                    console.log(res)
-                    $(".vihicleList").html(data);
-                }
-            })
+            // var s=$.ajax({
+            //     //给叫getUser的请求发送请求
+            //     url: 'http://localhost:9090/users/find/vehicle',
+            //     dataType: "json",
+            //     contentType: "application/json",
+            //     type: "get",
+            //     success:function (res) {
+            //         console.log(res)
+            //         $(".vihicleList").html(data);
+            //     }
+            // })
         });
-        var vehicleList = [[${session.vehicleList}]];
-        var message = [[${session.loginuser}]];
-        var data = sessionStorage.getItem('vehicleList');
-        console.log(vehicleList);
-        console.log(message);
-        console.log(data);
+        // var vehicleList = [[${session.vehicleList}]];
+        // var message = [[${session.loginuser}]];
+        // var data = sessionStorage.getItem('vehicleList');
+        // console.log(vehicleList);
+        // console.log(message);
+        // console.log(data);
 
     </script>
 </head>
@@ -147,12 +147,11 @@
             data:JSON.stringify({
                 //带一个参数，结果会返回userId为1的用户
                 "vehicleTypeId": value,
-
             }),
             type: "post",
             success:function (res) {
                 console.log(res)
-                $(".vehicleInfo").load(res);
+                // $(".vehicleInfo").load(res);
             }
         })
     })
@@ -305,7 +304,7 @@
                 <div class="car-box">
                     <div class="car-thumbnail">
                         <a th:href="@{/user/reviews(id=${item.id})}" class="car-img">
-                            <div class="tag">Featured</div>
+                            <div class="tag">精选</div>
                             <div class="price-box">$850.00</div>
                             <img class="d-block w-100" th:src="${item.picPath}" alt="car">
                         </a>
@@ -422,7 +421,7 @@
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
-                                            <a href="car-list-rightside.html">Toyota Prius specs</a>
+                                            <a href="car-list-rightside.html">跑车001</a>
                                         </h3>
                                         <h5 class="category-subtitle">$850.00</h5>
                                     </div>
@@ -436,7 +435,7 @@
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
-                                            <a href="car-details.html">Lexus GS F</a>
+                                            <a href="car-details.html">跑车002</a>
                                         </h3>
                                         <h5 class="category-subtitle">$450.00</h5>
                                     </div>
@@ -452,7 +451,7 @@
                         <div class="category-overlay">
                             <div class="category-content">
                                 <h3 class="category-title">
-                                    <a href="#">Audi R8</a>
+                                    <a href="#">跑车003</a>
                                 </h3>
                                 <h5 class="category-subtitle">$150.00</h5>
                             </div>
@@ -468,7 +467,7 @@
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
-                                            <a href="car-list-rightside.html">Toyota Prius</a>
+                                            <a href="car-list-rightside.html">跑车004</a>
                                         </h3>
                                         <h5 class="category-subtitle">$350.000</h5>
                                     </div>
@@ -482,7 +481,7 @@
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
-                                            <a href="car-details.html">2017 Ford Mustang</a>
+                                            <a href="car-details.html">2017 跑车005</a>
                                         </h3>
                                         <h4 class="category-subtitle">98 Properties</h4>
                                     </div>
@@ -503,7 +502,7 @@
         <!-- Main title -->
         <div class="main-title">
             <h1>我们的展区</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>这里展示我们的历年最好的车</p>
         </div>
         <!-- Slick slider area start -->
         <div class="slick-slider-area clearfix">
@@ -513,19 +512,19 @@
                         <div class="blog-photo">
                             <img th:src="@{/img/blog/blog-2.jpg}" alt="small-blog" class="img-fluid">
                             <div class="date-box">
-                                <span>14</span>Nov
+                                <span>14</span>十一月
                             </div>
                         </div>
                         <div class="detail">
                             <h4>
-                                <a href="blog-details.html">Elegant Audi Car</a>
+                                <a href="blog-details.html">奥迪</a>
                             </h4>
                             <div class="post-meta clearfix">
                                 <span><a href="#"><i class="flaticon-user-1"></i></a>Admin</span>
                                 <span><a href="#"><i class="flaticon-comment"></i></a>17K</span>
                                 <span><a href="#"><i class="flaticon-calendar"></i></a>73k</span>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</p>
+                            <p>的撒的发生大法师打发打发</p>
                         </div>
                     </div>
                 </div>
@@ -534,19 +533,19 @@
                         <div class="blog-photo">
                             <img th:src="@{/img/blog/blog-3.jpg}" alt="small-blog" class="img-fluid">
                             <div class="date-box">
-                                <span>14</span>Nov
+                                <span>14</span>十一月
                             </div>
                         </div>
                         <div class="detail">
                             <h4>
-                                <a href="blog-details.html">2018 Lexus GS F</a>
+                                <a href="blog-details.html">2018 雷克萨斯</a>
                             </h4>
                             <div class="post-meta clearfix">
                                 <span><a href="#"><i class="flaticon-user-1"></i></a>Admin</span>
                                 <span><a href="#"><i class="flaticon-comment"></i></a>17K</span>
                                 <span><a href="#"><i class="flaticon-calendar"></i></a>73k</span>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</p>
+                            <p>找不到坚持下去的理由，那就找一个重新开始的理由，生活本来就这么简单。</p>
                         </div>
                     </div>
                 </div>
@@ -555,19 +554,19 @@
                         <div class="blog-photo">
                             <img th:src="@{/img/blog/blog-1.jpg}" alt="small-blog" class="img-fluid">
                             <div class="date-box">
-                                <span>14</span>Nov
+                                <span>14</span>十一月
                             </div>
                         </div>
                         <div class="detail">
                             <h4>
-                                <a href="blog-details.html">Audi R8</a>
+                                <a href="blog-details.html">奥迪 R8</a>
                             </h4>
                             <div class="post-meta clearfix">
                                 <span><a href="#"><i class="flaticon-user-1"></i></a>Admin</span>
                                 <span><a href="#"><i class="flaticon-comment"></i></a>17K</span>
                                 <span><a href="#"><i class="flaticon-calendar"></i></a>73k</span>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</p>
+                            <p>找不到坚持下去的理由，那就找一个重新开始的理由，生活本来就这么简单。</p>
                         </div>
                     </div>
                 </div>
@@ -576,19 +575,19 @@
                         <div class="blog-photo">
                             <img th:src="@{/img/blog/blog-1.jpg}" alt="small-blog" class="img-fluid">
                             <div class="date-box">
-                                <span>14</span>Nov
+                                <span>14</span>十一月
                             </div>
                         </div>
                         <div class="detail">
                             <h4>
-                                <a href="blog-details.html">Audi R8</a>
+                                <a href="blog-details.html">奥迪 R8</a>
                             </h4>
                             <div class="post-meta clearfix">
                                 <span><a href="#"><i class="flaticon-user-1"></i></a>Admin</span>
                                 <span><a href="#"><i class="flaticon-comment"></i></a>17K</span>
                                 <span><a href="#"><i class="flaticon-calendar"></i></a>73k</span>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</p>
+                            <p>找不到坚持下去的理由，那就找一个重新开始的理由，生活本来就这么简单。</p>
                         </div>
                     </div>
                 </div>
@@ -610,10 +609,10 @@
         <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
-                    <img th:src="@{/img/logos/logo.png}" alt="logo" class="f-logo">
+                    <img src="img/logos/logo.png" alt="logo" class="f-logo">
                     <ul class="contact-info">
                         <li>
-                            <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                            <i class="flaticon-pin"></i>世界中心
                         </li>
                         <li>
                             <i class="flaticon-mail"></i><a href="mailto:sales@hotelempire.com">info@themevessel.com</a>
@@ -639,46 +638,46 @@
             <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
                 <div class="footer-item">
                     <h4>
-                        Useful Links
+                        有用的链接
                     </h4>
                     <ul class="links">
                         <li>
-                            <a href="#">Home</a>
+                            <a href="#">首页</a>
                         </li>
                         <li>
-                            <a href="about.html">About Us</a>
+                            <a href="#">关于我们</a>
                         </li>
                         <li>
-                            <a href="services.html">Services</a>
+                            <a href="#">服务</a>
                         </li>
                         <li>
-                            <a href="faq.html">Faq</a>
+                            <a href="#">常问问题</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact Us</a>
+                            <a href="#">联系我们</a>
                         </li>
                         <li>
-                            <a href="car-comparison.html">Car Compare</a>
+                            <a href="#">汽车比较</a>
                         </li>
                         <li>
-                            <a href="reviews.html">Car Reviews</a>
+                            <a href="#">汽车评论</a>
                         </li>
                         <li>
-                            <a href="elements.html">Elements</a>
+                            <a href="#">元素</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <div class="recent-posts footer-item">
-                    <h4>Recent Posts</h4>
+                    <h4>最近的帖子</h4>
                     <div class="media mb-4">
                         <a class="pr-3" href="car-details.html">
-                            <img class="media-object" th:src="@{/img/car/small-car-3.jpg}" alt="small-car">
+                            <img class="media-object" src="img/car/small-car-3.jpg" alt="small-car">
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Bentley Continental GT</a>
+                                <a href="car-details.html">宾利欧陆 GT</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $345,00 | <a href="#"><i class="fa fa-calendar"></i> Jan 12, 2019</a>
@@ -687,11 +686,11 @@
                     </div>
                     <div class="media mb-4">
                         <a class="pr-3" href="car-details.html">
-                            <img class="media-object" th:src="@{/img/car/small-car-1.jpg}" alt="small-car">
+                            <img class="media-object" src="img/car/small-car-1.jpg" alt="small-car">
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Fiat Punto Red</a>
+                                <a href="car-details.html">菲亚特·蓬托·红</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 26, 2019</a>
@@ -700,11 +699,11 @@
                     </div>
                     <div class="media">
                         <a class="pr-3" href="car-details.html">
-                            <img class="media-object" th:src="@{/img/car/small-car-2.jpg}" alt="small-car">
+                            <img class="media-object" src="img/car/small-car-2.jpg" alt="small-car">
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Nissan Micra Gen5</a>
+                                <a href="car-details.html">日产Micra Gen5</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 14, 2019</a>
@@ -715,11 +714,11 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
-                    <h4>Subscribe</h4>
+                    <h4>订阅</h4>
                     <div class="Subscribe-box">
-                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                        <p>异教徒黑人并非例外，这很容易使他们放弃责任.</p>
                         <form class="form-inline" action="#" method="GET">
-                            <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3" placeholder="Email Address">
+                            <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3" placeholder="电子邮件">
                             <button type="submit" class="btn"><i class="fa fa-paper-plane"></i></button>
                         </form>
                     </div>

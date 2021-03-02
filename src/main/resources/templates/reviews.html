@@ -19,11 +19,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/jquery.mCustomScrollbar.css}">
     <link rel="stylesheet" type="text/css" th:href="@{css/dropzone.css}">
     <link rel="stylesheet" type="text/css" th:href="@{css/slick.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-datepicker.css}">
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
     <link rel="stylesheet" type="text/css" id="style_sheet" th:href="@{css/skins/midnight-blue.css}">
     <script th:src="@{js/jquery-2.2.0.min.js}"></script>
+
 
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700%7CUbuntu:300,400,700" rel="stylesheet">
@@ -32,28 +34,33 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/ie10-viewport-bug-workaround.css}">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script  th:src="@{js/ie8-responsive-file-warning.js}"></script><![endif]-->
-    <script  th:src="@{js/ie-emulation-modes-warning.js}"></script>
+    <!--[if lt IE 9]>
+    <script th:src="@{js/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{js/ie-emulation-modes-warning.js}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script  th:src="@{js/html5shiv.min.js}"></script>
-    <script  th:src="@{js/respond.min.js}"></script>
+    <script th:src="@{js/html5shiv.min.js}"></script>
+    <script th:src="@{js/respond.min.js}"></script>
     <![endif]-->
     <script th:inline="javascript">
-        $(function() {
-/*            var s=$.ajax({
-                //给叫getUser的请求发送请求
-                url: 'http://localhost:9090/users/find/vehicle',
-                dataType: "json",
-                contentType: "application/json",
-                type: "get",
-                success:function (res) {
-                    console.log(res)
-                    $(".vihicleList").html(data);
-                }
-            })*/
+        $(function () {
+
+            /*            var s=$.ajax({
+                            //给叫getUser的请求发送请求
+                            url: 'http://localhost:9090/users/find/vehicle',
+                            dataType: "json",
+                            contentType: "application/json",
+                            type: "get",
+                            success:function (res) {
+                                console.log(res)
+                                $(".vihicleList").html(data);
+                            }
+                        })*/
         });
+
+        // var vehicleList = [[${session.vechicleDetail}]];
+        // console.log(vehicleList);
 
     </script>
 </head>
@@ -67,7 +74,8 @@
             <a class="navbar-brand company-logo" href="index.html">
                 <img th:src="@{/img/logos/black-logo.png}" alt="logo">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -78,7 +86,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link link-color" th:text="${session.loginuser!=null ?session.loginuser.username:'游客'}"><i class="flaticon-plus"></i>
+                        <a href="#" class="nav-link link-color"
+                           th:text="${session.loginuser!=null ?session.loginuser.username:'游客'}"><i
+                                class="flaticon-plus"></i>
                         </a>
                     </li>
                 </ul>
@@ -92,10 +102,10 @@
 <div class="sub-banner">
     <div class="container breadcrumb-area">
         <div class="breadcrumb-areas">
-            <h1>Car Reviews</h1>
+            <h1>汽车详情</h1>
             <ul class="breadcrumbs">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Car Reviews</li>
+                <li><a th:href="@{/index}">首页</a></li>
+                <li class="active">详情</li>
             </ul>
         </div>
     </div>
@@ -109,71 +119,120 @@
             <div class="col-lg-8 col-md-12">
                 <div class="reviews-box">
                     <div class="car-thumbnail2">
-                        <a href="#" >
-                            <img  class="d-block w-100" src="img/car/car-4.jpg" alt="car">
+                        <a href="#">
+                            <img class="d-block w-100"
+                                 th:src="${session.vechicleDetail!= null ?session.vechicleDetail.picPath:''}" alt="car">
                         </a>
                     </div>
                     <div class="detail">
                         <h1 class="title">
-                            <a href="#" th:text="${vechicle!= null ?vechicle.vehicleName:''}"></a>
+                            <a href="#"
+                               th:text="${session.vechicleDetail!= null ?session.vechicleDetail.vehicleName:''}"></a>
                         </h1>
                         <h4>$22,598 - $45,123</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived</p>
+                        <p>一生至少该有一次，为了某人忘了自己。不求结果，不求同行，不求曾经拥有，只求在最美的年华遇见你，有些失去是注定滴，有些缘分是注定没有结果滴。</p>
                         <span class="labeling clearfix"><span class="text-primary">Value</span> <span class="sub-score"><span>4.5</span> of 5.0</span></span>
                         <div class="progress progress-primary">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 90%;"></div>
                         </div>
-                        <span class="labeling clearfix"><span class="text-primary">Drivability</span> <span class="sub-score"><span>4</span> of 5.0</span></span>
+                        <span class="labeling clearfix"><span class="text-primary">可驱动性</span> <span
+                                class="sub-score"><span>4</span> of 5.0</span></span>
                         <div class="progress progress-primary">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 80%;"></div>
                         </div>
-                        <span class="labeling clearfix"><span class="text-primary">Performance</span> <span class="sub-score"><span>3.5</span> of 5.0</span></span>
+                        <span class="labeling clearfix"><span class="text-primary">表现</span> <span
+                                class="sub-score"><span>3.5</span> of 5.0</span></span>
                         <div class="progress progress-primary">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 70%;"></div>
                         </div>
-                        <span class="labeling clearfix"><span class="text-primary">Fuel Economy</span> <span class="sub-score"><span>3</span> of 5.0</span></span>
+                        <span class="labeling clearfix"><span class="text-primary">燃油经济性</span> <span class="sub-score"><span>3</span> of 5.0</span></span>
                         <div class="progress progress-primary">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="94" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 60%;"></div>
                         </div>
                         <div class="overall">
                             <div class="score"><span>4.5</span></div>
-                            out of 5.0
+                            满分 5.0
                         </div>
                     </div>
                 </div>
 
-                <!-- Contact 2 start -->
-                <div class="contact-2 ca mb-50">
-                    <h3 class="heading">Contact Form</h3>
-                    <form action="#" method="GET" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="form-group name col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Name">
-                            </div>
-                            <div class="form-group email col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group number col-md-6">
-                                <input type="text" name="phone" class="form-control" placeholder="Number">
-                            </div>
-                            <div class="form-group number col-md-6">
-                                <input type="text" name="subject" class="form-control" placeholder="Subject">
-                            </div>
-                            <div class="form-group message col-md-12">
-                                <textarea class="form-control" name="message" placeholder="Write message"></textarea>
-                            </div>
-                            <div class="send-btn col-md-12">
-                                <button type="submit" class="btn btn-md button-theme">Send Message</button>
+                <!-- Contact 2 start th:if="${session.loginuser!=null}"-->
+                <div class="contact-2 ca mb-50" >
+                    <h3 class="heading">联系我们</h3>
+                    <!--                    <form action="#" method="post" >-->
+                    <div class="row">
+                        <div class="form-group name col-md-6">
+                            <input type="text" name="username" class="form-control" placeholder="名字">
+                        </div>
+                        <div class="form-group email col-md-6">
+                            <input type="email" name="email" class="form-control" placeholder="邮件">
+                        </div>
+                        <div class="form-group number col-md-6">
+                            <input type="text" name="phone" class="form-control" placeholder="电话">
+                        </div>
+                        <div class="form-group number col-md-6">
+                            <div class="input-group date datepicker">
+                                <input type="text" class="form-control">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th "></span>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="form-group message col-md-12">
+                            <textarea class="form-control" name="message" placeholder="写信息"></textarea>
+                        </div>
+                        <div class="send-btn col-md-12">
+                            <button type="button" id="sendBtn" class="btn btn-md button-theme">发送</button>
+                        </div>
+                    </div>
+                    <!--                    </form>-->
                 </div>
             </div>
+            <script th:inline="javascript">
+                $(function(){
+                    $('.datepicker').datepicker({
+                        language: 'zh-CN'
+                    });
+                })
+                $("#sendBtn").click(function () {
+                    var username = $('input[name="username"]').val();
+                    var email = $('input[name="email"]').val();
+                    var phone = $('input[name="phone"]').val();
+                    var message = $('textarea[name="message"]').val();
+                    var appointmentTime = $('.datepicker').datepicker('getDate');
+                    $.ajax({
+                        url: '/api/v1/car/usermesssage/create',
+                        dataType: "json",
+                        contentType: "application/json",
+                        //不加也可以，默认是get
+                        type: "post",
+                        data: JSON.stringify({
+                            //带一个参数，结果会返回userId为1的用户
+                            "vehicleNumber": [[${session.vechicleDetail.id}]],
+                            "userId": [[${session.loginuser!=null?session.loginuser.id:''}]],
+                            "message": message,
+                            "appointmentTime": appointmentTime,
+                            "email": email,
+                            "phone": phone,
+                            "username": username
+                        }),
+                        //设成同步请求，不加默认是异步，这里加这个是为了同步适用下面的那条语句，
+                        //不然异步的话，$("#niHao")会用不了
+                        success: function (res) {
+                            alert("预约成功")
+                        }
+                    })
+                })
+            </script>
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
                     <div class="widget-2 advanced-search bg-grea-2 d-lg-none d-xl-none">
-                        <h3 class="sidebar-title">Booking This Car</h3>
+                        <h3 class="sidebar-title">汽车推荐</h3>
                         <ul>
                             <li>
                                 <span>Make</span>Ferrari
@@ -215,14 +274,14 @@
                     </div>
                     <!-- Recent posts start -->
                     <div class="widget recent-posts">
-                        <h3 class="sidebar-title">Recent Posts</h3>
+                        <h3 class="sidebar-title">最近热销</h3>
                         <div class="media mb-4">
                             <a class="pr-3" href="car-details.html">
                                 <img class="media-object" src="img/car/small-car-3.jpg" alt="small-car">
                             </a>
                             <div class="media-body align-self-center">
                                 <h5>
-                                    <a href="car-details.html">Bentley Continental GT</a>
+                                    <a href="car-details.html">宾利欧陆 GT</a>
                                 </h5>
                                 <div class="listing-post-meta">
                                     $345,00 | <a href="#"><i class="fa fa-calendar"></i> Jan 12, 2019</a>
@@ -235,7 +294,7 @@
                             </a>
                             <div class="media-body align-self-center">
                                 <h5>
-                                    <a href="car-details.html">Fiat Punto Red</a>
+                                    <a href="car-details.html">菲亚特·蓬托·红</a>
                                 </h5>
                                 <div class="listing-post-meta">
                                     $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 26, 2019</a>
@@ -248,7 +307,7 @@
                             </a>
                             <div class="media-body align-self-center">
                                 <h5>
-                                    <a href="car-details.html">Nissan Micra Gen5</a>
+                                    <a href="car-details.html">日产Micra Gen5</a>
                                 </h5>
                                 <div class="listing-post-meta">
                                     $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 14, 2019</a>
@@ -274,7 +333,7 @@
                     <img src="img/logos/logo.png" alt="logo" class="f-logo">
                     <ul class="contact-info">
                         <li>
-                            <i class="flaticon-pin"></i>20/F Green Road, Dhanmondi, Dhaka
+                            <i class="flaticon-pin"></i>世界中心
                         </li>
                         <li>
                             <i class="flaticon-mail"></i><a href="mailto:sales@hotelempire.com">info@themevessel.com</a>
@@ -300,46 +359,46 @@
             <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
                 <div class="footer-item">
                     <h4>
-                        Useful Links
+                        有用的链接
                     </h4>
                     <ul class="links">
                         <li>
-                            <a href="#">Home</a>
+                            <a href="#">首页</a>
                         </li>
                         <li>
-                            <a href="about.html">About Us</a>
+                            <a href="#">关于我们</a>
                         </li>
                         <li>
-                            <a href="services.html">Services</a>
+                            <a href="#">服务</a>
                         </li>
                         <li>
-                            <a href="faq.html">Faq</a>
+                            <a href="#">常问问题</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact Us</a>
+                            <a href="#">联系我们</a>
                         </li>
                         <li>
-                            <a href="car-comparison.html">Car Compare</a>
+                            <a href="#">汽车比较</a>
                         </li>
                         <li>
-                            <a href="reviews.html">Car Reviews</a>
+                            <a href="#">汽车评论</a>
                         </li>
                         <li>
-                            <a href="elements.html">Elements</a>
+                            <a href="#">元素</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                 <div class="recent-posts footer-item">
-                    <h4>Recent Posts</h4>
+                    <h4>最近的帖子</h4>
                     <div class="media mb-4">
                         <a class="pr-3" href="car-details.html">
                             <img class="media-object" src="img/car/small-car-3.jpg" alt="small-car">
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Bentley Continental GT</a>
+                                <a href="car-details.html">宾利欧陆 GT</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $345,00 | <a href="#"><i class="fa fa-calendar"></i> Jan 12, 2019</a>
@@ -352,7 +411,7 @@
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Fiat Punto Red</a>
+                                <a href="car-details.html">菲亚特·蓬托·红</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 26, 2019</a>
@@ -365,7 +424,7 @@
                         </a>
                         <div class="media-body align-self-center">
                             <h5>
-                                <a href="car-details.html">Nissan Micra Gen5</a>
+                                <a href="car-details.html">日产Micra Gen5</a>
                             </h5>
                             <div class="listing-post-meta">
                                 $745,00 | <a href="#"><i class="fa fa-calendar"></i> Feb 14, 2019</a>
@@ -376,18 +435,20 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
-                    <h4>Subscribe</h4>
+                    <h4>订阅</h4>
                     <div class="Subscribe-box">
-                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                        <p>异教徒黑人并非例外，这很容易使他们放弃责任.</p>
                         <form class="form-inline" action="#" method="GET">
-                            <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3" placeholder="Email Address">
+                            <input type="text" class="form-control mb-sm-0" id="inlineFormInputName3"
+                                   placeholder="电子邮件">
                             <button type="submit" class="btn"><i class="fa fa-paper-plane"></i></button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-xl-12 col-lg-12">
-                <p class="copy sub-footer">© 2019 <a href="http://www.17sucai.com/">Theme Vessel.</a> Trademarks and brands are the property of their respective owners.</p>
+                <p class="copy sub-footer">© 2019 <a href="http://www.17sucai.com/">Theme Vessel.</a> Trademarks and
+                    brands are the property of their respective owners.</p>
             </div>
         </div>
     </div>
@@ -398,7 +459,7 @@
 <div id="full-page-search">
     <button type="button" class="close">×</button>
     <form action="index.html#">
-        <input type="search" value="" placeholder="type keyword(s) here" />
+        <input type="search" value="" placeholder="type keyword(s) here"/>
         <button type="submit" class="btn btn-sm button-theme">Search</button>
     </form>
 </div>
@@ -407,25 +468,27 @@
 <script th:src="@{js/bootstrap.min.js}"></script>
 <script th:src="@{js/bootstrap-submenu.js}"></script>
 <script th:src="@{js/rangeslider.js}"></script>
-<script  th:src="@{js/bootstrap-select.min.js}"></script>
-<script  th:src="@{js/jquery.easing.1.3.js}"></script>
-<script  th:src="@{js/jquery.scrollUp.js}"></script>
-<script  th:src="@{js/jquery.mCustomScrollbar.concat.min.js}"></script>
-<script  th:src="@{js/leaflet.js}"></script>
-<script  th:src="@{js/leaflet-providers.js}"></script>
-<script  th:src="@{js/leaflet.markercluster.js}"></script>
-<script  th:src="@{js/dropzone.js}"></script>
-<script  th:src="@{js/slick.min.js}"></script>
-<script  th:src="@{js/jquery.filterizr.js}"></script>
-<script  th:src="@{js/jquery.magnific-popup.min.js}"></script>
-<script  th:src="@{js/jquery.countdown.js}"></script>
-<script  th:src="@{js/maps.js}"></script>
-<script  th:src="@{js/app.js}"></script>
+<script th:src="@{js/bootstrap-select.min.js}"></script>
+<script th:src="@{js/jquery.easing.1.3.js}"></script>
+<script th:src="@{js/jquery.scrollUp.js}"></script>
+<script th:src="@{js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{js/leaflet.js}"></script>
+<script th:src="@{js/leaflet-providers.js}"></script>
+<script th:src="@{js/leaflet.markercluster.js}"></script>
+<script th:src="@{js/dropzone.js}"></script>
+<script th:src="@{js/slick.min.js}"></script>
+<script th:src="@{js/jquery.filterizr.js}"></script>
+<script th:src="@{js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{js/jquery.countdown.js}"></script>
+<script th:src="@{js/maps.js}"></script>
+<script th:src="@{js/app.js}"></script>
+<script th:src="@{js/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{js/bootstrap-datepicker.zh-CN.min.js}"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script  th:src="@{js/ie10-viewport-bug-workaround.js}"></script>
+<script th:src="@{js/ie10-viewport-bug-workaround.js}"></script>
 <!-- Custom javascript -->
-<script  th:src="@{js/ie10-viewport-bug-workaround.js}"></script>
+<script th:src="@{js/ie10-viewport-bug-workaround.js}"></script>
 </body>
 </html>
 

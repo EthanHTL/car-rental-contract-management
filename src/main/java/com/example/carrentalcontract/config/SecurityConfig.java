@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 // .loginPage("/login")
-                .loginProcessingUrl("/user/login") // 登录访问路径
+                .loginProcessingUrl("/employee/user/login") // 登录访问路径
                 .successHandler(successHandler)
 //                .defaultSuccessUrl("/success")
                 .failureHandler(failureHandler)

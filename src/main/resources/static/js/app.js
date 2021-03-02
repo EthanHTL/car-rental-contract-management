@@ -274,11 +274,11 @@ $(function () {
 
     // Background video playing script
     $(document).ready(function () {
-        $(".player").mb_YTPlayer(
-            {
-                mobileFallbackImage: 'img/banner/banner-1.jpg'
-            }
-        );
+        // $(".player").mb_YTPlayer(
+        //     {
+        //         mobileFallbackImage: 'img/banner/banner-1.jpg'
+        //     }
+        // );
     });
 
     // Multilevel menuus

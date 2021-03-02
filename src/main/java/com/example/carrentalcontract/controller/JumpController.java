@@ -8,6 +8,7 @@ import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.sercive.UsersService;
 import com.example.carrentalcontract.sercive.VehicleService;
 import com.example.carrentalcontract.sercive.VehicleTypeService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,13 +85,15 @@ public class JumpController {
     }
 
     @GetMapping("/user/reviews")
-    public String reviews(Vehicle vehicle,HttpServletRequest request){
-        System.out.println("======"+vehicle.getId());
-        Vehicle data = vehicleService.selectByPrimaryKey(vehicle.getId()).getData();
+    public String reviews(@Param("id") Long id, HttpServletRequest request){
+        System.out.println("======"+id);
+        // System.out.println("======//"+request.getParameter("id"));
+        Vehicle data = vehicleService.selectByPrimaryKey(id).getData();
+        System.out.println(data);
         HttpSession session = request.getSession();
         if (data!=null) {
-            session.setAttribute("vechicle", data);
-            return "redirect:reviews";
+            session.setAttribute("vechicleDetail", data);
+            return "redirect:/reviews";
         }else {
             return "redirect:/index";
         }
@@ -108,7 +111,12 @@ public class JumpController {
     }
 
     @GetMapping("/index")
-    public String index(){
+    public String index(HttpServletRequest request){
+        HttpSession session =  request.getSession();
+        List<Vehicle> vehicles = vehicleService.findTopRentByLimit(6).getData();
+        List<VehicleType> types = typeService.selectAll().getData();
+        session.setAttribute("vehicleList",vehicles);
+        session.setAttribute("types",types);
         return "index";
     }
     @GetMapping("/success")
