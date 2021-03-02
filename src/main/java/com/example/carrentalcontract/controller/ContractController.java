@@ -80,7 +80,7 @@ public class ContractController {
     // 我的任务（个人+组 任务）
     @PostMapping("/flow/tasks")
     public Result<List<FlowContractView>> findMyTaskList(){
-        String username = SessionUtil.getCurrentUser().getUsername();
+        String username = SessionUtil.getCurrentUserName();
         if (username == null){
             return new Result(901,"未登陆");
         }
@@ -106,7 +106,6 @@ public class ContractController {
     @PostMapping("/flow/task/complete")
     public Result complete(@RequestBody TaskInfo taskInfo){
         String userName = SessionUtil.getCurrentUserName();
-
         Map<String, Object> variables = new HashMap<>();
         variables.put("contract",taskInfo);
         actFlowCommService.setLocalVariables(taskInfo.getTaskId(),variables);

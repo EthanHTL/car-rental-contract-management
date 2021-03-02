@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.ContractMapper">
+    <resultMap id="contractMap" type="com.example.carrentalcontract.entity.model.Contract">
+        <id property="id" column="id"/>
+        <result property="contractNumbers" column="contract_numbers"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="signUnit" column="sign_unit"/>
+        <result property="contractUserId" column="contract_user_id"/>
+        <result property="contractUsername" column="contract_username"/>
+        <result property="contractAmount" column="contract_amount"/>
+        <result property="paidAmount" column="paid_amount"/>
+        <result property="startTime" column="sign_time"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="contractUrl" column="contract_url"/>
+        <result property="contractType" column="contract_type"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updatorId" column="updator_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="vehicleId" column="vehicle_id"/>
+    </resultMap>
+
+    <resultMap id="flowMap" type="com.example.carrentalcontract.entity.view.FlowContractView">
+        <id property="id" column="id"/>
+        <result property="contractNumbers" column="contract_numbers"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="signUnit" column="sign_unit"/>
+        <result property="contractUserId" column="contract_user_id"/>
+        <result property="contractUsername" column="contract_username"/>
+        <result property="contractAmount" column="contract_amount"/>
+        <result property="paidAmount" column="paid_amount"/>
+        <result property="startTime" column="sign_time"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="contractUrl" column="contract_url"/>
+        <result property="contractType" column="contract_type"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updatorId" column="updator_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="vehicleId" column="vehicle_id"/>
+        <result property="taskInfo.state" column="taskState"/>
+    </resultMap>
+
+
+    <select id="selectPassAll" resultMap="contractMap">
+        select c.* from contract c left join sys_flow sf on c.id = sf.contract_id
+        where sf.state = 3
+    </select>
+    <select id="selectPage" resultMap="flowMap">
+        select * from contract
+        <where>
+            id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+            <if test="contract.contractName!=null and contract.contractName!= ''">
+                and contractName = #{contract.contractName}
+            </if>
+            <if test="contract.state!=null and contract.state!= ''">
+                and state = #{contract.state}
+            </if>
+        </where>
+    </select>
+</mapper>

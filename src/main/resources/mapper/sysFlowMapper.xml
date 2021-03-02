@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carrentalcontract.mapper.SysFlowMapper">
+    <resultMap id="flowMap" type="com.example.carrentalcontract.entity.model.SysFlow">
+        <id property="id" column="id"/>
+        <result property="flowName" column="flow_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="businessKey" column="business_key"/>
+        <result property="executionId" column="execution_id"/>
+        <result property="contractId" column="contract_id"/>
+        <result property="processDefinitionId" column="process_definitionId"/>
+        <result property="processInstanceId" column="process_instanceId"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="updatorId" column="updator_id"/>
+
+    </resultMap>
+
+
+    <select id="selectByContractId" resultMap="flowMap">
+        select * from contract
+    </select>
+</mapper>

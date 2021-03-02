@@ -9,4 +9,6 @@ import java.util.List;
 public interface SysFlowService extends DbService<SysFlow> {
 
     Result<List<SysFlow>> selectInPropertyIds(List<String> ids, String property);
+
+    Result<SysFlow> selectByContractId(Long id);
 }
