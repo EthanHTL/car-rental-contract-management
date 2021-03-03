@@ -22,7 +22,7 @@
         <result property="vehicleId" column="vehicle_id"/>
     </resultMap>
 
-    <resultMap id="flowMap" type="com.example.carrentalcontract.entity.view.FlowContractView">
+    <resultMap id="contractFlowMap" type="com.example.carrentalcontract.entity.view.FlowContractView">
         <id property="id" column="id"/>
         <result property="contractNumbers" column="contract_numbers"/>
         <result property="contractName" column="contract_name"/>
@@ -32,7 +32,11 @@
         <result property="contractAmount" column="contract_amount"/>
         <result property="paidAmount" column="paid_amount"/>
         <result property="startTime" column="sign_time"/>
-        <result property="startTime" column="start_time"/>
+        <result property="state" column="state"/>
+        <result property="content" column="content"/>
+        <result property="remark" column="remark"/>
+        <result property="principal" column="principal"/>
+        <result property="payment" column="payment"/>
         <result property="endTime" column="end_time"/>
         <result property="contractUrl" column="contract_url"/>
         <result property="contractType" column="contract_type"/>
@@ -41,26 +45,45 @@
         <result property="updatorId" column="updator_id"/>
         <result property="updateTime" column="update_time"/>
         <result property="vehicleId" column="vehicle_id"/>
-        <result property="taskInfo.state" column="taskState"/>
+        <association property="flow" javaType="com.example.carrentalcontract.entity.model.SysFlow">
+            <id property="id" column="sId"/>
+            <result property="flowName" column="flow_name"/>
+            <result property="userId" column="user_id"/>
+            <result property="username" column="sUsername"/>
+            <result property="state" column="sState"/>
+            <result property="businessKey" column="business_key"/>
+            <result property="executionId" column="execution_id"/>
+            <result property="contractId" column="contract_id"/>
+            <result property="processDefinitionId" column="process_definitionId"/>
+            <result property="processInstanceId" column="process_instanceId"/>
+        </association>
     </resultMap>
 
 
     <select id="selectPassAll" resultMap="contractMap">
-        select c.* from contract c left join sys_flow sf on c.id = sf.contract_id
+        select c.*
+        from contract c
+                 left join sys_flow sf on c.id = sf.contract_id
         where sf.state = 3
     </select>
-    <select id="selectPage" resultMap="flowMap">
-        select * from contract
+    <select id="findPage" resultMap="contractFlowMap">
+        select c.*,
+        sf.id as sId,
+        sf.state as sState,
+        sf.username as sUsername,
+        sf.flow_name,sf.business_key,sf.execution_id,sf.contract_id,sf.process_definitionId,sf.process_instanceId
+        from contract c
+        left join sys_flow sf on c.id = sf.contract_id
         <where>
-            id in
+            c.id in
             <foreach collection="ids" item="item" separator="," open="(" close=")" index="">
                 #{item}
             </foreach>
             <if test="contract.contractName!=null and contract.contractName!= ''">
-                and contractName = #{contract.contractName}
+                and c.contractName = #{contract.contractName}
             </if>
             <if test="contract.state!=null and contract.state!= ''">
-                and state = #{contract.state}
+                and c.state = #{contract.state}
             </if>
         </where>
     </select>

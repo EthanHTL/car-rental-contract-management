@@ -32,7 +32,7 @@ public interface ContractService extends DbService<Contract> {
 
     Result<List<FlowContractView>> findMyTask(List<TaskInfo> infos);
 
-    Result<PageInfo<FlowContractView>> selectInIds(Contract contract, List<Long> ids);
+    Result<PageInfo<FlowContractView>> selectInIds(FlowContractView contract, List<Long> ids);
 
     Result renewContract(Contract contract, SysUser currentUser);
 

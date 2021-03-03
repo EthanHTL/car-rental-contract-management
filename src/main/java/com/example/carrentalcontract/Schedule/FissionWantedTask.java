@@ -3,6 +3,7 @@ package com.example.carrentalcontract.Schedule;
 import com.example.carrentalcontract.entity.model.Contract;
 import com.example.carrentalcontract.sercive.ContractService;
 import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Component
 @Configuration
 @EnableScheduling
@@ -33,6 +35,7 @@ public class FissionWantedTask {
                 Date endDate = contract.getEndTime();
                 if (endDate.before(new Date())){
                     // 合同到期，设置合同状态
+                    System.out.println("合同="+contract.getContractName()+"==到期");
                     contract.setState(3);
                     contractService.update(contract);
 

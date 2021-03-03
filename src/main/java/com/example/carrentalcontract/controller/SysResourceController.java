@@ -51,7 +51,7 @@ public class SysResourceController {
 
     @PostMapping("/contract/template/delete")
     public Result deleteContractTemplate(@RequestBody SysResource sysResource){
-        return sysResourceService.delete(sysResource);
+        return sysResourceService.destroy(sysResource);
     }
 
     /**

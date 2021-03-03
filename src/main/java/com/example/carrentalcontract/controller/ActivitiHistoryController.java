@@ -165,7 +165,7 @@ public class ActivitiHistoryController {
      * @return 已处理任务列表
      */
     @PostMapping(value = "/queryDoneTasks")
-    public Result<PageInfo<FlowContractView>> queryDoneTasks(@RequestBody Contract contract) {
+    public Result<PageInfo<FlowContractView>> queryDoneTasks(@RequestBody FlowContractView contract) {
         PageInfo<FlowContractView> contractViewPageInfo = new PageInfo<>();
         try {
             String username = SessionUtil.getCurrentUserName();
@@ -218,9 +218,9 @@ public class ActivitiHistoryController {
      * @return
      */
     @PostMapping(value = "/queryMyStartTasks")
-    public Result<PageInfo<FlowContractView>> queryMyStartTasks(@RequestBody Contract contract) {
+    public Result<PageInfo<FlowContractView>> queryMyStartTasks(@RequestBody FlowContractView contract) {
         PageInfo<FlowContractView> contractViewPageInfo = new PageInfo<>();
-        try {
+        // try {
             String username = SessionUtil.getCurrentUserName();
             List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
                     .startedBy(username)
@@ -248,10 +248,10 @@ public class ActivitiHistoryController {
             // ObjectMapper.clone(data, contractViewPageInfo);
             // contractViewPageInfo.setList(flowContractViewList);
             return Result.success(data);
-
-        } catch (Exception e) {
-            return new Result(901,"获取历史任务失败");
-        }
+        //
+        // } catch (Exception e) {
+        //     return new Result(901,"获取历史任务失败");
+        // }
 
     }
 
