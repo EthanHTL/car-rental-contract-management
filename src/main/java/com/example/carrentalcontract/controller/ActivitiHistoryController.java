@@ -187,12 +187,12 @@ public class ActivitiHistoryController {
             List<Long> ids = flows.stream().map(n -> Long.parseLong(n.getBusinessKey().split(":")[1]))
                     .collect(Collectors.toList());
 
-            PageInfo<Contract> data = contractService.selectInIds(contract, ids).getData();
+            PageInfo<FlowContractView> data = contractService.selectInIds(contract, ids).getData();
             // List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
-            List<FlowContractView> flowContractViewList = ObjectMapper.clone(data.getList(), FlowContractView.class);
+            // List<FlowContractView> flowContractViewList = ObjectMapper.clone(data.getList(), FlowContractView.class);
             for (SysFlow flow : flows) {
                 // 获取 TaskInfo
-                for (FlowContractView view : flowContractViewList) {
+                for (FlowContractView view : data.getList()) {
                     if (flow.getBusinessKey().indexOf(view.getId().toString())>0){
                         TaskInfo info = new TaskInfo();
                         ObjectMapper.clone(flow,info);
@@ -202,9 +202,9 @@ public class ActivitiHistoryController {
                 }
             }
 
-            ObjectMapper.clone(data, contractViewPageInfo);
-            contractViewPageInfo.setList(flowContractViewList);
-            return Result.success(contractViewPageInfo);
+            // ObjectMapper.clone(data, contractViewPageInfo);
+            // contractViewPageInfo.setList(flowContractViewList);
+            return Result.success(data);
         } catch (Exception e) {
             System.out.println(e);
             return new Result(901,"获取历史任务失败");
@@ -231,12 +231,12 @@ public class ActivitiHistoryController {
                 ObjectMapper.clone(contract, contractViewPageInfo);
                 return Result.success(contractViewPageInfo);
             }
-            PageInfo<Contract> data = contractService.selectInIds(contract, ids).getData();
+            PageInfo<FlowContractView> data = contractService.selectInIds(contract, ids).getData();
             // List<Contract> contracts = contractService.selectIn(Contract.class, ids).getData();
-            List<FlowContractView> flowContractViewList = ObjectMapper.clone(data.getList(), FlowContractView.class);
+            // List<FlowContractView> flowContractViewList = ObjectMapper.clone(data.getList(), FlowContractView.class);
             for (HistoricProcessInstance instance : list) {
                 // 获取 TaskInfo6
-                for (FlowContractView view : flowContractViewList) {
+                for (FlowContractView view : data.getList()) {
                     if (instance.getBusinessKey().indexOf(view.getId().toString())>0){
                         TaskInfo info = new TaskInfo();
                         ObjectMapper.clone(instance,info);
@@ -245,9 +245,9 @@ public class ActivitiHistoryController {
                     }
                 }
             }
-            ObjectMapper.clone(data, contractViewPageInfo);
-            contractViewPageInfo.setList(flowContractViewList);
-            return Result.success(contractViewPageInfo);
+            // ObjectMapper.clone(data, contractViewPageInfo);
+            // contractViewPageInfo.setList(flowContractViewList);
+            return Result.success(data);
 
         } catch (Exception e) {
             return new Result(901,"获取历史任务失败");

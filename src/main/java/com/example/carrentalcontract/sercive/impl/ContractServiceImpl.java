@@ -9,6 +9,7 @@ import com.example.carrentalcontract.entity.model.SysFlow;
 import com.example.carrentalcontract.entity.model.SysUser;
 import com.example.carrentalcontract.entity.request.TaskInfo;
 import com.example.carrentalcontract.entity.view.FlowContractView;
+import com.example.carrentalcontract.mapper.ContractMapper;
 import com.example.carrentalcontract.sercive.*;
 import com.example.carrentalcontract.util.SessionUtil;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +26,7 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +56,8 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     private RuntimeService runtimeService;
     @Autowired
     private ActFlowCommService actFlowCommService;
+    @Resource
+    private ContractMapper contractMapper;
 
 
     @Override
@@ -197,6 +201,11 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     }
 
     @Override
+    public Result<List<Contract>> selectPassAll() {
+        return Result.success(contractMapper.selectPassAll());
+    }
+
+    @Override
     public Map<String, Object> setVariables(Long id) {
         // 设置流程变量
         Map<String, Object> variables = new HashMap<>();
@@ -225,19 +234,20 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     }
 
     @Override
-    public Result<PageInfo<Contract>> selectInIds(Contract contract, List<Long> ids) {
-        PageInfo info = new PageInfo();
-        Weekend<Contract> weekend = new Weekend<>(Contract.class);
-        Example.Criteria criteria = weekend.createCriteria();
-        if (StringUtils.isNotBlank(contract.getContractName())) {
-            criteria.andLike("contractName", "%" + contract.getContractName() + "%");
-        }
-        if (contract.getState()!=null){
-            criteria.andEqualTo("state",contract.getState());
-        }
-        criteria.andIn("id",ids);
+    public Result<PageInfo<FlowContractView>> selectInIds(Contract contract, List<Long> ids) {
 
-        return super.selectPage(weekend, contract.getPageNum(), contract.getPageSize());
+        // Weekend<Contract> weekend = new Weekend<>(Contract.class);
+        // Example.Criteria criteria = weekend.createCriteria();
+        // if (StringUtils.isNotBlank(contract.getContractName())) {
+        //     criteria.andLike("contractName", "%" + contract.getContractName() + "%");
+        // }
+        // if (contract.getState()!=null){
+        //     criteria.andEqualTo("state",contract.getState());
+        // }
+        // criteria.andIn("id",ids);
+        List<FlowContractView> contractList = contractMapper.selectPage(contract,ids, contract.getPageNum(), contract.getPageSize());
+        PageInfo info = new PageInfo(contractList);
+        return Result.success(info);
     }
 
 

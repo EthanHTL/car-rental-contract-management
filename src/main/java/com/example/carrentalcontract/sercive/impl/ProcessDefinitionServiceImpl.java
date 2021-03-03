@@ -1,6 +1,5 @@
 package com.example.carrentalcontract.sercive.impl;
 import com.example.carrentalcontract.common.Result;
-import com.example.carrentalcontract.mapper.FlowMapper;
 import com.example.carrentalcontract.sercive.ProcessDefinitionService;
 import com.example.carrentalcontract.util.SecurityUtil;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -10,12 +9,8 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
