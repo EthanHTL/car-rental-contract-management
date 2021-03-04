@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public interface ContractService extends DbService<Contract> {
 
-    Result<PageInfo<Contract>> findPage(Contract contract);
+    Result<PageInfo<FlowContractView>> findPage(Contract contract);
 
     Result<List<Contract>> findAll();
 

@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 合同表(Contract)表服务实现类
@@ -64,7 +65,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
 
     // @PreAuthorize("hasAnyRole('common')")
     @Override
-    public Result<PageInfo<Contract>> findPage(Contract contract) {
+    public Result<PageInfo<FlowContractView>> findPage(Contract contract) {
         Weekend<Contract> weekend = new Weekend<>(Contract.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {
@@ -74,7 +75,32 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             criteria.andEqualTo("state",contract.getState());
         }
 
-        return super.selectPage(weekend, contract.getPageNum(), contract.getPageSize());
+        PageInfo<Contract> pageInfoResult = super.selectPage(weekend, contract.getPageNum(), contract.getPageSize()).getData();
+        List<Long> ids = pageInfoResult.getList().stream().map(Contract::getId).collect(Collectors.toList());
+        Weekend<SysFlow> weekendf = new Weekend<>(SysFlow.class);
+        Example.Criteria criteria1 = weekendf.createCriteria();
+        if (ids.size()>0){
+            criteria1.andIn("contractId",ids);
+        }
+        List<SysFlow> data = flowService.select(weekendf).getData();
+        PageInfo<FlowContractView> pageInfo = new PageInfo<>();
+        ObjectMapper.clone(pageInfoResult,pageInfo);
+        if (pageInfo.getList() == null){
+            return Result.success(pageInfo);
+        }
+        pageInfo.setList(new ArrayList<>());
+        pageInfoResult.getList().forEach(item ->{
+            FlowContractView view = new FlowContractView();
+            ObjectMapper.clone(item,view);
+            List<SysFlow> sysFlows = data.stream().filter(flow -> flow.getContractId().equals(item.getId()))
+                    .collect(Collectors.toList());
+            if (sysFlows.size() > 0) {
+                view.setFlow(sysFlows.get(0));
+            }
+            pageInfo.getList().add(view);
+        });
+
+        return Result.success(pageInfo);
     }
 
     @Override
