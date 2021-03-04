@@ -25,8 +25,8 @@ public class FissionWantedTask {
     @Autowired
     private ContractService contractService;
 
-    // @Scheduled(cron = "0 15 0 * * ?")
-    @Scheduled(fixedDelay = 1000 * 10)
+    @Scheduled(cron = "0 15 0 * * ?")
+    // @Scheduled(fixedDelay = 1000 * 10)
     public void taskUpdateContractStatus() {
         log.info("------------定时任务:开始-------------");
         //每天凌晨00:15触发
@@ -35,10 +35,17 @@ public class FissionWantedTask {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             for (Contract contract : contractList) {
                 Date endDate = contract.getEndTime();
-                if (endDate.before(new Date())){
+                Date startTime = contract.getStartTime();
+                Date nowTime = new Date();
+                if (startTime.before(nowTime)&&nowTime.before(endDate)&&!contract.getState().equals(3)){
+                    System.out.println("合同="+contract.getContractName()+"==生效");
+                    contract.setState(3);
+                    contractService.update(contract);
+                }
+                if (endDate.before(new Date())&&!contract.getState().equals(2)){
                     // 合同到期，设置合同状态
                     System.out.println("合同="+contract.getContractName()+"==到期");
-                    contract.setState(3);
+                    contract.setState(2);
                     contractService.update(contract);
 
                 } else {
