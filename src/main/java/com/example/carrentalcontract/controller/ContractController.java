@@ -45,7 +45,7 @@ public class ContractController {
      * 分页
      */
     @PostMapping("/find/page")
-    public Result<PageInfo<Contract>> findPage(@RequestBody Contract contract) {
+    public Result<PageInfo<FlowContractView>> findPage(@RequestBody Contract contract) {
         return this.contractService.findPage(contract);
     }
 

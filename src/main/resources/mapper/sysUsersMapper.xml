@@ -18,14 +18,14 @@
         from sys_users su
                  left join sys_user_role sur on su.id = sur.user_id
                  left join sys_role sr on sur.role_id = sr.id
-        where sr.id = '3'
+        where sr.role_name in ('admin','employee','loader','manager')
     </select>
     <select id="findCustomerAll" resultMap="SysUserMap">
         select distinct su.*
         from sys_users su
                  left join sys_user_role sur on su.id = sur.user_id
                  left join sys_role sr on sur.role_id = sr.id
-        where sr.id = '2'
+        where sr.role_name in ('common')
     </select>
 
 </mapper>

@@ -27,10 +27,8 @@ import tk.mybatis.mapper.weekend.Weekend;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 合同表(Contract)表服务实现类
@@ -67,7 +65,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
 
     // @PreAuthorize("hasAnyRole('common')")
     @Override
-    public Result<PageInfo<Contract>> findPage(Contract contract) {
+    public Result<PageInfo<FlowContractView>> findPage(Contract contract) {
         Weekend<Contract> weekend = new Weekend<>(Contract.class);
         Example.Criteria criteria = weekend.createCriteria();
         if (StringUtils.isNotBlank(contract.getContractName())) {
@@ -77,7 +75,32 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             criteria.andEqualTo("state",contract.getState());
         }
 
-        return super.selectPage(weekend, contract.getPageNum(), contract.getPageSize());
+        PageInfo<Contract> pageInfoResult = super.selectPage(weekend, contract.getPageNum(), contract.getPageSize()).getData();
+        List<Long> ids = pageInfoResult.getList().stream().map(Contract::getId).collect(Collectors.toList());
+        Weekend<SysFlow> weekendf = new Weekend<>(SysFlow.class);
+        Example.Criteria criteria1 = weekendf.createCriteria();
+        if (ids.size()>0){
+            criteria1.andIn("contractId",ids);
+        }
+        List<SysFlow> data = flowService.select(weekendf).getData();
+        PageInfo<FlowContractView> pageInfo = new PageInfo<>();
+        ObjectMapper.clone(pageInfoResult,pageInfo);
+        if (pageInfo.getList() == null){
+            return Result.success(pageInfo);
+        }
+        pageInfo.setList(new ArrayList<>());
+        pageInfoResult.getList().forEach(item ->{
+            FlowContractView view = new FlowContractView();
+            ObjectMapper.clone(item,view);
+            List<SysFlow> sysFlows = data.stream().filter(flow -> flow.getContractId().equals(item.getId()))
+                    .collect(Collectors.toList());
+            if (sysFlows.size() > 0) {
+                view.setFlow(sysFlows.get(0));
+            }
+            pageInfo.getList().add(view);
+        });
+
+        return Result.success(pageInfo);
     }
 
     @Override
@@ -89,7 +112,9 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     @Override
     public Result createContract(Contract contract, SysUser user) {
         contract.setPrincipal(user.getId()); // 合同负责人
-
+        contract.setSignTime(new Date());
+        contract.setState(1);
+        contract.setCreatorId(user.getId());
         // 创建合同
         Result<Contract> data = super.insert(contract);
         if (data.getStatusCode() == 200) {
@@ -109,9 +134,6 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
             String processDefinitionId = processInstance.getProcessDefinitionId();
             String processBusinessKey = processInstance.getBusinessKey();
             log.info("processDefinitionId is {}" , processDefinitionId);
-            // 开启合同审核流程
-            c.setState(CheckEnum.PENDING.getStatus());
-            super.update(c);
             SysFlow flow = new SysFlow();
             flow.setFlowName(contract.getContractUsername()+"汽车租赁合同审核");
             flow.setUserId(user.getId());
@@ -234,7 +256,7 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
     }
 
     @Override
-    public Result<PageInfo<FlowContractView>> selectInIds(Contract contract, List<Long> ids) {
+    public Result<PageInfo<FlowContractView>> selectInIds(FlowContractView contract, List<Long> ids) {
 
         // Weekend<Contract> weekend = new Weekend<>(Contract.class);
         // Example.Criteria criteria = weekend.createCriteria();
@@ -245,7 +267,9 @@ public class ContractServiceImpl extends DbServiceImpl<Contract> implements Cont
         //     criteria.andEqualTo("state",contract.getState());
         // }
         // criteria.andIn("id",ids);
-        List<FlowContractView> contractList = contractMapper.selectPage(contract,ids, contract.getPageNum(), contract.getPageSize());
+        Integer pageNum = (contract.getPageNum()-1)* contract.getPageSize();
+        Integer pageSize = contract.getPageSize();
+        List<FlowContractView> contractList = contractMapper.findPage(contract,ids,pageNum,pageSize);
         PageInfo info = new PageInfo(contractList);
         return Result.success(info);
     }

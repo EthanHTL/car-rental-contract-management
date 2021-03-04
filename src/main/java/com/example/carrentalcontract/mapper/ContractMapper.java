@@ -10,5 +10,5 @@ import java.util.List;
 public interface ContractMapper  extends DbMapper<Contract> {
     List<Contract> selectPassAll();
 
-    List<FlowContractView> selectPage(@Param("contract") Contract contract, @Param("ids") List<Long> ids, Integer pageNum, Integer pageSize);
+    List<FlowContractView> findPage(@Param("contract") FlowContractView contract, @Param("ids") List<Long> ids, Integer pageNum, Integer pageSize);
 }

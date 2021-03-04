@@ -118,11 +118,11 @@ public class Contract extends DbPageParameter implements Serializable {
     @Column(name = "update_time")
     private Date updateTime;
 
-    @Transient
-    private String updatorId;
+    @Column(name = "creator_id")
+    private Long updatorId;
 
-    @Transient
-    private String creatorId;
+    @Column(name = "updator_id")
+    private Long creatorId;
 
 
 }

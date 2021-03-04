@@ -68,7 +68,7 @@ public class SysResourceServiceImpl extends DbServiceImpl<SysResource> implement
 
     @Override
     public Result<SysResource> deleteResource(SysResource sysResource) {
-        return null;
+        return super.destroy(sysResource);
     }
 
     @Override

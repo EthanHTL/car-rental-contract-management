@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Component
 @Configuration
 @EnableScheduling
@@ -37,6 +38,7 @@ public class FissionWantedTask {
                 Date endDate = contract.getEndTime();
                 if (endDate.before(new Date())){
                     // 合同到期，设置合同状态
+                    System.out.println("合同="+contract.getContractName()+"==到期");
                     contract.setState(3);
                     contractService.update(contract);
 
