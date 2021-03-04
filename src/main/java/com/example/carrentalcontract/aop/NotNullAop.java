@@ -2,23 +2,18 @@ package com.example.carrentalcontract.aop;
 
 import com.example.carrentalcontract.annotation.NotNull;
 import com.example.carrentalcontract.exception.NotNullException;
-import com.sun.deploy.panel.ITreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @ClassName MethodAop
@@ -78,9 +73,6 @@ public class NotNullAop {
                     }
                     // field is not null
                     // is not possible
-
-
-
 
                 }
             }
