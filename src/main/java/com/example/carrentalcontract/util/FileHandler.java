@@ -20,7 +20,7 @@ import java.util.UUID;
  * @author: 黄天亮
  * @create: 2021-01-08 16:42
  **/
-public class  FileHandler {
+public class FileHandler {
 
     public static List<SysResource> transferFiles(MultipartFile[] files) throws IOException {
         List<SysResource> resources = new ArrayList<>();
@@ -41,7 +41,8 @@ public class  FileHandler {
             String type = file.getContentType();
             // 处理根据日期生成目录
             String realPath = null;
-                realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+            // realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+            realPath = "/usr/project/image/";
 
             String dateFormat = new SimpleDateFormat("yyy-MM-dd").format(new Date());
 
@@ -58,7 +59,7 @@ public class  FileHandler {
 
             resource.setOldFilename(oldFileName).setNewFilename(newFileName).setExt(extension)
                     .setSize(String.valueOf(size)).setType(type)
-                    .setPath(dateFormat);
+                    .setPath(dateFormat + "/" + newFileName);
 
             resources.add(resource);
         }
@@ -70,12 +71,13 @@ public class  FileHandler {
         String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) +
                 UUID.randomUUID().toString().replace("-", "").substring(6) + extension;
         String realPath = null;
-        realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+        // realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/";
+        realPath = "/usr/project/image/";
         String dateFormat = new SimpleDateFormat("yyy-MM-dd").format(new Date());
 
         // 上传文件的路径
         // String dataDirPath = realPath + dateFormat;
-        String dataDirPath = realPath ;
+        String dataDirPath = realPath;
 
         File dateDir = new File(dataDirPath);
         if (!dateDir.exists()) {
@@ -83,9 +85,8 @@ public class  FileHandler {
         }
         // 处理文件上传
         file.transferTo(new File(dateDir, newFileName));
-        return "/files/"+newFileName;
+        return newFileName;
     }
-
 
 
 }
