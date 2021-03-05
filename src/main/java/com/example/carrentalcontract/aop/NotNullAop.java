@@ -15,7 +15,6 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-
 /**
  * @ClassName MethodAop
  * @Description //TODO
@@ -74,9 +73,6 @@ public class NotNullAop {
                     }
                     // field is not null
                     // is not possible
-
-
-
 
                 }
             }

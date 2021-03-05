@@ -11,7 +11,6 @@
     <groupId>com.example</groupId>
     <artifactId>car-rental-contract-management-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
     <name>car-rental-contract-management-java</name>
     <description>Demo project for Spring Boot</description>
 
@@ -197,9 +196,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
             </plugin>
         </plugins>
     </build>
