@@ -6,8 +6,11 @@ import com.example.carrentalcontract.entity.model.Vehicle;
 import com.example.carrentalcontract.entity.model.VehicleType;
 import com.example.carrentalcontract.mapper.VehicleMapper;
 import com.example.carrentalcontract.sercive.VehicleService;
+import com.example.carrentalcontract.sercive.VehicleTypeService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,6 +24,8 @@ import java.util.List;
 @Service("vehicleService")
 public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements VehicleService {
 
+    @Autowired
+    private VehicleTypeService typeService;
     @Resource
     private VehicleMapper vehicleMapper;
 
@@ -30,23 +35,27 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
         Integer pageNum = vehicle.getPageNum();
         Integer pageSize = vehicle.getPageSize();
 
-        List<Vehicle> vehicleList = vehicleMapper.findCarPageByType(pageNum, pageSize,vehicle);
+        List<Vehicle> vehicleList = vehicleMapper.findCarPageByType(pageNum, pageSize, vehicle);
         PageInfo info = new PageInfo(vehicleList);
         return Result.success(info);
     }
 
     @Override
+    @Transactional
     public Result create(Vehicle vehicle) {
-        return super.insert(vehicle);
+        Vehicle data = super.insert(vehicle).getData();
+        VehicleType vehicleType = typeService.selectByPrimaryKey(data.getVehicleTypeId()).getData();
+        vehicleType.setInventory(vehicleType.getInventory() + 1);
+        return typeService.update(vehicleType);
     }
 
     @Override
-    public Result update( Vehicle vehicle) {
+    public Result update(Vehicle vehicle) {
         return super.update(vehicle);
     }
 
     @Override
-    public Result delete( Vehicle vehicle) {
+    public Result delete(Vehicle vehicle) {
         return super.destroy(vehicle);
     }
 
@@ -62,6 +71,6 @@ public class VehicleServiceImpl extends DbServiceImpl<Vehicle> implements Vehicl
 
     @Override
     public Result<List<Vehicle>> findVehicleByType(Vehicle type) {
-        return Result.success(vehicleMapper.findCarPageByType(0,0,type));
+        return Result.success(vehicleMapper.findCarPageByType(0, 0, type));
     }
 }

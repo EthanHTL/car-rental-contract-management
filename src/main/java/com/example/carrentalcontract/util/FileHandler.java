@@ -59,7 +59,7 @@ public class FileHandler {
 
             resource.setOldFilename(oldFileName).setNewFilename(newFileName).setExt(extension)
                     .setSize(String.valueOf(size)).setType(type)
-                    .setPath(dateFormat + "/" + newFileName);
+                    .setPath("/"+dateFormat + "/" + newFileName);
 
             resources.add(resource);
         }
@@ -85,7 +85,7 @@ public class FileHandler {
         }
         // 处理文件上传
         file.transferTo(new File(dateDir, newFileName));
-        return newFileName;
+        return "/"+newFileName;
     }
 
 
